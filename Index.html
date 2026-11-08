@@ -1,0 +1,456 @@
+
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101d35">
+<title>ALENOVA | Services & Business</title>
+<style>
+:root {
+  --navy:#101d35;
+  --blue:#193b68;
+  --gold:#e6b84c;
+  --white:#ffffff;
+  --light:#f3f6fb;
+  --text:#26354b;
+}
+* {box-sizing:border-box;margin:0;padding:0}
+html {scroll-behavior:smooth}
+body {
+  font-family:Arial,sans-serif;
+  background:var(--light);
+  color:var(--text);
+  line-height:1.6;
+}
+header {
+  background:var(--navy);
+  color:white;
+  padding:16px 6%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+.logo {
+  font-size:27px;
+  font-weight:900;
+  letter-spacing:2px;
+  color:var(--gold);
+}
+nav {display:flex;gap:18px;flex-wrap:wrap}
+nav a {
+  color:white;
+  text-decoration:none;
+  font-size:14px;
+}
+nav a:hover {color:var(--gold)}
+.lang button {
+  padding:8px 12px;
+  border:1px solid var(--gold);
+  background:transparent;
+  color:white;
+  border-radius:6px;
+  cursor:pointer;
+}
+.lang button.active {
+  background:var(--gold);
+  color:var(--navy);
+}
+.hero {
+  background:linear-gradient(120deg,#101d35,#1b4777);
+  color:white;
+  padding:90px 7%;
+  text-align:center;
+}
+.hero h1 {
+  font-size:clamp(35px,6vw,60px);
+  margin-bottom:15px;
+}
+.hero h1 span {color:var(--gold)}
+.hero p {
+  max-width:650px;
+  margin:0 auto 25px;
+  color:#e3eaf5;
+}
+.btn {
+  display:inline-block;
+  background:var(--gold);
+  color:var(--navy);
+  padding:13px 24px;
+  border-radius:7px;
+  text-decoration:none;
+  font-weight:bold;
+  border:none;
+  cursor:pointer;
+}
+.btn:hover {opacity:.88}
+section {padding:65px 7%}
+.section-title {
+  text-align:center;
+  color:var(--navy);
+  font-size:30px;
+  margin-bottom:12px;
+}
+.section-desc {
+  text-align:center;
+  margin:0 auto 35px;
+  max-width:650px;
+}
+.cards {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:22px;
+}
+.card {
+  background:white;
+  padding:25px;
+  border-radius:13px;
+  box-shadow:0 5px 20px #152d4b12;
+}
+.card h3 {color:var(--navy);margin:12px 0}
+.card .emoji {font-size:35px}
+.exchange {background:#e8edf5}
+.calculator {
+  max-width:550px;
+  background:white;
+  margin:auto;
+  padding:28px;
+  border-radius:15px;
+  box-shadow:0 8px 25px #152d4b15;
+}
+label {
+  display:block;
+  margin:14px 0 6px;
+  font-weight:bold;
+}
+input,select {
+  width:100%;
+  padding:13px;
+  border:1px solid #ccd5e2;
+  border-radius:7px;
+  font-size:16px;
+  background:white;
+}
+.result {
+  background:var(--navy);
+  color:white;
+  padding:20px;
+  border-radius:10px;
+  margin-top:20px;
+  text-align:center;
+}
+.result strong {
+  display:block;
+  color:var(--gold);
+  font-size:27px;
+}
+.note {
+  font-size:13px;
+  color:#66758b;
+  margin-top:14px;
+}
+.product-empty {
+  background:white;
+  border:1px dashed #aab7c9;
+  padding:35px;
+  border-radius:12px;
+  text-align:center;
+}
+.service {border-top:4px solid var(--gold)}
+.contact {
+  background:var(--navy);
+  color:white;
+  text-align:center;
+}
+.contact .section-title {color:white}
+.contact-grid {
+  max-width:750px;
+  margin:30px auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:15px;
+}
+.contact-item {
+  background:#1c3150;
+  padding:20px;
+  border-radius:10px;
+}
+.contact-item a {
+  color:var(--gold);
+  text-decoration:none;
+  font-weight:bold;
+}
+footer {
+  background:#0a1425;
+  color:#cbd5e1;
+  padding:22px;
+  text-align:center;
+  font-size:13px;
+}
+@media(max-width:650px) {
+  header {justify-content:center}
+  nav {justify-content:center;gap:12px}
+  .hero {padding:65px 6%}
+  section {padding:48px 5%}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">ALENOVA.</div>
+
+  <nav>
+    <a href="#home" data-ht="Akèy" data-fr="Accueil">Akèy</a>
+    <a href="#services" data-ht="Sèvis" data-fr="Services">Sèvis</a>
+    <a href="#products" data-ht="Pwodwi" data-fr="Produits">Pwodwi</a>
+    <a href="#exchange" data-ht="Echanj" data-fr="Échange">Echanj</a>
+    <a href="#contact" data-ht="Kontak" data-fr="Contact">Kontak</a>
+  </nav>
+
+  <div class="lang">
+    <button class="active" onclick="setLang('ht')" id="htBtn">KREYÒL</button>
+    <button onclick="setLang('fr')" id="frBtn">FRANÇAIS</button>
+  </div>
+</header>
+
+<main>
+
+<section class="hero" id="home">
+  <h1>WELCOME TO <span>ALENOVA</span></h1>
+  <p data-ht="Sèvis pwofesyonèl, echanj lajan, pwodwi fizik, grafik design ak sèvis dijital. Nou la pou sèvi ou."
+     data-fr="Services professionnels, échange d'argent, produits physiques, design graphique et services numériques. Nous sommes là pour vous servir.">
+    Sèvis pwofesyonèl, echanj lajan, pwodwi fizik, grafik design ak sèvis dijital. Nou la pou sèvi ou.
+  </p>
+  <a href="#services" class="btn"
+     data-ht="Dekouvri sèvis nou yo"
+     data-fr="Découvrir nos services">Dekouvri sèvis nou yo</a>
+</section>
+
+<section id="exchange" class="exchange">
+  <h2 class="section-title"
+      data-ht="Echanj MonCash & Natcash"
+      data-fr="Échange MonCash & Natcash">Echanj MonCash & Natcash</h2>
+
+  <p class="section-desc"
+     data-ht="Fè echanj ou fasilman. Minimòm 50 goud. Frè sèvis 7.5%."
+     data-fr="Effectuez vos échanges facilement. Minimum 50 gourdes. Frais de service 7,5 %.">
+    Fè echanj ou fasilman. Minimòm 50 goud. Frè sèvis 7.5%.
+  </p>
+
+  <div class="calculator">
+    <label data-ht="Chwazi kalite echanj la"
+           data-fr="Choisissez le type d'échange">Chwazi kalite echanj la</label>
+
+    <select id="direction" onchange="calculate()">
+      <option value="mn">MonCash vers Natcash</option>
+      <option value="nm">Natcash vers MonCash</option>
+    </select>
+
+    <label data-ht="Montan ou vle voye (G)"
+           data-fr="Montant à envoyer (G)">Montan ou vle voye (G)</label>
+
+    <input type="number" id="amount" min="50"
+           placeholder="Antre montan an"
+           oninput="calculate()">
+
+    <div class="result">
+      <span data-ht="Kliyan an ap resevwa"
+            data-fr="Le client recevra">Kliyan an ap resevwa</span>
+      <strong id="received">0.00 G</strong>
+      <span id="fee">Frè sèvis: 0.00 G</span>
+    </div>
+
+    <p class="note"
+       data-ht="Frè sèvis la se 7.5%. Minimòm echanj la se 50 G. To echanj yo dwe konfime avan tranzaksyon."
+       data-fr="Les frais de service sont de 7,5 %. Le minimum est de 50 G. Les taux doivent être confirmés avant la transaction.">
+       Frè sèvis la se 7.5%. Minimòm echanj la se 50 G. To echanj yo dwe konfime avan tranzaksyon.
+    </p>
+
+    <a class="btn" style="display:block;text-align:center;margin-top:20px"
+       href="https://wa.me/50934536541"
+       target="_blank"
+       data-ht="Kontakte nou pou fè echanj"
+       data-fr="Contactez-nous pour effectuer un échange">
+       Kontakte nou pou fè echanj
+    </a>
+  </div>
+</section>
+
+<section id="products">
+  <h2 class="section-title"
+      data-ht="Pwodwi nou yo"
+      data-fr="Nos produits">Pwodwi nou yo</h2>
+
+  <p class="section-desc"
+     data-ht="Dekouvri pwodwi nou mete disponib an detay ak an gwo."
+     data-fr="Découvrez nos produits disponibles en gros et au détail.">
+     Dekouvri pwodwi nou mete disponib an detay ak an gwo.
+  </p>
+
+  <div class="product-empty">
+    <h3 data-ht="Pwodwi yo ap disponib byento"
+        data-fr="Les produits seront bientôt disponibles">
+        Pwodwi yo ap disponib byento
+    </h3>
+    <p data-ht="Nou pral ajoute foto, non ak pri pwodwi yo nan espas sa a."
+       data-fr="Nous ajouterons les photos, noms et prix des produits dans cet espace.">
+       Nou pral ajoute foto, non ak pri pwodwi yo nan espas sa a.
+    </p>
+  </div>
+  <p class="note" style="text-align:center;margin-top:18px"
+     data-ht="Pou livrezon, pri a ap negosye dirèkteman avèk nou."
+     data-fr="Pour la livraison, le prix sera négocié directement avec nous.">
+     Pou livrezon, pri a ap negosye dirèkteman avèk nou.
+  </p>
+</section>
+
+<section id="services" style="background:#fff">
+  <h2 class="section-title"
+      data-ht="Sèvis pwofesyonèl nou yo"
+      data-fr="Nos services professionnels">Sèvis pwofesyonèl nou yo</h2>
+
+  <p class="section-desc"
+     data-ht="Nou mete konpetans nou nan sèvis ou."
+     data-fr="Nous mettons nos compétences à votre service.">
+     Nou mete konpetans nou nan sèvis ou.
+  </p>
+
+  <div class="cards">
+
+    <div class="card service">
+      <div class="emoji">🎨</div>
+      <h3 data-ht="Grafik Design"
+          data-fr="Design graphique">Grafik Design</h3>
+      <p data-ht="Flyer, kat maryaj, kat vizit, logo, branding ak lòt travay grafik. Resevwa travay ou an PDF ak lòt fòma."
+         data-fr="Flyers, invitations de mariage, cartes de visite, logos, branding et autres créations graphiques. Recevez vos fichiers en PDF et autres formats.">
+         Flyer, kat maryaj, kat vizit, logo, branding ak lòt travay grafik. Resevwa travay ou an PDF ak lòt fòma.
+      </p>
+    </div>
+
+    <div class="card service">
+      <div class="emoji">📱</div>
+      <h3 data-ht="Sèvis Rezo Sosyal"
+          data-fr="Services réseaux sociaux">Sèvis Rezo Sosyal</h3>
+      <p data-ht="Kreyasyon kont TikTok, chèn YouTube, paj Facebook ak asistans pou prezans dijital."
+         data-fr="Création de comptes TikTok, chaînes YouTube, pages Facebook et assistance pour votre présence numérique.">
+         Kreyasyon kont TikTok, chèn YouTube, paj Facebook ak asistans pou prezans dijital.
+      </p>
+    </div>
+
+    <div class="card service">
+      <div class="emoji">🛒</div>
+      <h3 data-ht="Komès ak pwodwi"
+          data-fr="Commerce et produits">Komès ak pwodwi</h3>
+      <p data-ht="Vant pwodwi fizik an gwo ak an detay. Kontakte nou pou pri ak livrezon."
+         data-fr="Vente de produits physiques en gros et au détail. Contactez-nous pour les prix et la livraison.">
+         Vant pwodwi fizik an gwo ak an detay. Kontakte nou pou pri ak livrezon.
+      </p>
+    </div>
+
+    <div class="card service">
+      <div class="emoji">💡</div>
+      <h3 data-ht="Lòt sèvis"
+          data-fr="Autres services">Lòt sèvis</h3>
+      <p data-ht="Nou kite espas pou ajoute lòt sèvis ALENOVA ap ofri pi devan."
+         data-fr="Un espace est prévu pour ajouter les futurs services d'ALENOVA.">
+         Nou kite espas pou ajoute lòt sèvis ALENOVA ap ofri pi devan.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <h2 class="section-title"
+      data-ht="Kontakte nou"
+      data-fr="Contactez-nous">Kontakte nou</h2>
+
+  <p data-ht="Nou disponib pou reponn kesyon ou yo ak resevwa kòmand ou yo."
+     data-fr="Nous sommes disponibles pour répondre à vos questions et recevoir vos commandes.">
+     Nou disponib pou reponn kesyon ou yo ak resevwa kòmand ou yo.
+  </p>
+
+  <div class="contact-grid">
+
+    <div class="contact-item">
+      <h3>WhatsApp</h3>
+      <a href="https://wa.me/50934536541" target="_blank">
+        3453-6541
+      </a>
+    </div>
+
+    <div class="contact-item">
+      <h3 data-ht="Apèl telefòn" data-fr="Appels téléphoniques">
+        Apèl telefòn
+      </h3>
+      <a href="tel:+50933233943">3323-3943</a><br>
+      <a href="tel:+50934536541">3453-6541</a>
+    </div>
+
+    <div class="contact-item">
+      <h3>Email</h3>
+      <a href="mailto:alerteangelo80@gmail.com">
+        alerteangelo80@gmail.com
+      </a>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<footer>
+  © <span id="year"></span> ALENOVA. All rights reserved.
+</footer>
+
+<script>
+// TO ECHANJ DEMONSTRASYON.
+// N ap konekte vrè to yo ak administrasyon Supabase pita.
+const rates = {
+  mn: 1,
+  nm: 1
+};
+
+function calculate() {
+  const amount = Number(document.getElementById("amount").value);
+  const direction = document.getElementById("direction").value;
+  const received = document.getElementById("received");
+  const feeText = document.getElementById("fee");
+
+  if (!amount || amount < 50) {
+    received.textContent = "0.00 G";
+    feeText.textContent = "Frè sèvis: 0.00 G";
+    return;
+  }
+
+  const fee = amount * 0.075;
+  const net = amount - fee;
+  const result = net * rates[direction];
+
+  received.textContent = result.toFixed(2) + " G";
+  feeText.textContent = "Frè sèvis: " + fee.toFixed(2) + " G";
+}
+
+function setLang(lang) {
+  document.documentElement.lang = lang;
+
+  document.querySelectorAll("[data-ht]").forEach(el => {
+    el.textContent = el.dataset[lang];
+  });
+
+  document.getElementById("htBtn").classList.toggle("active",lang==="ht");
+  document.getElementById("frBtn").classList.toggle("active",lang==="fr");
+}
+
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
