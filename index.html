@@ -533,6 +533,38 @@ const translations = {
   }
 };
 
+function setLang(lang) {
+  if (!translations[lang]) return;
+
+  currentLang = lang;
+  document.documentElement.lang = lang;
+
+  document.querySelectorAll("[data-ht]").forEach(function(element) {
+    const translatedText = element.getAttribute("data-" + lang);
+
+    if (translatedText !== null) {
+      element.textContent = translatedText;
+    }
+  });
+
+  document.getElementById("welcomeText").textContent =
+    translations[lang].welcome;
+
+  document.getElementById("copyrightText").textContent =
+    translations[lang].copyright;
+
+  document.querySelectorAll(".lang button").forEach(function(button) {
+    button.classList.remove("active");
+  });
+
+  const activeButton = document.getElementById(lang + "Btn");
+  if (activeButton) {
+    activeButton.classList.add("active");
+  }
+
+  calculate();
+}
+  
 function calculate() {
   const amount = Number(document.getElementById("amount").value);
   const direction = document.getElementById("direction").value;
