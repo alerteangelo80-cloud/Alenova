@@ -11,7 +11,6 @@
   --navy:#101d35;
   --blue:#193b68;
   --gold:#e6b84c;
-  --white:#ffffff;
   --light:#f3f6fb;
   --text:#26354b;
 }
@@ -49,11 +48,7 @@ nav a {
   font-size:14px;
 }
 nav a:hover {color:var(--gold)}
-.lang {
-  display:flex;
-  gap:5px;
-  flex-wrap:wrap;
-}
+.lang {display:flex;gap:5px;flex-wrap:wrap}
 .lang button {
   padding:8px 10px;
   border:1px solid var(--gold);
@@ -231,26 +226,20 @@ footer {
 <main>
 
 <section class="hero" id="home">
-  <h1>
-    <span id="welcomeText">Byenveni sou</span>
-    <span> ALENOVA</span>
-  </h1>
+  <h1><span id="welcomeText">Byenveni sou</span> <span>ALENOVA</span></h1>
 
-  <p
-    data-ht="Sèvis pwofesyonèl, echanj lajan, pwodwi fizik, grafik design ak sèvis dijital. Nou la pou sèvi w."
-    data-fr="Services professionnels, échange d'argent, produits physiques, design graphique et services numériques. Nous sommes là pour vous servir."
-    data-en="Professional services, money exchange, physical products, graphic design and digital services. We are here to serve you."
-    data-es="Servicios profesionales, cambio de dinero, productos físicos, diseño gráfico y servicios digitales. Estamos aquí para servirle.">
-    Sèvis pwofesyonèl, echanj lajan, pwodwi fizik, grafik design ak sèvis dijital. Nou la pou sèvi w.
+  <p data-ht="Sèvis pwofesyonèl, echanj lajan, pwodwi fizik, grafik design ak sèvis dijital. Nou la pou sèvi ou."
+     data-fr="Services professionnels, échange d'argent, produits physiques, design graphique et services numériques. Nous sommes là pour vous servir."
+     data-en="Professional services, money exchange, physical products, graphic design and digital services. We are here to serve you."
+     data-es="Servicios profesionales, cambio de dinero, productos físicos, diseño gráfico y servicios digitales. Estamos aquí para servirle.">
+    Sèvis pwofesyonèl, echanj lajan, pwodwi fizik, grafik design ak sèvis dijital. Nou la pou sèvi ou.
   </p>
 
   <a href="#services" class="btn"
      data-ht="Dekouvri sèvis nou yo"
      data-fr="Découvrir nos services"
      data-en="Discover our services"
-     data-es="Descubra nuestros servicios">
-     Dekouvri sèvis nou yo
-  </a>
+     data-es="Descubra nuestros servicios">Dekouvri sèvis nou yo</a>
 </section>
 
 <section id="exchange" class="exchange">
@@ -261,73 +250,84 @@ footer {
       data-es="Cambio MonCash & Natcash">Echanj MonCash & Natcash</h2>
 
   <p class="section-desc"
-     data-ht="Fè echanj ou fasilman. Minimòm 50 goud. Frè sèvis 7.5%."
-     data-fr="Effectuez vos échanges facilement. Minimum 50 gourdes. Frais de service 7,5 %."
-     data-en="Exchange easily. Minimum 50 gourdes. Service fee 7.5%."
-     data-es="Realice sus cambios fácilmente. Mínimo 50 gourdes. Comisión de servicio del 7,5 %.">
-    Fè echanj ou fasilman. Minimòm 50 goud. Frè sèvis 7.5%.
+     data-ht="Fè demann echanj ou dirèkteman sou sit la. Frè sèvis 7.5%. Minimòm 50 goud."
+     data-fr="Faites votre demande directement sur le site. Frais de service de 7,5 %. Minimum 50 gourdes."
+     data-en="Submit your exchange request directly on the website. Service fee 7.5%. Minimum 50 gourdes."
+     data-es="Solicite su cambio directamente en el sitio. Comisión del 7,5 %. Mínimo 50 gourdes.">
+    Fè demann echanj ou dirèkteman sou sit la. Frè sèvis 7.5%. Minimòm 50 goud.
   </p>
 
   <div class="calculator">
-    <label data-ht="Chwazi kalite echanj la"
-           data-fr="Choisissez le type d'échange"
-           data-en="Choose exchange type"
-           data-es="Seleccione el tipo de cambio">Chwazi kalite echanj la</label>
+    <form onsubmit="submitExchange(event)">
 
-    <select id="direction" onchange="calculate()">
-      <option value="mn"
-        data-ht="MonCash pou Natcash"
-        data-fr="MonCash vers Natcash"
-        data-en="MonCash to Natcash"
-        data-es="MonCash a Natcash">MonCash pou Natcash</option>
-      <option value="nm"
-        data-ht="Natcash pou MonCash"
-        data-fr="Natcash vers MonCash"
-        data-en="Natcash to MonCash"
-        data-es="Natcash a MonCash">Natcash pou MonCash</option>
-    </select>
+      <label data-ht="Chwazi kalite echanj la"
+             data-fr="Choisissez le type d'échange"
+             data-en="Choose exchange type"
+             data-es="Seleccione el tipo de cambio">Chwazi kalite echanj la</label>
 
-    <label data-ht="Montan ou vle voye (G)"
-           data-fr="Montant à envoyer (G)"
-           data-en="Amount to send (G)"
-           data-es="Cantidad a enviar (G)">Montan ou vle voye (G)</label>
+      <select id="direction" onchange="calculate()">
+        <option value="mn"
+          data-ht="MonCash pou Natcash"
+          data-fr="MonCash vers Natcash"
+          data-en="MonCash to Natcash"
+          data-es="MonCash a Natcash">MonCash pou Natcash</option>
+        <option value="nm"
+          data-ht="Natcash pou MonCash"
+          data-fr="Natcash vers MonCash"
+          data-en="Natcash to MonCash"
+          data-es="Natcash a MonCash">Natcash pou MonCash</option>
+      </select>
 
-    <input type="number" id="amount" min="50"
-           data-placeholder-ht="Antre montan an"
-           data-placeholder-fr="Entrez le montant"
-           data-placeholder-en="Enter the amount"
-           data-placeholder-es="Ingrese la cantidad"
-           placeholder="Antre montan an"
-           oninput="calculate()">
+      <label for="amount"
+             data-ht="Montan ou vle voye (G)"
+             data-fr="Montant à envoyer (G)"
+             data-en="Amount to send (G)"
+             data-es="Cantidad a enviar (G)">Montan ou vle voye (G)</label>
 
-    <div class="result">
-      <span id="receivedLabel"
-            data-ht="Kliyan an ap resevwa"
-            data-fr="Le client recevra"
-            data-en="The customer will receive"
-            data-es="El cliente recibirá">Kliyan an ap resevwa</span>
+      <input type="number" id="amount" min="50" step="0.01"
+             placeholder="Antre montan an"
+             required oninput="calculate()">
 
-      <strong id="received">0.00 G</strong>
-      <span id="fee">Frè sèvis: 0.00 G</span>
-    </div>
+      <div class="result">
+        <span data-ht="Kliyan an ap resevwa"
+              data-fr="Le client recevra"
+              data-en="The customer will receive"
+              data-es="El cliente recibirá">Kliyan an ap resevwa</span>
+        <strong id="received">0.00 G</strong>
+        <span id="fee">Frè sèvis: 0.00 G</span>
+      </div>
 
-    <p class="note"
-       data-ht="Frè sèvis la se 7.5%. Minimòm echanj la se 50 G. To echanj yo dwe konfime avan tranzaksyon."
-       data-fr="Les frais de service sont de 7,5 %. Le minimum est de 50 G. Les taux doivent être confirmés avant la transaction."
-       data-en="The service fee is 7.5%. The minimum exchange is 50 G. Exchange rates must be confirmed before the transaction."
-       data-es="La comisión de servicio es del 7,5 %. El cambio mínimo es de 50 G. Los tipos de cambio deben confirmarse antes de la transacción.">
-       Frè sèvis la se 7.5%. Minimòm echanj la se 50 G. To echanj yo dwe konfime avan tranzaksyon.
-    </p>
+      <label for="customerPhone"
+             data-ht="Nimewo telefòn pa ou"
+             data-fr="Votre numéro de téléphone"
+             data-en="Your phone number"
+             data-es="Su número de teléfono">Nimewo telefòn pa ou</label>
+      <input type="tel" id="customerPhone" required
+             placeholder="Egzanp: 3453-6541">
 
-    <a class="btn" style="display:block;text-align:center;margin-top:20px"
-       href="https://wa.me/50934536541"
-       target="_blank"
-       data-ht="Kontakte nou pou fè echanj"
-       data-fr="Contactez-nous pour effectuer un échange"
-       data-en="Contact us to exchange"
-       data-es="Contáctenos para realizar un cambio">
-       Kontakte nou pou fè echanj
-    </a>
+      <label for="receiverPhone"
+             data-ht="Nimewo kote w ap resevwa lajan an"
+             data-fr="Numéro qui recevra l'argent"
+             data-en="Number that will receive the money"
+             data-es="Número que recibirá el dinero">Nimewo kote w ap resevwa lajan an</label>
+      <input type="tel" id="receiverPhone" required
+             placeholder="Egzanp: 3323-3943">
+
+      <button class="btn" type="submit"
+              style="display:block;width:100%;margin-top:20px"
+              data-ht="Voye demann echanj la"
+              data-fr="Envoyer la demande d'échange"
+              data-en="Send exchange request"
+              data-es="Enviar solicitud de cambio">Voye demann echanj la</button>
+
+      <p class="note"
+         data-ht="ALENOVA ap verifye demann ou an epi kontakte ou pou konfime tranzaksyon an."
+         data-fr="ALENOVA vérifiera votre demande et vous contactera pour confirmer la transaction."
+         data-en="ALENOVA will review your request and contact you to confirm the transaction."
+         data-es="ALENOVA revisará su solicitud y se pondrá en contacto con usted para confirmar la transacción.">
+        ALENOVA ap verifye demann ou an epi kontakte ou pou konfime tranzaksyon an.
+      </p>
+    </form>
   </div>
 </section>
 
@@ -339,26 +339,24 @@ footer {
       data-es="Nuestros productos">Pwodwi nou yo</h2>
 
   <p class="section-desc"
-     data-ht="Dekouvri pwodwi ki disponib, yo an detay ak an gwo."
+     data-ht="Dekouvri pwodwi nou mete disponib an detay ak an gwo."
      data-fr="Découvrez nos produits disponibles en gros et au détail."
      data-en="Discover our products available at wholesale and retail prices."
      data-es="Descubra nuestros productos disponibles al por mayor y al detalle.">
-     Dekouvri pwodwi ki disponib, an detay ak an gwo.
+    Dekouvri pwodwi nou mete disponib an detay ak an gwo.
   </p>
 
   <div class="product-empty">
     <h3 data-ht="Pwodwi yo ap disponib byento"
         data-fr="Les produits seront bientôt disponibles"
         data-en="Products coming soon"
-        data-es="Productos disponibles próximamente">
-        Pwodwi yo ap disponib byento
-    </h3>
+        data-es="Productos disponibles próximamente">Pwodwi yo ap disponib byento</h3>
 
     <p data-ht="Nou pral ajoute foto, non ak pri pwodwi yo nan espas sa a."
        data-fr="Nous ajouterons les photos, noms et prix des produits dans cet espace."
        data-en="We will add product photos, names and prices here."
        data-es="Añadiremos aquí fotos, nombres y precios de los productos.">
-       Nou pral ajoute foto, non ak pri pwodwi yo nan espas sa a.
+      Nou pral ajoute foto, non ak pri pwodwi yo nan espas sa a.
     </p>
   </div>
 
@@ -367,7 +365,7 @@ footer {
      data-fr="Pour la livraison, le prix sera négocié directement avec nous."
      data-en="Delivery prices will be negotiated directly with us."
      data-es="El precio de entrega se negociará directamente con nosotros.">
-     Pou tout livrezon, pri a ap negosye.
+    Pou livrezon, pri a ap negosye dirèkteman avèk nou.
   </p>
 </section>
 
@@ -383,11 +381,10 @@ footer {
      data-fr="Nous mettons nos compétences à votre service."
      data-en="We put our skills at your service."
      data-es="Ponemos nuestras habilidades a su servicio.">
-     Nou mete konpetans nou nan sèvis ou.
+    Nou mete konpetans nou nan sèvis ou.
   </p>
 
   <div class="cards">
-
     <div class="card service">
       <div class="emoji">🎨</div>
       <h3 data-ht="Grafik Design"
@@ -398,7 +395,7 @@ footer {
          data-fr="Flyers, invitations de mariage, cartes de visite, logos, identité visuelle et autres créations graphiques. Recevez vos fichiers en PDF et autres formats."
          data-en="Flyers, wedding invitations, business cards, logos, branding and other graphic designs. Receive your work in PDF and other formats."
          data-es="Flyers, invitaciones de boda, tarjetas de visita, logotipos y otros diseños gráficos. Reciba sus archivos en PDF y otros formatos.">
-         Flyer, kat maryaj, kat vizit, logo, branding ak lòt travay grafik. Resevwa travay ou an PDF ak lòt fòma.
+        Flyer, kat maryaj, kat vizit, logo, branding ak lòt travay grafik. Resevwa travay ou an PDF ak lòt fòma.
       </p>
     </div>
 
@@ -412,7 +409,7 @@ footer {
          data-fr="Création de comptes TikTok, chaînes YouTube, pages Facebook et assistance pour votre présence numérique."
          data-en="Creation of TikTok accounts, YouTube channels, Facebook pages and support for your digital presence."
          data-es="Creación de cuentas de TikTok, canales de YouTube, páginas de Facebook y asistencia para su presencia digital.">
-         Kreyasyon kont TikTok, chèn YouTube, paj Facebook ak asistans pou prezans dijital.
+        Kreyasyon kont TikTok, chèn YouTube, paj Facebook ak asistans pou prezans dijital.
       </p>
     </div>
 
@@ -426,7 +423,7 @@ footer {
          data-fr="Vente de produits physiques en gros et au détail. Contactez-nous pour les prix et la livraison."
          data-en="Wholesale and retail sales of physical products. Contact us for prices and delivery."
          data-es="Venta de productos físicos al por mayor y al detalle. Contáctenos para conocer los precios y la entrega.">
-         Vant pwodwi fizik an gwo ak an detay. Kontakte nou pou pri ak livrezon.
+        Vant pwodwi fizik an gwo ak an detay. Kontakte nou pou pri ak livrezon.
       </p>
     </div>
 
@@ -440,10 +437,9 @@ footer {
          data-fr="Un espace est prévu pour ajouter les futurs services d'ALENOVA."
          data-en="Space is available for additional ALENOVA services in the future."
          data-es="Hay espacio para añadir nuevos servicios de ALENOVA en el futuro.">
-         Nou kite espas pou ajoute lòt sèvis ALENOVA ap ofri pi devan.
+        Nou kite espas pou ajoute lòt sèvis ALENOVA ap ofri pi devan.
       </p>
     </div>
-
   </div>
 </section>
 
@@ -458,16 +454,13 @@ footer {
      data-fr="Nous sommes disponibles pour répondre à vos questions et recevoir vos commandes."
      data-en="We are available to answer your questions and receive your orders."
      data-es="Estamos disponibles para responder sus preguntas y recibir sus pedidos.">
-     Nou disponib pou reponn kesyon ou yo ak resevwa kòmand ou yo.
+    Nou disponib pou reponn kesyon ou yo ak resevwa kòmand ou yo.
   </p>
 
   <div class="contact-grid">
-
     <div class="contact-item">
       <h3>WhatsApp</h3>
-      <a href="https://wa.me/50934536541" target="_blank">
-        3453-6541
-      </a>
+      <a href="https://wa.me/50934536541" target="_blank">3453-6541</a>
     </div>
 
     <div class="contact-item">
@@ -481,11 +474,8 @@ footer {
 
     <div class="contact-item">
       <h3>Email</h3>
-      <a href="mailto:alerteangelo80@gmail.com">
-        alerteangelo80@gmail.com
-      </a>
+      <a href="mailto:alerteangelo80@gmail.com">alerteangelo80@gmail.com</a>
     </div>
-
   </div>
 </section>
 
@@ -493,12 +483,10 @@ footer {
 
 <footer>
   © <span id="year"></span> ALENOVA.
-  <span id="copyrightText">Tout droit réservé.</span>
+  <span id="copyrightText">Tout dwa rezève.</span>
 </footer>
 
 <script>
-// To echanj demonstrasyon.
-// To yo dwe konfime avan nenpòt tranzaksyon.
 const rates = {
   mn: 1,
   nm: 1
@@ -510,28 +498,45 @@ const translations = {
   ht: {
     welcome: "Byenveni sou",
     fee: "Frè sèvis",
-    copyright: "Tout dwa rezève."
+    invalid: "Tanpri antre yon montan ki omwen 50 goud.",
+    copyright: "Tout dwa rezève.",
+    message: "Bonjou ALENOVA, mwen vle fè yon demann echanj.",
+    labels: ["Kalite echanj", "Montan mwen vle voye", "Frè sèvis", "Montan mwen ap resevwa", "Nimewo pa mwen", "Nimewo pou resevwa lajan an"],
+    directions: ["MonCash pou Natcash", "Natcash pou MonCash"]
   },
   fr: {
     welcome: "Bienvenue chez",
     fee: "Frais de service",
-    copyright: "Tous droits réservés."
+    invalid: "Veuillez saisir un montant d'au moins 50 gourdes.",
+    copyright: "Tous droits réservés.",
+    message: "Bonjour ALENOVA, je souhaite faire une demande d'échange.",
+    labels: ["Type d'échange", "Montant à envoyer", "Frais de service", "Montant à recevoir", "Mon numéro", "Numéro de réception"],
+    directions: ["MonCash vers Natcash", "Natcash vers MonCash"]
   },
   en: {
     welcome: "Welcome to",
     fee: "Service fee",
-    copyright: "All rights reserved."
+    invalid: "Please enter an amount of at least 50 gourdes.",
+    copyright: "All rights reserved.",
+    message: "Hello ALENOVA, I would like to submit an exchange request.",
+    labels: ["Exchange type", "Amount to send", "Service fee", "Amount to receive", "My phone number", "Receiving phone number"],
+    directions: ["MonCash to Natcash", "Natcash to MonCash"]
   },
   es: {
     welcome: "Bienvenido a",
     fee: "Comisión de servicio",
-    copyright: "Todos los derechos reservados."
+    invalid: "Ingrese una cantidad mínima de 50 gourdes.",
+    copyright: "Todos los derechos reservados.",
+    message: "Hola ALENOVA, deseo solicitar un cambio.",
+    labels: ["Tipo de cambio", "Cantidad a enviar", "Comisión", "Cantidad a recibir", "Mi número", "Número receptor"],
+    directions: ["MonCash a Natcash", "Natcash a MonCash"]
   }
 };
 
 function calculate() {
   const amount = Number(document.getElementById("amount").value);
   const direction = document.getElementById("direction").value;
+
   const received = document.getElementById("received");
   const feeText = document.getElementById("fee");
 
@@ -542,53 +547,42 @@ function calculate() {
   }
 
   const fee = amount * 0.075;
-  const net = amount - fee;
-  const result = net * rates[direction];
+  const result = (amount - fee) * rates[direction];
 
   received.textContent = result.toFixed(2) + " G";
-  feeText.textContent = translations[currentLang].fee + ": " + fee.toFixed(2) + " G";
+  feeText.textContent =
+    translations[currentLang].fee + ": " + fee.toFixed(2) + " G";
 }
 
-function setLang(lang) {
-  currentLang = lang;
-  document.documentElement.lang = lang;
+function submitExchange(event) {
+  event.preventDefault();
 
-  document.querySelectorAll("[data-ht]").forEach(el => {
-    if (el.dataset[lang] !== undefined) {
-      el.textContent = el.dataset[lang];
-    }
-  });
+  const amount = Number(document.getElementById("amount").value);
+  const direction = document.getElementById("direction").value;
+  const customerPhone = document.getElementById("customerPhone").value.trim();
+  const receiverPhone = document.getElementById("receiverPhone").value.trim();
 
-  document.querySelectorAll("option[data-ht]").forEach(el => {
-    if (el.dataset[lang] !== undefined) {
-      el.textContent = el.dataset[lang];
-    }
-  });
+  if (!amount || amount < 50) {
+    alert(translations[currentLang].invalid);
+    return;
+  }
 
-  document.getElementById("welcomeText").textContent =
-    translations[lang].welcome;
+  if (!customerPhone || !receiverPhone) {
+    return;
+  }
 
-  document.getElementById("copyrightText").textContent =
-    translations[lang].copyright;
+  const fee = amount * 0.075;
+  const received = (amount - fee) * rates[direction];
+  const t = translations[currentLang];
+  const directionText = direction === "mn"
+    ? t.directions[0]
+    : t.directions[1];
 
-  document.querySelectorAll(".lang button").forEach(button => {
-    button.classList.remove("active");
-  });
-
-  document.getElementById(lang + "Btn").classList.add("active");
-
-  const amountInput = document.getElementById("amount");
-  amountInput.placeholder = amountInput.dataset["placeholder" + lang.toUpperCase()] ||
-    amountInput.dataset["placeholder-" + lang] ||
-    amountInput.getAttribute("placeholder");
-
-  calculate();
-}
-
-document.getElementById("year").textContent = new Date().getFullYear();
-
-setLang("ht");
-</script>
-
-</body>
-  </html>
+  const message =
+    t.message + "\n\n" +
+    t.labels[0] + ": " + directionText + "\n" +
+    t.labels[1] + ": " + amount.toFixed(2) + " G\n" +
+    t.labels[2] + ": " + fee.toFixed(2) + " G\n" +
+    t.labels[3] + ": " + received.toFixed(2) + " G\n" +
+    t.labels[4] + ": " + customerPhone + "\n" +
+    t.labels[5] + ": " + re
