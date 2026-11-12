@@ -1,599 +1,588 @@
 <!DOCTYPE html>
 <html lang="ht">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="ALENOVA, sèvis echanj, pwodwi, konsepsyon grafik ak sèvis rezo sosyal.">
-  <title>ALENOVA | Sèvis ou ka fè konfyans</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101d35">
+<title>ALENOVA | Services & Business</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f6fa;
-      color: #172033;
-      line-height: 1.6;
-    }
-
-    header {
-      background: #10264b;
-      color: white;
-      padding: 18px 5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 15px;
-    }
-
-    .logo {
-      font-size: 27px;
-      font-weight: bold;
-      letter-spacing: 2px;
-      color: #f5c542;
-    }
-
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 14px;
-    }
-
-    .languages {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 8px;
-      padding: 15px;
-      background: white;
-    }
-
-    .languages button {
-      border: 1px solid #10264b;
-      background: white;
-      color: #10264b;
-      padding: 9px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .languages button.active {
-      background: #10264b;
-      color: white;
-    }
-
-    .hero {
-      background: linear-gradient(120deg, #10264b, #1c5791);
-      color: white;
-      text-align: center;
-      padding: 75px 20px;
-    }
-
-    .hero h1 {
-      font-size: 38px;
-      margin-bottom: 15px;
-    }
-
-    .hero p {
-      max-width: 650px;
-      margin: auto;
-      font-size: 17px;
-    }
-
-    .section {
-      padding: 55px 6%;
-      max-width: 1150px;
-      margin: auto;
-    }
-
-    .section h2 {
-      text-align: center;
-      color: #10264b;
-      margin-bottom: 25px;
-      font-size: 28px;
-    }
-
-    .intro {
-      text-align: center;
-      max-width: 750px;
-      margin: 0 auto 30px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background: white;
-      padding: 24px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,.07);
-    }
-
-    .card h3 {
-      color: #10264b;
-      margin-bottom: 10px;
-    }
-
-    .card p {
-      margin-bottom: 10px;
-    }
-
-    .exchange-box {
-      max-width: 650px;
-      margin: auto;
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,.07);
-    }
-
-    label {
-      display: block;
-      font-weight: bold;
-      margin: 13px 0 6px;
-    }
-
-    input, select {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ccd3df;
-      border-radius: 7px;
-      font-size: 16px;
-      background: white;
-    }
-
-    button.primary {
-      width: 100%;
-      padding: 13px;
-      background: #10264b;
-      color: white;
-      border: none;
-      border-radius: 7px;
-      margin-top: 18px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    button.primary:hover {
-      background: #1c5791;
-    }
-
-    .result {
-      background: #eef4ff;
-      padding: 16px;
-      border-radius: 8px;
-      margin-top: 18px;
-      font-size: 18px;
-      font-weight: bold;
-      color: #10264b;
-    }
-
-    .notice {
-      font-size: 13px;
-      color: #626d7e;
-      margin-top: 12px;
-    }
-
-    .contact {
-      background: #10264b;
-      color: white;
-      text-align: center;
-      padding: 45px 20px;
-    }
-
-    .contact h2 {
-      color: #f5c542;
-      margin-bottom: 20px;
-    }
-
-    .contact p {
-      margin: 8px 0;
-    }
-
-    .contact a {
-      color: #f5c542;
-      text-decoration: none;
-    }
-
-    footer {
-      background: #09172e;
-      color: white;
-      text-align: center;
-      padding: 18px;
-      font-size: 13px;
-    }
-
-    @media(max-width: 600px) {
-      header {
-        justify-content: center;
-        text-align: center;
-      }
-
-      nav {
-        justify-content: center;
-      }
-
-      .hero h1 {
-        font-size: 29px;
-      }
-
-      .section {
-        padding: 40px 5%;
-      }
-    }
-  </style>
+<style>
+:root {
+  --navy:#101d35;
+  --blue:#193b68;
+  --gold:#e6b84c;
+  --light:#f3f6fb;
+  --text:#26354b;
+}
+* {box-sizing:border-box;margin:0;padding:0}
+html {scroll-behavior:smooth}
+body {
+  font-family:Arial,sans-serif;
+  background:var(--light);
+  color:var(--text);
+  line-height:1.6;
+}
+header {
+  background:var(--navy);
+  color:white;
+  padding:16px 6%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  flex-wrap:wrap;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+.logo {
+  font-size:27px;
+  font-weight:900;
+  letter-spacing:2px;
+  color:var(--gold);
+}
+nav {display:flex;gap:18px;flex-wrap:wrap}
+nav a {
+  color:white;
+  text-decoration:none;
+  font-size:14px;
+}
+nav a:hover {color:var(--gold)}
+.lang {display:flex;gap:5px;flex-wrap:wrap}
+.lang button {
+  padding:8px 10px;
+  border:1px solid var(--gold);
+  background:transparent;
+  color:white;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:12px;
+}
+.lang button.active {
+  background:var(--gold);
+  color:var(--navy);
+}
+.hero {
+  background:linear-gradient(120deg,#101d35,#1b4777);
+  color:white;
+  padding:90px 7%;
+  text-align:center;
+}
+.hero h1 {
+  font-size:clamp(35px,6vw,60px);
+  margin-bottom:15px;
+}
+.hero h1 span {color:var(--gold)}
+.hero p {
+  max-width:650px;
+  margin:0 auto 25px;
+  color:#e3eaf5;
+}
+.btn {
+  display:inline-block;
+  background:var(--gold);
+  color:var(--navy);
+  padding:13px 24px;
+  border-radius:7px;
+  text-decoration:none;
+  font-weight:bold;
+  border:none;
+  cursor:pointer;
+}
+.btn:hover {opacity:.88}
+section {padding:65px 7%}
+.section-title {
+  text-align:center;
+  color:var(--navy);
+  font-size:30px;
+  margin-bottom:12px;
+}
+.section-desc {
+  text-align:center;
+  margin:0 auto 35px;
+  max-width:650px;
+}
+.cards {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:22px;
+}
+.card {
+  background:white;
+  padding:25px;
+  border-radius:13px;
+  box-shadow:0 5px 20px #152d4b12;
+}
+.card h3 {color:var(--navy);margin:12px 0}
+.card .emoji {font-size:35px}
+.exchange {background:#e8edf5}
+.calculator {
+  max-width:550px;
+  background:white;
+  margin:auto;
+  padding:28px;
+  border-radius:15px;
+  box-shadow:0 8px 25px #152d4b15;
+}
+label {
+  display:block;
+  margin:14px 0 6px;
+  font-weight:bold;
+}
+input,select {
+  width:100%;
+  padding:13px;
+  border:1px solid #ccd5e2;
+  border-radius:7px;
+  font-size:16px;
+  background:white;
+}
+.result {
+  background:var(--navy);
+  color:white;
+  padding:20px;
+  border-radius:10px;
+  margin-top:20px;
+  text-align:center;
+}
+.result strong {
+  display:block;
+  color:var(--gold);
+  font-size:27px;
+}
+.note {
+  font-size:13px;
+  color:#66758b;
+  margin-top:14px;
+}
+.product-empty {
+  background:white;
+  border:1px dashed #aab7c9;
+  padding:35px;
+  border-radius:12px;
+  text-align:center;
+}
+.service {border-top:4px solid var(--gold)}
+.contact {
+  background:var(--navy);
+  color:white;
+  text-align:center;
+}
+.contact .section-title {color:white}
+.contact-grid {
+  max-width:750px;
+  margin:30px auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:15px;
+}
+.contact-item {
+  background:#1c3150;
+  padding:20px;
+  border-radius:10px;
+}
+.contact-item a {
+  color:var(--gold);
+  text-decoration:none;
+  font-weight:bold;
+}
+footer {
+  background:#0a1425;
+  color:#cbd5e1;
+  padding:22px;
+  text-align:center;
+  font-size:13px;
+}
+@media(max-width:650px) {
+  header {justify-content:center}
+  nav {justify-content:center;gap:12px}
+  .hero {padding:65px 6%}
+  section {padding:48px 5%}
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <div class="logo">ALENOVA</div>
+  <div class="logo">ALENOVA.</div>
 
   <nav>
-    <a href="#home" data-i18n="navHome">Akèy</a>
-    <a href="#exchange" data-i18n="navExchange">Echanj</a>
-    <a href="#products" data-i18n="navProducts">Pwodwi</a>
-    <a href="#services" data-i18n="navServices">Sèvis</a>
-    <a href="#contact" data-i18n="navContact">Kontak</a>
+    <a href="#home" data-ht="Akèy" data-fr="Accueil" data-en="Home" data-es="Inicio">Akèy</a>
+    <a href="#services" data-ht="Sèvis" data-fr="Services" data-en="Services" data-es="Servicios">Sèvis</a>
+    <a href="#products" data-ht="Pwodwi" data-fr="Produits" data-en="Products" data-es="Productos">Pwodwi</a>
+    <a href="#exchange" data-ht="Echanj" data-fr="Échange" data-en="Exchange" data-es="Cambio">Echanj</a>
+    <a href="#contact" data-ht="Kontak" data-fr="Contact" data-en="Contact" data-es="Contacto">Kontak</a>
   </nav>
+
+  <div class="lang">
+    <button class="active" onclick="setLang('ht')" id="htBtn">KREYÒL</button>
+    <button onclick="setLang('fr')" id="frBtn">FR</button>
+    <button onclick="setLang('en')" id="enBtn">EN</button>
+    <button onclick="setLang('es')" id="esBtn">ES</button>
+  </div>
 </header>
 
-<div class="languages">
-  <button type="button" class="active" data-lang="ht">Kreyòl</button>
-  <button type="button" data-lang="fr">Français</button>
-  <button type="button" data-lang="en">English</button>
-  <button type="button" data-lang="es">Español</button>
-</div>
+<main>
 
 <section class="hero" id="home">
-  <h1 data-i18n="heroTitle">Byenveni sou ALENOVA</h1>
-  <p data-i18n="heroText">
-    ALENOVA ofri sèvis echanj lajan, pwodwi, konsepsyon grafik ak sèvis dijital.
+  <h1><span id="welcomeText">Byenveni sou</span> <span>ALENOVA</span></h1>
+
+  <p data-ht="Sèvis pwofesyonèl, echanj lajan, pwodwi fizik, grafik design ak sèvis dijital. Nou la pou sèvi ou."
+     data-fr="Services professionnels, échange d'argent, produits physiques, design graphique et services numériques. Nous sommes là pour vous servir."
+     data-en="Professional services, money exchange, physical products, graphic design and digital services. We are here to serve you."
+     data-es="Servicios profesionales, cambio de dinero, productos físicos, diseño gráfico y servicios digitales. Estamos aquí para servirle.">
+    Sèvis pwofesyonèl, echanj lajan, pwodwi fizik, grafik design ak sèvis dijital. Nou la pou sèvi ou.
   </p>
+
+  <a href="#services" class="btn"
+     data-ht="Dekouvri sèvis nou yo"
+     data-fr="Découvrir nos services"
+     data-en="Discover our services"
+     data-es="Descubra nuestros servicios">Dekouvri sèvis nou yo</a>
 </section>
 
-<section class="section" id="exchange">
-  <h2 data-i18n="exchangeTitle">Echanj MonCash ak Natcash</h2>
+<section id="exchange" class="exchange">
+  <h2 class="section-title"
+      data-ht="Echanj MonCash & Natcash"
+      data-fr="Échange MonCash & Natcash"
+      data-en="MonCash & Natcash Exchange"
+      data-es="Cambio MonCash & Natcash">Echanj MonCash & Natcash</h2>
 
-  <p class="intro" data-i18n="exchangeIntro">
-    Fè demann echanj ou fasilman. Kalkile montan ou pral resevwa anvan ou voye demann lan.
+  <p class="section-desc"
+     data-ht="Fè demann echanj ou dirèkteman sou sit la. Frè sèvis 7.5%. Minimòm 50 goud."
+     data-fr="Faites votre demande directement sur le site. Frais de service de 7,5 %. Minimum 50 gourdes."
+     data-en="Submit your exchange request directly on the website. Service fee 7.5%. Minimum 50 gourdes."
+     data-es="Solicite su cambio directamente en el sitio. Comisión del 7,5 %. Mínimo 50 gourdes.">
+    Fè demann echanj ou dirèkteman sou sit la. Frè sèvis 7.5%. Minimòm 50 goud.
   </p>
 
-  <div class="exchange-box">
+  <div class="calculator">
+    <form onsubmit="submitExchange(event)">
 
-    <label for="direction" data-i18n="directionLabel">Chwazi direksyon echanj la</label>
-    <select id="direction">
-      <option value="mn" data-i18n="mnOption">MonCash pou Natcash</option>
-      <option value="nm" data-i18n="nmOption">Natcash pou MonCash</option>
-    </select>
+      <label data-ht="Chwazi kalite echanj la"
+             data-fr="Choisissez le type d'échange"
+             data-en="Choose exchange type"
+             data-es="Seleccione el tipo de cambio">Chwazi kalite echanj la</label>
 
-    <label for="amount" data-i18n="amountLabel">Montan pou voye (HTG)</label>
-    <input id="amount" type="number" min="50" placeholder="Antre montan an">
+      <select id="direction" onchange="calculate()">
+        <option value="mn"
+          data-ht="MonCash pou Natcash"
+          data-fr="MonCash vers Natcash"
+          data-en="MonCash to Natcash"
+          data-es="MonCash a Natcash">MonCash pou Natcash</option>
+        <option value="nm"
+          data-ht="Natcash pou MonCash"
+          data-fr="Natcash vers MonCash"
+          data-en="Natcash to MonCash"
+          data-es="Natcash a MonCash">Natcash pou MonCash</option>
+      </select>
 
-    <button class="primary" type="button" id="calculateBtn" data-i18n="calculate">
-      Kalkile montan an
-    </button>
+      <label for="amount"
+             data-ht="Montan ou vle voye (G)"
+             data-fr="Montant à envoyer (G)"
+             data-en="Amount to send (G)"
+             data-es="Cantidad a enviar (G)">Montan ou vle voye (G)</label>
 
-    <div class="result" id="result" aria-live="polite">
-      Montan ou pral resevwa a ap parèt isit la.
-    </div>
+      <input type="number" id="amount" min="50" step="0.01"
+             placeholder="Antre montan an"
+             required oninput="calculate()">
 
-    <p class="notice" data-i18n="feeNotice">
-      Frè sèvis la se 7.5%. Montan minimòm lan se 50 HTG. Taux echanj la dwe konfime pa ALENOVA.
-    </p>
+      <div class="result">
+        <span data-ht="Kliyan an ap resevwa"
+              data-fr="Le client recevra"
+              data-en="The customer will receive"
+              data-es="El cliente recibirá">Kliyan an ap resevwa</span>
+        <strong id="received">0.00 G</strong>
+        <span id="fee">Frè sèvis: 0.00 G</span>
+      </div>
 
-    <label for="sender" data-i18n="senderLabel">Nimewo telefòn pa ou</label>
-    <input id="sender" type="tel" placeholder="Egzanp: 34536541">
+      <label for="customerPhone"
+             data-ht="Nimewo telefòn pa ou"
+             data-fr="Votre numéro de téléphone"
+             data-en="Your phone number"
+             data-es="Su número de teléfono">Nimewo telefòn pa ou</label>
+      <input type="tel" id="customerPhone" required
+             placeholder="Egzanp: 3453-6541">
 
-    <label for="receiver" data-i18n="receiverLabel">Nimewo telefòn moun k ap resevwa a</label>
-    <input id="receiver" type="tel" placeholder="Egzanp: 33233943">
+      <label for="receiverPhone"
+             data-ht="Nimewo kote w ap resevwa lajan an"
+             data-fr="Numéro qui recevra l'argent"
+             data-en="Number that will receive the money"
+             data-es="Número que recibirá el dinero">Nimewo kote w ap resevwa lajan an</label>
+      <input type="tel" id="receiverPhone" required
+             placeholder="Egzanp: 3323-3943">
 
-    <button class="primary" type="button" id="sendBtn" data-i18n="sendRequest">
-      Voye demann echanj la sou WhatsApp
-    </button>
+      <button class="btn" type="submit"
+              style="display:block;width:100%;margin-top:20px"
+              data-ht="Voye demann echanj la"
+              data-fr="Envoyer la demande d'échange"
+              data-en="Send exchange request"
+              data-es="Enviar solicitud de cambio">Voye demann echanj la</button>
 
-    <p class="notice" data-i18n="manualNotice">
-      Demann lan pa fè transfè otomatik. ALENOVA dwe verifye epi konfime tranzaksyon an.
-    </p>
+      <p class="note"
+         data-ht="ALENOVA ap verifye demann ou an epi kontakte ou pou konfime tranzaksyon an."
+         data-fr="ALENOVA vérifiera votre demande et vous contactera pour confirmer la transaction."
+         data-en="ALENOVA will review your request and contact you to confirm the transaction."
+         data-es="ALENOVA revisará su solicitud y se pondrá en contacto con usted para confirmar la transacción.">
+        ALENOVA ap verifye demann ou an epi kontakte ou pou konfime tranzaksyon an.
+      </p>
+    </form>
   </div>
 </section>
 
-<section class="section" id="products">
-  <h2 data-i18n="productsTitle">Pwodwi nou yo</h2>
+<section id="products">
+  <h2 class="section-title"
+      data-ht="Pwodwi nou yo"
+      data-fr="Nos produits"
+      data-en="Our products"
+      data-es="Nuestros productos">Pwodwi nou yo</h2>
 
-  <p class="intro" data-i18n="productsIntro">
-    Dekouvri pwodwi ALENOVA yo. Kontakte nou pou konnen disponiblite ak livrezon.
+  <p class="section-desc"
+     data-ht="Dekouvri pwodwi nou mete disponib an detay ak an gwo."
+     data-fr="Découvrez nos produits disponibles en gros et au détail."
+     data-en="Discover our products available at wholesale and retail prices."
+     data-es="Descubra nuestros productos disponibles al por mayor y al detalle.">
+    Dekouvri pwodwi nou mete disponib an detay ak an gwo.
   </p>
 
-  <div class="grid">
-    <div class="card">
-      <h3 data-i18n="productOne">Pwodwi an detay</h3>
-      <p data-i18n="productOneText">
-        Achte pwodwi yo an detay. Pri ak foto ap disponib lè nou ajoute pwodwi yo.
-      </p>
-    </div>
+  <div class="product-empty">
+    <h3 data-ht="Pwodwi yo ap disponib byento"
+        data-fr="Les produits seront bientôt disponibles"
+        data-en="Products coming soon"
+        data-es="Productos disponibles próximamente">Pwodwi yo ap disponib byento</h3>
 
-    <div class="card">
-      <h3 data-i18n="productTwo">Pwodwi an gwo</h3>
-      <p data-i18n="productTwoText">
-        Kontakte nou pou pri espesyal sou acha an gwo.
-      </p>
-    </div>
+    <p data-ht="Nou pral ajoute foto, non ak pri pwodwi yo nan espas sa a."
+       data-fr="Nous ajouterons les photos, noms et prix des produits dans cet espace."
+       data-en="We will add product photos, names and prices here."
+       data-es="Añadiremos aquí fotos, nombres y precios de los productos.">
+      Nou pral ajoute foto, non ak pri pwodwi yo nan espas sa a.
+    </p>
   </div>
+
+  <p class="note" style="text-align:center;margin-top:18px"
+     data-ht="Pou livrezon, pri a ap negosye dirèkteman avèk nou."
+     data-fr="Pour la livraison, le prix sera négocié directement avec nous."
+     data-en="Delivery prices will be negotiated directly with us."
+     data-es="El precio de entrega se negociará directamente con nosotros.">
+    Pou livrezon, pri a ap negosye dirèkteman avèk nou.
+  </p>
 </section>
 
-<section class="section" id="services">
-  <h2 data-i18n="servicesTitle">Lòt sèvis ALENOVA</h2>
+<section id="services" style="background:#fff">
+  <h2 class="section-title"
+      data-ht="Sèvis pwofesyonèl nou yo"
+      data-fr="Nos services professionnels"
+      data-en="Our professional services"
+      data-es="Nuestros servicios profesionales">Sèvis pwofesyonèl nou yo</h2>
 
-  <div class="grid">
-    <div class="card">
-      <h3 data-i18n="graphicTitle">Konsepsyon grafik</h3>
-      <p data-i18n="graphicText">
-        Flyer, envitasyon maryaj, kat biznis, logo ak lòt travay grafik.
-        Nou ka livre fichye yo nan fòma PDF ak lòt fòma.
+  <p class="section-desc"
+     data-ht="Nou mete konpetans nou nan sèvis ou."
+     data-fr="Nous mettons nos compétences à votre service."
+     data-en="We put our skills at your service."
+     data-es="Ponemos nuestras habilidades a su servicio.">
+    Nou mete konpetans nou nan sèvis ou.
+  </p>
+
+  <div class="cards">
+    <div class="card service">
+      <div class="emoji">🎨</div>
+      <h3 data-ht="Grafik Design"
+          data-fr="Design graphique"
+          data-en="Graphic Design"
+          data-es="Diseño gráfico">Grafik Design</h3>
+      <p data-ht="Flyer, kat maryaj, kat vizit, logo, branding ak lòt travay grafik. Resevwa travay ou an PDF ak lòt fòma."
+         data-fr="Flyers, invitations de mariage, cartes de visite, logos, identité visuelle et autres créations graphiques. Recevez vos fichiers en PDF et autres formats."
+         data-en="Flyers, wedding invitations, business cards, logos, branding and other graphic designs. Receive your work in PDF and other formats."
+         data-es="Flyers, invitaciones de boda, tarjetas de visita, logotipos y otros diseños gráficos. Reciba sus archivos en PDF y otros formatos.">
+        Flyer, kat maryaj, kat vizit, logo, branding ak lòt travay grafik. Resevwa travay ou an PDF ak lòt fòma.
       </p>
     </div>
 
-    <div class="card">
-      <h3 data-i18n="socialTitle">Sèvis rezo sosyal</h3>
-      <p data-i18n="socialText">
-        Kreyasyon paj Facebook, chanèl YouTube ak asistans pou kont TikTok ki kalifye pou monetizasyon.
+    <div class="card service">
+      <div class="emoji">📱</div>
+      <h3 data-ht="Sèvis Rezo Sosyal"
+          data-fr="Services réseaux sociaux"
+          data-en="Social Media Services"
+          data-es="Servicios de redes sociales">Sèvis Rezo Sosyal</h3>
+      <p data-ht="Kreyasyon kont TikTok, chèn YouTube, paj Facebook ak asistans pou prezans dijital."
+         data-fr="Création de comptes TikTok, chaînes YouTube, pages Facebook et assistance pour votre présence numérique."
+         data-en="Creation of TikTok accounts, YouTube channels, Facebook pages and support for your digital presence."
+         data-es="Creación de cuentas de TikTok, canales de YouTube, páginas de Facebook y asistencia para su presencia digital.">
+        Kreyasyon kont TikTok, chèn YouTube, paj Facebook ak asistans pou prezans dijital.
       </p>
     </div>
 
-    <div class="card">
-      <h3 data-i18n="moreTitle">Plis sèvis</h3>
-      <p data-i18n="moreText">
-        Nou ka ajoute lòt sèvis ak pwodwi sou sit la pi devan.
+    <div class="card service">
+      <div class="emoji">🛒</div>
+      <h3 data-ht="Komès ak pwodwi"
+          data-fr="Commerce et produits"
+          data-en="Commerce and Products"
+          data-es="Comercio y productos">Komès ak pwodwi</h3>
+      <p data-ht="Vant pwodwi fizik an gwo ak an detay. Kontakte nou pou pri ak livrezon."
+         data-fr="Vente de produits physiques en gros et au détail. Contactez-nous pour les prix et la livraison."
+         data-en="Wholesale and retail sales of physical products. Contact us for prices and delivery."
+         data-es="Venta de productos físicos al por mayor y al detalle. Contáctenos para conocer los precios y la entrega.">
+        Vant pwodwi fizik an gwo ak an detay. Kontakte nou pou pri ak livrezon.
+      </p>
+    </div>
+
+    <div class="card service">
+      <div class="emoji">💡</div>
+      <h3 data-ht="Lòt sèvis"
+          data-fr="Autres services"
+          data-en="Other services"
+          data-es="Otros servicios">Lòt sèvis</h3>
+      <p data-ht="Nou kite espas pou ajoute lòt sèvis ALENOVA ap ofri pi devan."
+         data-fr="Un espace est prévu pour ajouter les futurs services d'ALENOVA."
+         data-en="Space is available for additional ALENOVA services in the future."
+         data-es="Hay espacio para añadir nuevos servicios de ALENOVA en el futuro.">
+        Nou kite espas pou ajoute lòt sèvis ALENOVA ap ofri pi devan.
       </p>
     </div>
   </div>
 </section>
 
 <section class="contact" id="contact">
-  <h2 data-i18n="contactTitle">Kontakte ALENOVA</h2>
+  <h2 class="section-title"
+      data-ht="Kontakte nou"
+      data-fr="Contactez-nous"
+      data-en="Contact us"
+      data-es="Contáctenos">Kontakte nou</h2>
 
-  <p>WhatsApp: <a href="https://wa.me/50934536541">3453-6541</a></p>
-  <p data-i18n="phoneLabel">Telefòn: 3323-3943 / 3453-6541</p>
-  <p>Email: <a href="mailto:alerteangelo80@gmail.com">alerteangelo80@gmail.com</a></p>
-
-  <p>
-    <a href="https://wa.me/50934536541" target="_blank" rel="noopener">
-      <span data-i18n="whatsappLink">Ekri nou sou WhatsApp</span>
-    </a>
+  <p data-ht="Nou disponib pou reponn kesyon ou yo ak resevwa kòmand ou yo."
+     data-fr="Nous sommes disponibles pour répondre à vos questions et recevoir vos commandes."
+     data-en="We are available to answer your questions and receive your orders."
+     data-es="Estamos disponibles para responder sus preguntas y recibir sus pedidos.">
+    Nou disponib pou reponn kesyon ou yo ak resevwa kòmand ou yo.
   </p>
+
+  <div class="contact-grid">
+    <div class="contact-item">
+      <h3>WhatsApp</h3>
+      <a href="https://wa.me/50934536541" target="_blank">3453-6541</a>
+    </div>
+
+    <div class="contact-item">
+      <h3 data-ht="Apèl telefòn"
+          data-fr="Appels téléphoniques"
+          data-en="Phone calls"
+          data-es="Llamadas telefónicas">Apèl telefòn</h3>
+      <a href="tel:+50933233943">3323-3943</a><br>
+      <a href="tel:+50934536541">3453-6541</a>
+    </div>
+
+    <div class="contact-item">
+      <h3>Email</h3>
+      <a href="mailto:alerteangelo80@gmail.com">alerteangelo80@gmail.com</a>
+    </div>
+  </div>
 </section>
 
+</main>
+
 <footer>
-  <p data-i18n="footerText">© 2026 ALENOVA. Tout dwa rezève.</p>
+  © <span id="year"></span> ALENOVA.
+  <span id="copyrightText">Tout dwa rezève.</span>
 </footer>
 
 <script>
+const rates = {
+  mn: 1,
+  nm: 1
+};
+
+let currentLang = "ht";
+
 const translations = {
   ht: {
-    navHome: "Akèy",
-    navExchange: "Echanj",
-    navProducts: "Pwodwi",
-    navServices: "Sèvis",
-    navContact: "Kontak",
-    heroTitle: "Byenveni sou ALENOVA",
-    heroText: "ALENOVA ofri sèvis echanj lajan, pwodwi, konsepsyon grafik ak sèvis dijital.",
-    exchangeTitle: "Echanj MonCash ak Natcash",
-    exchangeIntro: "Fè demann echanj ou fasilman. Kalkile montan ou pral resevwa anvan ou voye demann lan.",
-    directionLabel: "Chwazi direksyon echanj la",
-    mnOption: "MonCash pou Natcash",
-    nmOption: "Natcash pou MonCash",
-    amountLabel: "Montan pou voye (HTG)",
-    calculate: "Kalkile montan an",
-    initialResult: "Montan ou pral resevwa a ap parèt isit la.",
-    feeNotice: "Frè sèvis la se 7.5%. Montan minimòm lan se 50 HTG. Taux echanj la dwe konfime pa ALENOVA.",
-    senderLabel: "Nimewo telefòn pa ou",
-    receiverLabel: "Nimewo telefòn moun k ap resevwa a",
-    sendRequest: "Voye demann echanj la sou WhatsApp",
-    manualNotice: "Demann lan pa fè transfè otomatik. ALENOVA dwe verifye epi konfime tranzaksyon an.",
-    productsTitle: "Pwodwi nou yo",
-    productsIntro: "Dekouvri pwodwi ALENOVA yo. Kontakte nou pou konnen disponiblite ak livrezon.",
-    productOne: "Pwodwi an detay",
-    productOneText: "Achte pwodwi yo an detay. Pri ak foto ap disponib lè nou ajoute pwodwi yo.",
-    productTwo: "Pwodwi an gwo",
-    productTwoText: "Kontakte nou pou pri espesyal sou acha an gwo.",
-    servicesTitle: "Lòt sèvis ALENOVA",
-    graphicTitle: "Konsepsyon grafik",
-    graphicText: "Flyer, envitasyon maryaj, kat biznis, logo ak lòt travay grafik. Nou ka livre fichye yo nan fòma PDF ak lòt fòma.",
-    socialTitle: "Sèvis rezo sosyal",
-    socialText: "Kreyasyon paj Facebook, chanèl YouTube ak asistans pou kont TikTok ki kalifye pou monetizasyon.",
-    moreTitle: "Plis sèvis",
-    moreText: "Nou ka ajoute lòt sèvis ak pwodwi sou sit la pi devan.",
-    contactTitle: "Kontakte ALENOVA",
-    phoneLabel: "Telefòn: 3323-3943 / 3453-6541",
-    whatsappLink: "Ekri nou sou WhatsApp",
-    footerText: "© 2026 ALENOVA. Tout dwa rezève.",
-    invalidAmount: "Tanpri antre yon montan ki egal oswa pi gran pase 50 HTG.",
-    calculated: "Montan pou resevwa",
+    welcome: "Byenveni sou",
     fee: "Frè sèvis",
-    total: "Total",
-    missingPhones: "Tanpri antre toude nimewo telefòn yo.",
-    whatsappMessage: "Bonjou ALENOVA, mwen vle fè yon demann echanj.",
-    from: "Mwen voye",
-    to: "Mwen vle resevwa",
-    sender: "Nimewo pa mwen",
-    receiver: "Nimewo moun k ap resevwa a",
-    confirmation: "ALENOVA dwe konfime to echanj la ak tranzaksyon an."
+    invalid: "Tanpri antre yon montan ki omwen 50 goud.",
+    copyright: "Tout dwa rezève.",
+    message: "Bonjou ALENOVA, mwen vle fè yon demann echanj.",
+    labels: ["Kalite echanj", "Montan mwen vle voye", "Frè sèvis", "Montan mwen ap resevwa", "Nimewo pa mwen", "Nimewo pou resevwa lajan an"],
+    directions: ["MonCash pou Natcash", "Natcash pou MonCash"]
   },
-
   fr: {
-    navHome: "Accueil",
-    navExchange: "Échange",
-    navProducts: "Produits",
-    navServices: "Services",
-    navContact: "Contact",
-    heroTitle: "Bienvenue chez ALENOVA",
-    heroText: "ALENOVA propose des services de change, des produits, du design graphique et des services numériques.",
-    exchangeTitle: "Échange MonCash et Natcash",
-    exchangeIntro: "Faites votre demande facilement. Calculez le montant à recevoir avant d'envoyer votre demande.",
-    directionLabel: "Choisissez le sens de l'échange",
-    mnOption: "MonCash vers Natcash",
-    nmOption: "Natcash vers MonCash",
-    amountLabel: "Montant à envoyer (HTG)",
-    calculate: "Calculer le montant",
-    initialResult: "Le montant à recevoir apparaîtra ici.",
-    feeNotice: "Les frais de service sont de 7,5 %. Le minimum est de 50 HTG. ALENOVA doit confirmer le taux de change.",
-    senderLabel: "Votre numéro de téléphone",
-    receiverLabel: "Numéro de téléphone du destinataire",
-    sendRequest: "Envoyer la demande sur WhatsApp",
-    manualNotice: "La demande ne réalise pas de transfert automatique. ALENOVA doit vérifier et confirmer la transaction.",
-    productsTitle: "Nos produits",
-    productsIntro: "Découvrez les produits ALENOVA. Contactez-nous pour connaître la disponibilité et la livraison.",
-    productOne: "Vente au détail",
-    productOneText: "Achetez nos produits au détail. Les prix et les photos seront disponibles lorsque nous ajouterons les produits.",
-    productTwo: "Vente en gros",
-    productTwoText: "Contactez-nous pour obtenir des prix spéciaux sur les achats en gros.",
-    servicesTitle: "Autres services ALENOVA",
-    graphicTitle: "Design graphique",
-    graphicText: "Flyers, invitations de mariage, cartes de visite, logos et autres créations graphiques. Livraison en PDF et dans d'autres formats.",
-    socialTitle: "Services pour les réseaux sociaux",
-    socialText: "Création de pages Facebook, de chaînes YouTube et assistance pour les comptes TikTok éligibles à la monétisation.",
-    moreTitle: "Autres services",
-    moreText: "Nous pourrons ajouter d'autres services et produits sur le site.",
-    contactTitle: "Contacter ALENOVA",
-    phoneLabel: "Téléphone : 3323-3943 / 3453-6541",
-    whatsappLink: "Écrivez-nous sur WhatsApp",
-    footerText: "© 2026 ALENOVA. Tous droits réservés.",
-    invalidAmount: "Veuillez saisir un montant égal ou supérieur à 50 HTG.",
-    calculated: "Montant à recevoir",
+    welcome: "Bienvenue chez",
     fee: "Frais de service",
-    total: "Total",
-    missingPhones: "Veuillez saisir les deux numéros de téléphone.",
-    whatsappMessage: "Bonjour ALENOVA, je souhaite faire une demande d'échange.",
-    from: "J'envoie",
-    to: "Je souhaite recevoir",
-    sender: "Mon numéro",
-    receiver: "Numéro du destinataire",
-    confirmation: "ALENOVA doit confirmer le taux de change et la transaction."
+    invalid: "Veuillez saisir un montant d'au moins 50 gourdes.",
+    copyright: "Tous droits réservés.",
+    message: "Bonjour ALENOVA, je souhaite faire une demande d'échange.",
+    labels: ["Type d'échange", "Montant à envoyer", "Frais de service", "Montant à recevoir", "Mon numéro", "Numéro de réception"],
+    directions: ["MonCash vers Natcash", "Natcash vers MonCash"]
   },
-
   en: {
-    navHome: "Home",
-    navExchange: "Exchange",
-    navProducts: "Products",
-    navServices: "Services",
-    navContact: "Contact",
-    heroTitle: "Welcome to ALENOVA",
-    heroText: "ALENOVA offers money exchange, products, graphic design and digital services.",
-    exchangeTitle: "MonCash and Natcash Exchange",
-    exchangeIntro: "Submit your exchange request easily. Calculate the amount you will receive before sending your request.",
-    directionLabel: "Choose the exchange direction",
-    mnOption: "MonCash to Natcash",
-    nmOption: "Natcash to MonCash",
-    amountLabel: "Amount to send (HTG)",
-    calculate: "Calculate amount",
-    initialResult: "The amount you will receive will appear here.",
-    feeNotice: "The service fee is 7.5%. The minimum amount is 50 HTG. ALENOVA must confirm the exchange rate.",
-    senderLabel: "Your phone number",
-    receiverLabel: "Recipient's phone number",
-    sendRequest: "Send exchange request on WhatsApp",
-    manualNotice: "This request does not make an automatic transfer. ALENOVA must verify and confirm the transaction.",
-    productsTitle: "Our Products",
-    productsIntro: "Discover ALENOVA products. Contact us for availability and delivery information.",
-    productOne: "Retail products",
-    productOneText: "Buy products individually. Prices and photos will be available when products are added.",
-    productTwo: "Wholesale products",
-    productTwoText: "Contact us for special prices on wholesale purchases.",
-    servicesTitle: "Other ALENOVA Services",
-    graphicTitle: "Graphic Design",
-    graphicText: "Flyers, wedding invitations, business cards, logos and other graphic designs. Files can be delivered in PDF and other formats.",
-    socialTitle: "Social Media Services",
-    socialText: "Facebook page creation, YouTube channel creation and assistance with TikTok accounts eligible for monetization.",
-    moreTitle: "More Services",
-    moreText: "We can add more services and products to the website later.",
-    contactTitle: "Contact ALENOVA",
-    phoneLabel: "Phone: 3323-3943 / 3453-6541",
-    whatsappLink: "Message us on WhatsApp",
-    footerText: "© 2026 ALENOVA. All rights reserved.",
-    invalidAmount: "Please enter an amount of at least 50 HTG.",
-    calculated: "Amount to receive",
+    welcome: "Welcome to",
     fee: "Service fee",
-    total: "Total",
-    missingPhones: "Please enter both phone numbers.",
-    whatsappMessage: "Hello ALENOVA, I would like to submit an exchange request.",
-    from: "I am sending",
-    to: "I want to receive",
-    sender: "My number",
-    receiver: "Recipient's number",
-    confirmation: "ALENOVA must confirm the exchange rate and transaction."
+    invalid: "Please enter an amount of at least 50 gourdes.",
+    copyright: "All rights reserved.",
+    message: "Hello ALENOVA, I would like to submit an exchange request.",
+    labels: ["Exchange type", "Amount to send", "Service fee", "Amount to receive", "My phone number", "Receiving phone number"],
+    directions: ["MonCash to Natcash", "Natcash to MonCash"]
   },
-
   es: {
-    navHome: "Inicio",
-    navExchange: "Cambio",
-    navProducts: "Productos",
-    navServices: "Servicios",
-    navContact: "Contacto",
-    heroTitle: "Bienvenido a ALENOVA",
-    heroText: "ALENOVA ofrece servicios de cambio de dinero, productos, diseño gráfico y servicios digitales.",
-    exchangeTitle: "Cambio entre MonCash y Natcash",
-    exchangeIntro: "Realice su solicitud fácilmente. Calcule cuánto recibirá antes de enviar la solicitud.",
-    directionLabel: "Seleccione la dirección del cambio",
-    mnOption: "De MonCash a Natcash",
-    nmOption: "De Natcash a MonCash",
-    amountLabel: "Cantidad a enviar (HTG)",
-    calculate: "Calcular cantidad",
-    initialResult: "La cantidad que recibirá aparecerá aquí.",
-    feeNotice: "La comisión es del 7,5 %. El mínimo es de 50 HTG. ALENOVA debe confirmar el tipo de cambio.",
-    senderLabel: "Su número de teléfono",
-    receiverLabel: "Número de teléfono del destinatario",
-    sendRequest: "Enviar solicitud por WhatsApp",
-    manualNotice: "Esta solicitud no realiza una transferencia automática. ALENOVA debe verificar y confirmar la transacción.",
-    productsTitle: "Nuestros productos",
-    productsIntro: "Descubra los productos de ALENOVA. Contáctenos para consultar disponibilidad y entrega.",
-    productOne: "Venta al por menor",
-    productOneText: "Compre productos al por menor. Los precios y las fotos estarán disponibles cuando añadamos los productos.",
-    productTwo: "Venta al por mayor",
-    productTwoText: "Contáctenos para obtener precios especiales en compras al por mayor.",
-    servicesTitle: "Otros servicios de ALENOVA",
-    graphicTitle: "Diseño gráfico",
-    graphicText: "Flyers, invitaciones de boda, tarjetas de presentación, logotipos y otros diseños gráficos. Entregamos archivos PDF y otros formatos.",
-    socialTitle: "Servicios de redes sociales",
-    socialText: "Creación de páginas de Facebook, canales de YouTube y asistencia para cuentas de TikTok elegibles para monetización.",
-    moreTitle: "Más servicios",
-    moreText: "Podemos añadir más servicios y productos al sitio web más adelante.",
-    contactTitle: "Contactar con ALENOVA",
-    phoneLabel: "Teléfono: 3323-3943 / 3453-6541",
-    whatsappLink: "Escríbanos por WhatsApp",
-    footerText: "© 2026 ALENOVA. Todos los derechos reservados.",
-    invalidAmount: "Introduzca una cantidad igual o superior a 50 HTG.",
-    calculated: "Cantidad a recibir",
+    welcome: "Bienvenido a",
     fee: "Comisión de servicio",
-    total: "Total",
-    missingPhones: "Introduzca ambos números de teléfono.",
-    whatsappMessage: "Hola ALENOVA, quiero realizar una solicitud de cambio.",
-    from: "Envío",
-    to: "Quiero recibir",
-    sender: "Mi número",
-    receiver: "Número del destinatario",
-    confirmation: "ALENOVA debe confirmar el tipo de cambio y la transacción."
+    invalid: "Ingrese una cantidad mínima de 50 gourdes.",
+    copyright: "Todos los derechos reservados.",
+    message: "Hola ALENOVA, deseo solicitar un cambio.",
+    labels: ["Tipo de cambio", "Cantidad a enviar", "Comisión", "Cantidad a recibir", "Mi número", "Número receptor"],
+    directions: ["MonCash a Natcash", "Natcash a MonCash"]
   }
 };
 
-let currentLanguage = "ht";
-let lastCalculation = null;
+function calculate() {
+  const amount = Number(document.getElementById("amount").value);
+  const direction = document.getElementById("direction").value;
 
-/* CHANGEMENT DE LANGUE */
-function setLangu
+  const received = document.getElementById("received");
+  const feeText = document.getElementById("fee");
+
+  if (!amount || amount < 50) {
+    received.textContent = "0.00 G";
+    feeText.textContent = translations[currentLang].fee + ": 0.00 G";
+    return;
+  }
+
+  const fee = amount * 0.075;
+  const result = (amount - fee) * rates[direction];
+
+  received.textContent = result.toFixed(2) + " G";
+  feeText.textContent =
+    translations[currentLang].fee + ": " + fee.toFixed(2) + " G";
+}
+
+function submitExchange(event) {
+  event.preventDefault();
+
+  const amount = Number(document.getElementById("amount").value);
+  const direction = document.getElementById("direction").value;
+  const customerPhone = document.getElementById("customerPhone").value.trim();
+  const receiverPhone = document.getElementById("receiverPhone").value.trim();
+
+  if (!amount || amount < 50) {
+    alert(translations[currentLang].invalid);
+    return;
+  }
+
+  if (!customerPhone || !receiverPhone) {
+    return;
+  }
+
+  const fee = amount * 0.075;
+  const received = (amount - fee) * rates[direction];
+  const t = translations[currentLang];
+  const directionText = direction === "mn"
+    ? t.directions[0]
+    : t.directions[1];
+
+  const message =
+    t.message + "\n\n" +
+    t.labels[0] + ": " + directionText + "\n" +
+    t.labels[1] + ": " + amount.toFixed(2) + " G\n" +
+    t.labels[2] + ": " + fee.toFixed(2) + " G\n" +
+    t.labels[3] + ": " + received.toFixed(2) + " G\n" +
+    t.labels[4] + ": " + customerPhone + "\n" +
+    t.labels[5] + ": " + re
