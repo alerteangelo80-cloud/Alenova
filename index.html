@@ -167,6 +167,37 @@ input,select {
   border-radius:12px;
   text-align:center;
 }
+  .product-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:22px;
+}
+.product-card {
+  background:white;
+  border-radius:13px;
+  overflow:hidden;
+  box-shadow:0 5px 20px #152d4b12;
+}
+.product-card img {
+  width:100%;
+  height:210px;
+  object-fit:cover;
+}
+.product-info {
+  padding:18px;
+}
+.product-info h3 {
+  color:var(--navy);
+  margin-bottom:10px;
+}
+.product-price {
+  margin:7px 0;
+  font-weight:bold;
+}
+.product-loading {
+  text-align:center;
+  padding:25px;
+}
 .service {border-top:4px solid var(--gold)}
 .contact {
   background:var(--navy);
@@ -346,20 +377,8 @@ footer {
      Dekouvri pwodwi ki disponib, an detay ak an gwo.
   </p>
 
-  <div class="product-empty">
-    <h3 data-ht="Pwodwi yo ap disponib byento"
-        data-fr="Les produits seront bientôt disponibles"
-        data-en="Products coming soon"
-        data-es="Productos disponibles próximamente">
-        Pwodwi yo ap disponib byento
-    </h3>
-
-    <p data-ht="Nou pral ajoute foto, non ak pri pwodwi yo nan espas sa a."
-       data-fr="Nous ajouterons les photos, noms et prix des produits dans cet espace."
-       data-en="We will add product photos, names and prices here."
-       data-es="Añadiremos aquí fotos, nombres y precios de los productos.">
-       Nou pral ajoute foto, non ak pri pwodwi yo nan espas sa a.
-    </p>
+  <div id="product-list" class="product-grid">
+  <p class="product-loading">Pwodwi yo ap chaje...</p>
   </div>
 
   <p class="note" style="text-align:center;margin-top:18px"
@@ -496,7 +515,8 @@ footer {
   <span id="copyrightText">Tout droit réservé.</span>
 </footer>
 
-<script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
 // To echanj demonstrasyon.
 // To yo dwe konfime avan nenpòt tranzaksyon.
 const rates = {
@@ -505,8 +525,119 @@ const rates = {
 };
 
 let currentLang = "ht";
+  const supabaseClient = window.supabase.createClient(
+  "https://xnzwfnbyasbkjrjspfgc.supabase.co",
+  "sb_publishable_lqjWc7srUJbH3x7MQiHXHA_o3AwqrUa"
+);
 
-const translations = {
+const productLabels = {
+  ht: {
+    retail: "Pri an detay",
+    wholesale: "Pri an gwo",
+    contact: "Kontakte nou",
+    empty: "Pa gen pwodwi disponib pou kounye a."
+  },
+  fr: {
+    retail: "Prix au détail",
+    wholesale: "Prix de gros",
+    contact: "Contactez-nous",
+    empty: "Aucun produit disponible."
+  },
+  en: {
+    retail: "Retail price",
+    wholesale: "Wholesale price",
+    contact: "Contact us",
+    empty: "No products available."
+  },
+  es: {
+    retail: "Precio al detalle",
+    wholesale: "Precio al por mayor",
+    contact: "Contáctenos",
+    empty: "No hay productos disponibles."
+  }
+};
+
+let productsData = [];
+
+function renderProducts() {
+  const container = document.getElementById("product-list");
+  if (!container) return;
+
+  container.replaceChildren();
+
+  if (productsData.length === 0) {
+    const message = document.createElement("p");
+    message.textContent = productLabels[currentLang].empty;
+    container.appendChild(message);
+    return;
+  }
+
+  productsData.forEach(product => {
+    const card = document.createElement("div");
+    card.className = "product-card";
+
+    if (product.image_url) {
+      const img = document.createElement("img");
+      img.src = product.image_url;
+      img.alt = product.name || "ALENOVA";
+      card.appendChild(img);
+    }
+
+    const info = document.createElement("div");
+    info.className = "product-info";
+
+    const name = document.createElement("h3");
+    name.textContent = product.name || "";
+    info.appendChild(name);
+
+    const currency = product.currency || "HTG";
+
+    const retail = document.createElement("p");
+    retail.className = "product-price";
+    retail.textContent =
+      productLabels[currentLang].retail + ": " +
+      Number(product.retail_price || 0).toLocaleString() + " " + currency;
+    info.appendChild(retail);
+
+    const wholesale = document.createElement("p");
+    wholesale.className = "product-price";
+    wholesale.textContent =
+      productLabels[currentLang].wholesale + ": " +
+      Number(product.wholesale_price || 0).toLocaleString() + " " + currency;
+    info.appendChild(wholesale);
+
+    const link = document.createElement("a");
+    link.className = "btn";
+    link.href = "https://wa.me/50934536541";
+    link.target = "_blank";
+    link.rel = "noopener";
+    link.textContent = productLabels[currentLang].contact;
+    info.appendChild(link);
+
+    card.appendChild(info);
+    container.appendChild(card);
+  });
+}
+
+async function loadProducts() {
+  const container = document.getElementById("product-list");
+
+  const { data, error } = await supabaseClient
+    .from("products")
+    .select("*")
+    .eq("active", true)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    container.textContent = "Pwodwi yo pa kapab chaje kounye a.";
+    console.error(error);
+    return;
+  }
+
+  productsData = data || [];
+  renderProducts();
+    }
+    const translations = {
   ht: {
     welcome: "Byenveni sou",
     fee: "Frè sèvis",
@@ -583,6 +714,7 @@ function setLang(lang) {
     amountInput.getAttribute("placeholder");
 
   calculate();
+  renderProducts();
 }
 
 document.getElementById("year").textContent = new Date().getFullYear();
