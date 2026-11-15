@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ht">
 <head>
@@ -6,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#101d35">
 <title>ALENOVA | Services & Business</title>
-
 <style>
 :root {
   --navy:#101d35;
@@ -179,6 +177,12 @@ input,select {
 .product-price {
   margin:7px 0;
   font-weight:bold;
+  color:var(--blue);
+}
+.product-wholesale {
+  margin-top:10px;
+  font-size:13px;
+  color:#66758b;
 }
 .product-order {
   display:block;
@@ -230,7 +234,6 @@ footer {
 }
 </style>
 </head>
-
 <body>
 
 <header>
@@ -251,7 +254,6 @@ footer {
 </header>
 
 <main>
-
 <section class="hero" id="home">
   <h1><span id="welcomeText">Byenveni sou</span> <span>ALENOVA</span></h1>
   <p data-ht="Sèvis pwofesyonèl, echanj lajan, pwodwi fizik, grafik design ak sèvis dijital. Nou la pou sèvi ou."
@@ -273,7 +275,6 @@ footer {
       data-fr="Échange MonCash & Natcash"
       data-en="MonCash & Natcash Exchange"
       data-es="Cambio MonCash & Natcash">Echanj MonCash & Natcash</h2>
-
   <p class="section-desc"
      data-ht="Frè sèvis 7.5%. Minimòm 50 goud."
      data-fr="Frais de service 7,5 %. Minimum 50 gourdes."
@@ -316,14 +317,14 @@ footer {
 
 <section id="products">
   <h2 class="section-title">Pwodwi nou yo</h2>
-  <p class="section-desc">Dekouvri pwodwi nou mete disponib an detay ak an gwo.</p>
+  <p class="section-desc">Dekouvri pwodwi ALENOVA mete disponib pou ou.</p>
 
   <div id="product-list" class="product-grid">
     <p class="product-loading">Pwodwi yo ap chaje...</p>
   </div>
 
   <p class="note" style="text-align:center;margin-top:18px">
-    Pou livrezon, pri a ap negosye dirèkteman avèk nou.
+    Nou vann an gwo tou. Si ou bezwen plizyè inite, kontakte nou sou WhatsApp. Pri an gwo a ap negosye selon kantite ou vle a.
   </p>
 </section>
 
@@ -337,19 +338,16 @@ footer {
       <h3>Grafik Design</h3>
       <p>Flyer, kat maryaj, kat vizit, logo, branding ak lòt travay grafik. Resevwa travay ou an PDF ak lòt fòma.</p>
     </div>
-
     <div class="card service">
       <div class="emoji">📱</div>
       <h3>Sèvis Rezo Sosyal</h3>
       <p>Kreyasyon kont TikTok, chèn YouTube, paj Facebook ak asistans pou prezans dijital.</p>
     </div>
-
     <div class="card service">
       <div class="emoji">🛒</div>
       <h3>Komès ak pwodwi</h3>
-      <p>Vant pwodwi fizik an gwo ak an detay. Kontakte nou pou pri ak livrezon.</p>
+      <p>Vant pwodwi fizik an detay ak an gwo. Kontakte nou pou diskite sou kantite ak pri.</p>
     </div>
-
     <div class="card service">
       <div class="emoji">💡</div>
       <h3>Lòt sèvis</h3>
@@ -367,20 +365,17 @@ footer {
       <h3>WhatsApp</h3>
       <a href="https://wa.me/50934536541" target="_blank">3453-6541</a>
     </div>
-
     <div class="contact-item">
       <h3>Apèl telefòn</h3>
       <a href="tel:+50933233943">3323-3943</a><br>
       <a href="tel:+50934536541">3453-6541</a>
     </div>
-
     <div class="contact-item">
       <h3>Email</h3>
       <a href="mailto:alerteangelo80@gmail.com">alerteangelo80@gmail.com</a>
     </div>
   </div>
 </section>
-
 </main>
 
 <footer>
@@ -388,7 +383,6 @@ footer {
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
 const SUPABASE_URL = "https://xnzwfnbyasbkjrjspfgc.supabase.co";
 const SUPABASE_KEY = "sb_publishable_lqjWc7srUJbH3x7MQiHXHA_o3AwqrUa";
@@ -398,73 +392,68 @@ const supabaseClient = window.supabase.createClient(
   SUPABASE_KEY
 );
 
-const rates = {
-  mn: 1,
-  nm: 1
-};
-
+const rates = {mn:1,nm:1};
 let currentLang = "ht";
+let productsData = [];
 
 const translations = {
-  ht: {
+  ht:{
     welcome:"Byenveni sou",
     fee:"Frè sèvis",
     invalid:"Tanpri antre yon montan ki omwen 50 goud.",
     message:"Bonjou ALENOVA, mwen vle fè yon demann echanj.",
     directions:["MonCash pou Natcash","Natcash pou MonCash"],
-    retail:"Pri an detay",
-    wholesale:"Pri an gwo",
+    retail:"Pri inite",
     order:"Kòmande sou WhatsApp",
+    wholesale:"Nou vann an gwo tou. Kontakte nou pou pri selon kantite.",
     empty:"Pa gen pwodwi ki disponib.",
     loading:"Pwodwi yo ap chaje...",
     error:"Nou pa kapab chaje pwodwi yo kounye a."
   },
-  fr: {
+  fr:{
     welcome:"Bienvenue chez",
     fee:"Frais de service",
     invalid:"Veuillez saisir un montant d'au moins 50 gourdes.",
     message:"Bonjour ALENOVA, je souhaite faire une demande d'échange.",
     directions:["MonCash vers Natcash","Natcash vers MonCash"],
-    retail:"Prix au détail",
-    wholesale:"Prix de gros",
+    retail:"Prix à l'unité",
     order:"Commander sur WhatsApp",
+    wholesale:"Nous vendons aussi en gros. Contactez-nous pour négocier selon la quantité.",
     empty:"Aucun produit disponible.",
     loading:"Chargement des produits...",
     error:"Impossible de charger les produits."
   },
-  en: {
+  en:{
     welcome:"Welcome to",
     fee:"Service fee",
     invalid:"Please enter at least 50 gourdes.",
     message:"Hello ALENOVA, I would like to submit an exchange request.",
     directions:["MonCash to Natcash","Natcash to MonCash"],
-    retail:"Retail price",
-    wholesale:"Wholesale price",
+    retail:"Unit price",
     order:"Order on WhatsApp",
+    wholesale:"We also sell wholesale. Contact us to negotiate based on quantity.",
     empty:"No products available.",
     loading:"Loading products...",
     error:"We cannot load products right now."
   },
-  es: {
+  es:{
     welcome:"Bienvenido a",
     fee:"Comisión de servicio",
     invalid:"Ingrese al menos 50 gourdes.",
     message:"Hola ALENOVA, deseo solicitar un cambio.",
     directions:["MonCash a Natcash","Natcash a MonCash"],
-    retail:"Precio al detalle",
-    wholesale:"Precio al por mayor",
+    retail:"Precio por unidad",
     order:"Pedir por WhatsApp",
+    wholesale:"También vendemos al por mayor. Contáctenos para negociar según la cantidad.",
     empty:"No hay productos disponibles.",
     loading:"Cargando productos...",
     error:"No podemos cargar los productos ahora."
   }
 };
 
-function formatPrice(value, currency) {
+function formatPrice(value,currency) {
   return Number(value).toLocaleString("fr-FR") + " " + currency;
 }
-
-let productsData = [];
 
 function renderProducts() {
   const container = document.getElementById("product-list");
@@ -506,16 +495,15 @@ function renderProducts() {
       info.appendChild(description);
     }
 
-    const retail = document.createElement("p");
-    retail.className = "product-price";
-    retail.textContent = t.retail + ": " +
-      formatPrice(product.retail_price, product.currency || "HTG");
-    info.appendChild(retail);
+    const price = document.createElement("p");
+    price.className = "product-price";
+    price.textContent = t.retail + ": " +
+      formatPrice(product.retail_price,product.currency || "HTG");
+    info.appendChild(price);
 
     const wholesale = document.createElement("p");
-    wholesale.className = "product-price";
-    wholesale.textContent = t.wholesale + ": " +
-      formatPrice(product.wholesale_price, product.currency || "HTG");
+    wholesale.className = "product-wholesale";
+    wholesale.textContent = t.wholesale;
     info.appendChild(wholesale);
 
     const order = document.createElement("a");
@@ -536,14 +524,14 @@ async function loadProducts() {
   const container = document.getElementById("product-list");
   container.textContent = translations[currentLang].loading;
 
-  const { data, error } = await supabaseClient
+  const {data,error} = await supabaseClient
     .from("products")
     .select("*")
-    .eq("active", true)
-    .order("created_at", { ascending: false });
+    .eq("active",true)
+    .order("created_at",{ascending:false});
 
   if (error) {
-    console.error("Supabase products error:", error);
+    console.error("Supabase products error:",error);
     container.textContent = translations[currentLang].error;
     return;
   }
@@ -611,7 +599,6 @@ function submitExchange(event) {
 
 function setLang(lang) {
   currentLang = lang;
-
   document.documentElement.lang = lang;
 
   document.querySelectorAll("[data-" + lang + "]").forEach(element => {
@@ -623,8 +610,7 @@ function setLang(lang) {
 
   ["ht","fr","en","es"].forEach(code => {
     document.getElementById(code + "Btn").classList.toggle(
-      "active",
-      code === lang
+      "active",code === lang
     );
   });
 
@@ -637,6 +623,6 @@ document.getElementById("year").textContent = new Date().getFullYear();
 setLang("ht");
 loadProducts();
 </script>
-
 </body>
-</html>
+    </html>
+      
