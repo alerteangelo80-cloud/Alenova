@@ -2,17 +2,17 @@
 <html lang="ht">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ALENOVA Admin</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-body{font-family:Arial;background:#f3f5f8;margin:0;padding:20px;color:#172033}
+body{font-family:Arial,sans-serif;background:#f3f5f8;margin:0;padding:18px;color:#172033}
 main{max-width:650px;margin:auto}
 section{background:white;padding:20px;border-radius:12px;margin:15px 0}
-input,button{width:100%;padding:12px;margin:7px 0;box-sizing:border-box}
-button{background:#087b55;color:white;border:0;border-radius:7px;font-weight:bold}
+input,select,button{width:100%;padding:13px;margin:8px 0;box-sizing:border-box;border:1px solid #ccc;border-radius:7px;font-size:16px}
+button{background:#087b55;color:white;border:0;font-weight:bold;cursor:pointer}
 .product{border:1px solid #ddd;padding:12px;margin:12px 0;border-radius:8px}
-.product img{width:100%;max-height:200px;object-fit:contain}
+.product img{width:100%;max-height:220px;object-fit:contain}
 .hidden{display:none}
 </style>
 </head>
@@ -30,15 +30,31 @@ button{background:#087b55;color:white;border:0;border-radius:7px;font-weight:bol
 
 <section id="dashboard" class="hidden">
 <h2>Ajoute yon pwodwi</h2>
-<input id="name" placeholder="Non pwodwi a">
-<input id="retail" type="number" min="0" placeholder="Pri an detay">
-<input id="wholesale" type="number" min="0" placeholder="Pri an gwo">
+
+<label>Non pwodwi a</label>
+<input id="name" placeholder="Ekri non pwodwi a">
+
+<label>Pri an detay</label>
+<input id="retail" type="number" min="0" step="0.01" placeholder="Pri an detay">
+
+<label>Pri an gwo</label>
+<input id="wholesale" type="number" min="0" step="0.01" placeholder="Pri an gwo">
+
+<label>Chwazi lajan an</label>
+<select id="currency">
+<option value="HTG">Goud ayisyen (HTG)</option>
+<option value="USD">Dola ameriken (USD)</option>
+</select>
+
+<label>Foto pwodwi a</label>
 <input id="photo" type="file" accept="image/*">
+
 <button onclick="addProduct()">Ajoute pwodwi</button>
 <p id="message"></p>
 
 <h2>Pwodwi yo</h2>
 <div id="products"></div>
+
 <button onclick="logout()">Dekonekte</button>
 </section>
 </main>
@@ -46,26 +62,39 @@ button{background:#087b55;color:white;border:0;border-radius:7px;font-weight:bol
 <script>
 const SUPABASE_URL = "https://xnzwfnbyasbkjrjspfgc.supabase.co";
 const SUPABASE_KEY = "sb_publishable_lqjWc7srUJbH3x7MQiHXHA_o3AwqrUa";
+
 const db = window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
 async function login(){
- const {error}=await db.auth.signInWithPassword({
-  email:document.getElementById("email").value,
-  password:document.getElementById("password").value
- });
- document.getElementById("loginMsg").textContent=error?error.message:"Koneksyon reyisi";
- if(!error) await checkAdmin();
+ const email=document.getElementById("email").value.trim();
+ const password=document.getElementById("password").value;
+ const msg=document.getElementById("loginMsg");
+
+ const {error}=await db.auth.signInWithPassword({email,password});
+
+ if(error){
+  msg.textContent="Erè koneksyon: "+error.message;
+  return;
+ }
+
+ await checkAdmin();
 }
 
 async function checkAdmin(){
  const {data:{user}}=await db.auth.getUser();
  if(!user)return;
- const {data,error}=await db.from("admin_users").select("user_id").eq("user_id",user.id).maybeSingle();
+
+ const {data,error}=await db.from("admin_users")
+ .select("user_id")
+ .eq("user_id",user.id)
+ .maybeSingle();
+
  if(error || !data){
   document.getElementById("loginMsg").textContent="Kont sa a pa gen dwa administratè.";
   await db.auth.signOut();
   return;
  }
+
  document.getElementById("login").classList.add("hidden");
  document.getElementById("dashboard").classList.remove("hidden");
  await loadProducts();
@@ -73,59 +102,127 @@ async function checkAdmin(){
 
 async function addProduct(){
  const name=document.getElementById("name").value.trim();
- const retail=Number(document.getElementById("retail").value);
- const wholesale=Number(document.getElementById("wholesale").value);
+ const retailInput=document.getElementById("retail").value;
+ const wholesaleInput=document.getElementById("wholesale").value;
+ const retail=Number(retailInput);
+ const wholesale=Number(wholesaleInput);
+ const currency=document.getElementById("currency").value;
  const file=document.getElementById("photo").files[0];
  const msg=document.getElementById("message");
- if(!name || !file || document.getElementById("retail").value==="" || document.getElementById("wholesale").value===""){
-  msg.textContent="Ranpli tout chan yo epi chwazi yon foto.";
+
+ if(!name || retailInput==="" || wholesaleInput==="" || !file){
+  msg.textContent="Tanpri ranpli tout chan yo epi chwazi yon foto.";
   return;
  }
+
+ if(retail<0 || wholesale<0){
+  msg.textContent="Pri yo pa ka negatif.";
+  return;
+ }
+
  msg.textContent="Ap ajoute pwodwi a...";
+
  const ext=file.name.split(".").pop().toLowerCase();
  const path=crypto.randomUUID()+"."+ext;
- const {error:uploadError}=await db.storage.from("product-images").upload(path,file);
- if(uploadError){msg.textContent=uploadError.message;return;}
- const {data:urlData}=db.storage.from("product-images").getPublicUrl(path);
+
+ const {error:uploadError}=await db.storage
+ .from("product-images")
+ .upload(path,file);
+
+ if(uploadError){
+  msg.textContent="Pwoblèm ak foto a: "+uploadError.message;
+  return;
+ }
+
+ const {data:urlData}=db.storage
+ .from("product-images")
+ .getPublicUrl(path);
+
  const {error}=await db.from("products").insert({
-  name,retail_price:retail,wholesale_price:wholesale,image_url:urlData.publicUrl
+  name:name,
+  retail_price:retail,
+  wholesale_price:wholesale,
+  currency:currency,
+  image_url:urlData.publicUrl
  });
- if(error){msg.textContent=error.message;return;}
- msg.textContent="Pwodwi a ajoute avèk siksè.";
+
+ if(error){
+  msg.textContent="Pwoblèm pandan anrejistreman: "+error.message;
+  return;
+ }
+
+ msg.textContent="Pwodwi a ajoute avèk siksè!";
+
  document.getElementById("name").value="";
  document.getElementById("retail").value="";
  document.getElementById("wholesale").value="";
  document.getElementById("photo").value="";
+ document.getElementById("currency").value="HTG";
+
  await loadProducts();
 }
 
 async function loadProducts(){
- const {data,error}=await db.from("products").select("*").order("id",{ascending:false});
  const area=document.getElementById("products");
- if(error){area.textContent=error.message;return;}
+ area.textContent="Ap chaje pwodwi yo...";
+
+ const {data,error}=await db.from("products")
+ .select("*")
+ .order("id",{ascending:false});
+
+ if(error){
+  area.textContent="Erè: "+error.message;
+  return;
+ }
+
  area.innerHTML="";
+
+ if(!data || data.length===0){
+  area.textContent="Pa gen pwodwi pou kounye a.";
+  return;
+ }
+
  data.forEach(p=>{
   const div=document.createElement("div");
   div.className="product";
-  const img=document.createElement("img");
-  img.src=p.image_url||"";
-  img.alt=p.name;
+
+  if(p.image_url){
+   const img=document.createElement("img");
+   img.src=p.image_url;
+   img.alt=p.name;
+   div.appendChild(img);
+  }
+
   const title=document.createElement("h3");
   title.textContent=p.name;
+
   const prices=document.createElement("p");
-  prices.textContent="Detay: "+p.retail_price+" | An gwo: "+p.wholesale_price;
+  const symbol=p.currency==="USD"?"USD":"HTG";
+  prices.textContent=
+   "Pri an detay: "+p.retail_price+" "+symbol+
+   " | Pri an gwo: "+p.wholesale_price+" "+symbol;
+
   const del=document.createElement("button");
-  del.textContent="Efase";
+  del.textContent="Efase pwodwi";
   del.onclick=()=>deleteProduct(p.id);
-  div.append(img,title,prices,del);
-  area.append(div);
+
+  div.append(title,prices,del);
+  area.appendChild(div);
  });
 }
 
 async function deleteProduct(id){
  if(!confirm("Èske ou vle efase pwodwi sa a?"))return;
- const {error}=await db.from("products").delete().eq("id",id);
- if(error){alert(error.message);return;}
+
+ const {error}=await db.from("products")
+ .delete()
+ .eq("id",id);
+
+ if(error){
+  alert("Erè: "+error.message);
+  return;
+ }
+
  await loadProducts();
 }
 
