@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ht">
 <head>
@@ -8,13 +7,17 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 body{font-family:Arial,sans-serif;background:#f3f5f8;margin:0;padding:18px;color:#172033}
-main{max-width:650px;margin:auto}
+main{max-width:700px;margin:auto}
 section{background:white;padding:20px;border-radius:12px;margin:15px 0}
-input,select,button{width:100%;padding:13px;margin:8px 0;box-sizing:border-box;border:1px solid #ccc;border-radius:7px;font-size:16px}
+input,select,textarea,button{width:100%;padding:13px;margin:8px 0;box-sizing:border-box;border:1px solid #ccc;border-radius:7px;font-size:16px}
+textarea{min-height:85px;resize:vertical}
 button{background:#087b55;color:white;border:0;font-weight:bold;cursor:pointer}
-.product{border:1px solid #ddd;padding:12px;margin:12px 0;border-radius:8px}
+button.secondary{background:#3566a8}
+button.danger{background:#b83232}
+.product,.service{border:1px solid #ddd;padding:12px;margin:12px 0;border-radius:8px}
 .product img{width:100%;max-height:220px;object-fit:contain}
 .hidden{display:none}
+.status{font-weight:bold}
 </style>
 </head>
 <body>
@@ -30,6 +33,7 @@ button{background:#087b55;color:white;border:0;font-weight:bold;cursor:pointer}
 </section>
 
 <section id="dashboard" class="hidden">
+
 <h2>Ajoute yon pwodwi</h2>
 
 <label>Non pwodwi a</label>
@@ -52,6 +56,31 @@ button{background:#087b55;color:white;border:0;font-weight:bold;cursor:pointer}
 
 <h2>Pwodwi yo</h2>
 <div id="products"></div>
+
+<hr>
+
+<h2>Ajoute yon sèvis</h2>
+
+<label>Non sèvis la</label>
+<input id="serviceName" placeholder="Egzanp: Konsepsyon logo">
+
+<label>Deskripsyon sèvis la</label>
+<textarea id="serviceDescription" placeholder="Dekri sèvis la..."></textarea>
+
+<label>Pri sèvis la (si genyen)</label>
+<input id="servicePrice" type="number" min="0" step="0.01" placeholder="Kite vid si pri a pa fiks">
+
+<label>Lajan</label>
+<select id="serviceCurrency">
+<option value="HTG">Goud ayisyen (HTG)</option>
+<option value="USD">Dola ameriken (USD)</option>
+</select>
+
+<button onclick="addService()">Ajoute sèvis</button>
+<p id="serviceMessage"></p>
+
+<h2>Sèvis yo</h2>
+<div id="services"></div>
 
 <button onclick="logout()">Dekonekte</button>
 </section>
@@ -95,8 +124,12 @@ async function checkAdmin(){
 
  document.getElementById("login").classList.add("hidden");
  document.getElementById("dashboard").classList.remove("hidden");
+
  await loadProducts();
+ await loadServices();
 }
+
+/* PWODWI */
 
 async function addProduct(){
  const name=document.getElementById("name").value.trim();
@@ -195,6 +228,7 @@ async function loadProducts(){
   price.textContent="Pri an detay: "+p.retail_price+" "+symbol;
 
   const del=document.createElement("button");
+  del.className="danger";
   del.textContent="Efase pwodwi";
   del.onclick=()=>deleteProduct(p.id);
 
@@ -218,6 +252,200 @@ async function deleteProduct(id){
  await loadProducts();
 }
 
+/* SEVIS */
+
+async function addService(){
+ const name=document.getElementById("serviceName").value.trim();
+ const description=document.getElementById("serviceDescription").value.trim();
+ const priceInput=document.getElementById("servicePrice").value;
+ const currency=document.getElementById("serviceCurrency").value;
+ const msg=document.getElementById("serviceMessage");
+
+ if(!name){
+  msg.textContent="Tanpri antre non sèvis la.";
+  return;
+ }
+
+ if(priceInput!=="" && Number(priceInput)<0){
+  msg.textContent="Pri a pa ka negatif.";
+  return;
+ }
+
+ const price=priceInput===""?null:Number(priceInput);
+
+ msg.textContent="Ap anrejistre sèvis la...";
+
+ const {error}=await db.from("services").insert({
+  name:name,
+  description:description || null,
+  price:price,
+  currency:currency,
+  active:true
+ });
+
+ if(error){
+  msg.textContent="Erè: "+error.message;
+  return;
+ }
+
+ msg.textContent="Sèvis la ajoute avèk siksè!";
+
+ document.getElementById("serviceName").value="";
+ document.getElementById("serviceDescription").value="";
+ document.getElementById("servicePrice").value="";
+ document.getElementById("serviceCurrency").value="HTG";
+
+ await loadServices();
+}
+
+async function loadServices(){
+ const area=document.getElementById("services");
+ area.textContent="Ap chaje sèvis yo...";
+
+ const {data,error}=await db.from("services")
+ .select("*")
+ .order("id",{ascending:false});
+
+ if(error){
+  area.textContent="Erè: "+error.message;
+  return;
+ }
+
+ area.innerHTML="";
+
+ if(!data || data.length===0){
+  area.textContent="Pa gen sèvis pou kounye a.";
+  return;
+ }
+
+ data.forEach(s=>{
+  const div=document.createElement("div");
+  div.className="service";
+
+  const title=document.createElement("h3");
+  title.textContent=s.name;
+
+  const description=document.createElement("p");
+  description.textContent=s.description || "Pa gen deskripsyon.";
+
+  const price=document.createElement("p");
+  if(s.price===null){
+   price.textContent="Pri: Kontakte nou";
+  }else{
+   price.textContent="Pri: "+s.price+" "+(s.currency || "HTG");
+  }
+
+  const status=document.createElement("p");
+  status.className="status";
+  status.textContent=s.active?"Estati: Aktif":"Estati: Dezaktive";
+
+  const edit=document.createElement("button");
+  edit.className="secondary";
+  edit.textContent="Modifye";
+  edit.onclick=()=>editService(s);
+
+  const toggle=document.createElement("button");
+  toggle.textContent=s.active?"Dezaktive":"Aktive";
+  toggle.className="secondary";
+  toggle.onclick=()=>toggleService(s);
+
+  const del=document.createElement("button");
+  del.className="danger";
+  del.textContent="Efase sèvis";
+  del.onclick=()=>deleteService(s.id);
+
+  div.append(title,description,price,status,edit,toggle,del);
+  area.appendChild(div);
+ });
+}
+
+async function editService(service){
+ const name=prompt("Nouvo non sèvis la:",service.name);
+ if(name===null)return;
+
+ if(!name.trim()){
+  alert("Non sèvis la obligatwa.");
+  return;
+ }
+
+ const description=prompt(
+  "Nouvo deskripsyon sèvis la:",
+  service.description || ""
+ );
+ if(description===null)return;
+
+ const oldPrice=service.price===null?"":String(service.price);
+ const priceInput=prompt(
+  "Nouvo pri a. Kite vid si pa gen pri fiks:",
+  oldPrice
+ );
+ if(priceInput===null)return;
+
+ if(priceInput.trim()!=="" && 
+   (!Number.isFinite(Number(priceInput)) || Number(priceInput)<0)){
+  alert("Pri a pa valab.");
+  return;
+ }
+
+ const currency=prompt(
+  "Ekri HTG oswa USD:",
+  service.currency || "HTG"
+ );
+ if(currency===null)return;
+
+ const cleanCurrency=currency.trim().toUpperCase();
+
+ if(cleanCurrency!=="HTG" && cleanCurrency!=="USD"){
+  alert("Ou dwe antre HTG oswa USD.");
+  return;
+ }
+
+ const {error}=await db.from("services")
+ .update({
+  name:name.trim(),
+  description:description.trim() || null,
+  price:priceInput.trim()===""?null:Number(priceInput),
+  currency:cleanCurrency
+ })
+ .eq("id",service.id);
+
+ if(error){
+  alert("Erè pandan modifikasyon: "+error.message);
+  return;
+ }
+
+ alert("Sèvis la modifye avèk siksè!");
+ await loadServices();
+}
+
+async function toggleService(service){
+ const {error}=await db.from("services")
+ .update({active:!service.active})
+ .eq("id",service.id);
+
+ if(error){
+  alert("Erè: "+error.message);
+  return;
+ }
+
+ await loadServices();
+}
+
+async function deleteService(id){
+ if(!confirm("Èske ou vle efase sèvis sa a definitivman?"))return;
+
+ const {error}=await db.from("services")
+ .delete()
+ .eq("id",id);
+
+ if(error){
+  alert("Erè: "+error.message);
+  return;
+ }
+
+ await loadServices();
+}
+
 async function logout(){
  await db.auth.signOut();
  location.reload();
@@ -229,3 +457,4 @@ db.auth.getSession().then(({data})=>{
 </script>
 </body>
 </html>
+
