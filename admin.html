@@ -1,1 +1,142 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALENOVA Admin</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+body{font-family:Arial;background:#f3f5f8;margin:0;padding:20px;color:#172033}
+main{max-width:650px;margin:auto}
+section{background:white;padding:20px;border-radius:12px;margin:15px 0}
+input,button{width:100%;padding:12px;margin:7px 0;box-sizing:border-box}
+button{background:#087b55;color:white;border:0;border-radius:7px;font-weight:bold}
+.product{border:1px solid #ddd;padding:12px;margin:12px 0;border-radius:8px}
+.product img{width:100%;max-height:200px;object-fit:contain}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<main>
+<h1>ALENOVA | Administrasyon</h1>
 
+<section id="login">
+<h2>Konekte</h2>
+<input id="email" type="email" placeholder="Imèl administratè">
+<input id="password" type="password" placeholder="Modpas">
+<button onclick="login()">Konekte</button>
+<p id="loginMsg"></p>
+</section>
+
+<section id="dashboard" class="hidden">
+<h2>Ajoute yon pwodwi</h2>
+<input id="name" placeholder="Non pwodwi a">
+<input id="retail" type="number" min="0" placeholder="Pri an detay">
+<input id="wholesale" type="number" min="0" placeholder="Pri an gwo">
+<input id="photo" type="file" accept="image/*">
+<button onclick="addProduct()">Ajoute pwodwi</button>
+<p id="message"></p>
+
+<h2>Pwodwi yo</h2>
+<div id="products"></div>
+<button onclick="logout()">Dekonekte</button>
+</section>
+</main>
+
+<script>
+const SUPABASE_URL = "METE_PROJECT_URL_LA";
+const SUPABASE_KEY = "METE_ANON_KEY_LA";
+const db = window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+async function login(){
+ const {error}=await db.auth.signInWithPassword({
+  email:document.getElementById("email").value,
+  password:document.getElementById("password").value
+ });
+ document.getElementById("loginMsg").textContent=error?error.message:"Koneksyon reyisi";
+ if(!error) await checkAdmin();
+}
+
+async function checkAdmin(){
+ const {data:{user}}=await db.auth.getUser();
+ if(!user)return;
+ const {data,error}=await db.from("admin_users").select("user_id").eq("user_id",user.id).maybeSingle();
+ if(error || !data){
+  document.getElementById("loginMsg").textContent="Kont sa a pa gen dwa administratè.";
+  await db.auth.signOut();
+  return;
+ }
+ document.getElementById("login").classList.add("hidden");
+ document.getElementById("dashboard").classList.remove("hidden");
+ await loadProducts();
+}
+
+async function addProduct(){
+ const name=document.getElementById("name").value.trim();
+ const retail=Number(document.getElementById("retail").value);
+ const wholesale=Number(document.getElementById("wholesale").value);
+ const file=document.getElementById("photo").files[0];
+ const msg=document.getElementById("message");
+ if(!name || !file || document.getElementById("retail").value==="" || document.getElementById("wholesale").value===""){
+  msg.textContent="Ranpli tout chan yo epi chwazi yon foto.";
+  return;
+ }
+ msg.textContent="Ap ajoute pwodwi a...";
+ const ext=file.name.split(".").pop().toLowerCase();
+ const path=crypto.randomUUID()+"."+ext;
+ const {error:uploadError}=await db.storage.from("product-images").upload(path,file);
+ if(uploadError){msg.textContent=uploadError.message;return;}
+ const {data:urlData}=db.storage.from("product-images").getPublicUrl(path);
+ const {error}=await db.from("products").insert({
+  name,retail_price:retail,wholesale_price:wholesale,image_url:urlData.publicUrl
+ });
+ if(error){msg.textContent=error.message;return;}
+ msg.textContent="Pwodwi a ajoute avèk siksè.";
+ document.getElementById("name").value="";
+ document.getElementById("retail").value="";
+ document.getElementById("wholesale").value="";
+ document.getElementById("photo").value="";
+ await loadProducts();
+}
+
+async function loadProducts(){
+ const {data,error}=await db.from("products").select("*").order("id",{ascending:false});
+ const area=document.getElementById("products");
+ if(error){area.textContent=error.message;return;}
+ area.innerHTML="";
+ data.forEach(p=>{
+  const div=document.createElement("div");
+  div.className="product";
+  const img=document.createElement("img");
+  img.src=p.image_url||"";
+  img.alt=p.name;
+  const title=document.createElement("h3");
+  title.textContent=p.name;
+  const prices=document.createElement("p");
+  prices.textContent="Detay: "+p.retail_price+" | An gwo: "+p.wholesale_price;
+  const del=document.createElement("button");
+  del.textContent="Efase";
+  del.onclick=()=>deleteProduct(p.id);
+  div.append(img,title,prices,del);
+  area.append(div);
+ });
+}
+
+async function deleteProduct(id){
+ if(!confirm("Èske ou vle efase pwodwi sa a?"))return;
+ const {error}=await db.from("products").delete().eq("id",id);
+ if(error){alert(error.message);return;}
+ await loadProducts();
+}
+
+async function logout(){
+ await db.auth.signOut();
+ location.reload();
+}
+
+db.auth.getSession().then(({data})=>{
+ if(data.session)checkAdmin();
+});
+</script>
+</body>
+</html>
