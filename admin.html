@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ht">
 <head>
@@ -36,9 +37,6 @@ button{background:#087b55;color:white;border:0;font-weight:bold;cursor:pointer}
 
 <label>Pri an detay</label>
 <input id="retail" type="number" min="0" step="0.01" placeholder="Pri an detay">
-
-<label>Pri an gwo</label>
-<input id="wholesale" type="number" min="0" step="0.01" placeholder="Pri an gwo">
 
 <label>Chwazi lajan an</label>
 <select id="currency">
@@ -103,20 +101,18 @@ async function checkAdmin(){
 async function addProduct(){
  const name=document.getElementById("name").value.trim();
  const retailInput=document.getElementById("retail").value;
- const wholesaleInput=document.getElementById("wholesale").value;
  const retail=Number(retailInput);
- const wholesale=Number(wholesaleInput);
  const currency=document.getElementById("currency").value;
  const file=document.getElementById("photo").files[0];
  const msg=document.getElementById("message");
 
- if(!name || retailInput==="" || wholesaleInput==="" || !file){
+ if(!name || retailInput==="" || !file){
   msg.textContent="Tanpri ranpli tout chan yo epi chwazi yon foto.";
   return;
  }
 
- if(retail<0 || wholesale<0){
-  msg.textContent="Pri yo pa ka negatif.";
+ if(retail<0){
+  msg.textContent="Pri a pa ka negatif.";
   return;
  }
 
@@ -141,7 +137,6 @@ async function addProduct(){
  const {error}=await db.from("products").insert({
   name:name,
   retail_price:retail,
-  wholesale_price:wholesale,
   currency:currency,
   image_url:urlData.publicUrl
  });
@@ -155,7 +150,6 @@ async function addProduct(){
 
  document.getElementById("name").value="";
  document.getElementById("retail").value="";
- document.getElementById("wholesale").value="";
  document.getElementById("photo").value="";
  document.getElementById("currency").value="HTG";
 
@@ -196,17 +190,15 @@ async function loadProducts(){
   const title=document.createElement("h3");
   title.textContent=p.name;
 
-  const prices=document.createElement("p");
+  const price=document.createElement("p");
   const symbol=p.currency==="USD"?"USD":"HTG";
-  prices.textContent=
-   "Pri an detay: "+p.retail_price+" "+symbol+
-   " | Pri an gwo: "+p.wholesale_price+" "+symbol;
+  price.textContent="Pri an detay: "+p.retail_price+" "+symbol;
 
   const del=document.createElement("button");
   del.textContent="Efase pwodwi";
   del.onclick=()=>deleteProduct(p.id);
 
-  div.append(title,prices,del);
+  div.append(title,price,del);
   area.appendChild(div);
  });
 }
