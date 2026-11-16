@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ht">
 <head>
@@ -5,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#101d35">
 <title>ALENOVA | Services & Business</title>
+
 <style>
 :root {
   --navy:#101d35;
@@ -13,15 +15,15 @@
   --light:#f3f6fb;
   --text:#26354b;
 }
-* {box-sizing:border-box;margin:0;padding:0}
-html {scroll-behavior:smooth}
-body {
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
   font-family:Arial,sans-serif;
   background:var(--light);
   color:var(--text);
   line-height:1.6;
 }
-header {
+header{
   background:var(--navy);
   color:white;
   padding:16px 6%;
@@ -34,21 +36,21 @@ header {
   top:0;
   z-index:10;
 }
-.logo {
+.logo{
   font-size:27px;
   font-weight:900;
   letter-spacing:2px;
   color:var(--gold);
 }
-nav {display:flex;gap:18px;flex-wrap:wrap}
-nav a {
+nav{display:flex;gap:15px;flex-wrap:wrap}
+nav a{
   color:white;
   text-decoration:none;
   font-size:14px;
 }
-nav a:hover {color:var(--gold)}
-.lang {display:flex;gap:5px;flex-wrap:wrap}
-.lang button {
+nav a:hover{color:var(--gold)}
+.lang{display:flex;gap:5px;flex-wrap:wrap}
+.lang button{
   padding:8px 10px;
   border:1px solid var(--gold);
   background:transparent;
@@ -57,27 +59,27 @@ nav a:hover {color:var(--gold)}
   cursor:pointer;
   font-size:12px;
 }
-.lang button.active {
+.lang button.active{
   background:var(--gold);
   color:var(--navy);
 }
-.hero {
+.hero{
   background:linear-gradient(120deg,#101d35,#1b4777);
   color:white;
   padding:90px 7%;
   text-align:center;
 }
-.hero h1 {
+.hero h1{
   font-size:clamp(35px,6vw,60px);
   margin-bottom:15px;
 }
-.hero h1 span {color:var(--gold)}
-.hero p {
+.hero h1 span{color:var(--gold)}
+.hero p{
   max-width:650px;
   margin:0 auto 25px;
   color:#e3eaf5;
 }
-.btn {
+.btn{
   display:inline-block;
   background:var(--gold);
   color:var(--navy);
@@ -88,33 +90,33 @@ nav a:hover {color:var(--gold)}
   border:none;
   cursor:pointer;
 }
-section {padding:65px 7%}
-.section-title {
+section{padding:65px 7%}
+.section-title{
   text-align:center;
   color:var(--navy);
   font-size:30px;
   margin-bottom:12px;
 }
-.section-desc {
+.section-desc{
   text-align:center;
   margin:0 auto 35px;
-  max-width:650px;
+  max-width:700px;
 }
-.cards {
+.cards,.product-grid,.studio-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
   gap:22px;
 }
-.card {
+.card{
   background:white;
   padding:25px;
   border-radius:13px;
   box-shadow:0 5px 20px #152d4b12;
 }
-.card h3 {color:var(--navy);margin:12px 0}
-.card .emoji {font-size:35px}
-.exchange {background:#e8edf5}
-.calculator {
+.card h3{color:var(--navy);margin:12px 0}
+.card .emoji{font-size:35px}
+.exchange{background:#e8edf5}
+.calculator{
   max-width:550px;
   background:white;
   margin:auto;
@@ -122,20 +124,22 @@ section {padding:65px 7%}
   border-radius:15px;
   box-shadow:0 8px 25px #152d4b15;
 }
-label {
+label{
   display:block;
   margin:14px 0 6px;
   font-weight:bold;
 }
-input,select {
+input,select,textarea{
   width:100%;
   padding:13px;
   border:1px solid #ccd5e2;
   border-radius:7px;
   font-size:16px;
   background:white;
+  font-family:Arial,sans-serif;
 }
-.result {
+textarea{min-height:120px;resize:vertical}
+.result{
   background:var(--navy);
   color:white;
   padding:20px;
@@ -143,108 +147,147 @@ input,select {
   margin-top:20px;
   text-align:center;
 }
-.result strong {
+.result strong{
   display:block;
   color:var(--gold);
   font-size:27px;
 }
-.note {
+.note{
   font-size:13px;
   color:#66758b;
   margin-top:14px;
 }
-.product-grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-  gap:22px;
-}
-.product-card {
+.product-card,.studio-card{
   background:white;
   border-radius:13px;
   overflow:hidden;
   box-shadow:0 5px 20px #152d4b12;
 }
-.product-card img {
+.product-card img,.studio-card img{
   width:100%;
-  height:210px;
+  height:220px;
   object-fit:cover;
 }
-.product-info {padding:18px}
-.product-info h3 {
+.product-info,.studio-info{padding:18px}
+.product-info h3,.studio-info h3{
   color:var(--navy);
   margin-bottom:10px;
 }
-.product-price {
+.product-price{
   margin:7px 0;
   font-weight:bold;
   color:var(--blue);
 }
-.product-wholesale {
+.product-wholesale{
   margin-top:10px;
   font-size:13px;
   color:#66758b;
 }
-.product-order {
+.product-order{
   display:block;
   margin-top:14px;
   text-align:center;
 }
-.product-loading,.product-empty {
+.product-loading,.product-empty,.studio-message{
   text-align:center;
   padding:25px;
   background:white;
   border-radius:12px;
+  grid-column:1/-1;
 }
-.service {border-top:4px solid var(--gold)}
-.contact {
+.service{border-top:4px solid var(--gold)}
+.studio-section{background:#fff}
+.studio-card{
+  display:flex;
+  flex-direction:column;
+}
+.studio-card .studio-info{flex:1}
+.studio-category{
+  display:inline-block;
+  background:#e8edf5;
+  color:var(--blue);
+  padding:5px 10px;
+  border-radius:20px;
+  font-size:12px;
+  margin-bottom:10px;
+}
+.studio-info ul{
+  padding-left:20px;
+  margin-top:10px;
+}
+.studio-info li{margin-bottom:4px}
+.studio-notice{
+  max-width:750px;
+  margin:25px auto 35px;
+  padding:18px;
+  background:#fff8e7;
+  border-left:4px solid var(--gold);
+  border-radius:8px;
+  text-align:center;
+}
+.studio-form{
+  max-width:650px;
+  margin:auto;
+  background:white;
+  padding:28px;
+  border-radius:15px;
+  box-shadow:0 8px 25px #152d4b15;
+}
+.studio-form button{width:100%;margin-top:20px}
+.contact{
   background:var(--navy);
   color:white;
   text-align:center;
 }
-.contact .section-title {color:white}
-.contact-grid {
+.contact .section-title{color:white}
+.contact-grid{
   max-width:750px;
   margin:30px auto;
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
   gap:15px;
 }
-.contact-item {
+.contact-item{
   background:#1c3150;
   padding:20px;
   border-radius:10px;
 }
-.contact-item a {
+.contact-item a{
   color:var(--gold);
   text-decoration:none;
   font-weight:bold;
 }
-footer {
+footer{
   background:#0a1425;
   color:#cbd5e1;
   padding:22px;
   text-align:center;
   font-size:13px;
 }
-@media(max-width:650px) {
-  header {justify-content:center}
-  nav {justify-content:center;gap:12px}
-  .hero {padding:65px 6%}
-  section {padding:48px 5%}
+@media(max-width:650px){
+  header{justify-content:center}
+  nav{justify-content:center;gap:12px}
+  .hero{padding:65px 6%}
+  section{padding:48px 5%}
+  .studio-form{padding:20px}
 }
 </style>
 </head>
+
 <body>
 
 <header>
   <div class="logo">ALENOVA.</div>
+
   <nav>
     <a href="#home" data-ht="Akèy" data-fr="Accueil" data-en="Home" data-es="Inicio">Akèy</a>
     <a href="#services" data-ht="Sèvis" data-fr="Services" data-en="Services" data-es="Servicios">Sèvis</a>
     <a href="#products" data-ht="Pwodwi" data-fr="Produits" data-en="Products" data-es="Productos">Pwodwi</a>
     <a href="#exchange" data-ht="Echanj" data-fr="Échange" data-en="Exchange" data-es="Cambio">Echanj</a>
+    <a href="#studio" data-ht="Studio Créatif" data-fr="Studio Créatif" data-en="Creative Studio" data-es="Estudio Creativo">Studio Créatif</a>
     <a href="#contact" data-ht="Kontak" data-fr="Contact" data-en="Contact" data-es="Contacto">Kontak</a>
   </nav>
+
   <div class="lang">
     <button class="active" onclick="setLang('ht')" id="htBtn">KREYÒL</button>
     <button onclick="setLang('fr')" id="frBtn">FR</button>
@@ -254,6 +297,7 @@ footer {
 </header>
 
 <main>
+
 <section class="hero" id="home">
   <h1><span id="welcomeText">Byenveni sou</span> <span>ALENOVA</span></h1>
   <p data-ht="Sèvis pwofesyonèl, echanj lajan, pwodwi fizik, grafik design ak sèvis dijital. Nou la pou sèvi ou."
@@ -275,6 +319,7 @@ footer {
       data-fr="Échange MonCash & Natcash"
       data-en="MonCash & Natcash Exchange"
       data-es="Cambio MonCash & Natcash">Echanj MonCash & Natcash</h2>
+
   <p class="section-desc"
      data-ht="Frè sèvis 7.5%. Minimòm 50 goud."
      data-fr="Frais de service 7,5 %. Minimum 50 gourdes."
@@ -285,344 +330,213 @@ footer {
 
   <div class="calculator">
     <form onsubmit="submitExchange(event)">
-      <label>Chwazi kalite echanj la</label>
+      <label data-ht="Chwazi kalite echanj la" data-fr="Choisissez le type d'échange" data-en="Choose exchange type" data-es="Elija el tipo de cambio">Chwazi kalite echanj la</label>
       <select id="direction" onchange="calculate()">
         <option value="mn">MonCash pou Natcash</option>
         <option value="nm">Natcash pou MonCash</option>
       </select>
 
-      <label for="amount">Montan ou vle voye (G)</label>
+      <label for="amount" data-ht="Montan ou vle voye (G)" data-fr="Montant à envoyer (G)" data-en="Amount to send (G)" data-es="Cantidad a enviar (G)">Montan ou vle voye (G)</label>
       <input type="number" id="amount" min="50" step="0.01"
              placeholder="Antre montan an" required oninput="calculate()">
 
       <div class="result">
-        <span>Kliyan an ap resevwa</span>
+        <span data-ht="Kliyan an ap resevwa" data-fr="Vous recevrez" data-en="You will receive" data-es="Usted recibirá">Kliyan an ap resevwa</span>
         <strong id="received">0.00 G</strong>
         <span id="fee">Frè sèvis: 0.00 G</span>
       </div>
 
-      <label for="customerPhone">Nimewo telefòn pa ou</label>
-      <input type="tel" id="customerPhone" required placeholder="Egzanp: 3453-6541">
+      <label for="customerPhone" data-ht="Nimewo telefòn pa ou" data-fr="Votre numéro de téléphone" data-en="Your phone number" data-es="Su número de teléfono">Nimewo telefòn pa ou</label>
+      <input type="tel" id="customerPhone" required placeholder="3453-6541">
 
-      <label for="receiverPhone">Nimewo kote w ap resevwa lajan an</label>
-      <input type="tel" id="receiverPhone" required placeholder="Egzanp: 3323-3943">
+      <label for="receiverPhone" data-ht="Nimewo kote w ap resevwa lajan an" data-fr="Numéro de réception" data-en="Receiving phone number" data-es="Número de recepción">Nimewo kote w ap resevwa lajan an</label>
+      <input type="tel" id="receiverPhone" required placeholder="3323-3943">
 
-      <button class="btn" type="submit" style="display:block;width:100%;margin-top:20px">
+      <button class="btn" type="submit" style="display:block;width:100%;margin-top:20px"
+        data-ht="Voye demann echanj la" data-fr="Envoyer la demande d'échange" data-en="Send exchange request" data-es="Enviar solicitud de cambio">
         Voye demann echanj la
       </button>
-      <p class="note">ALENOVA ap verifye demann ou an epi kontakte ou pou konfime tranzaksyon an.</p>
+      <p class="note" data-ht="ALENOVA ap verifye demann ou an epi kontakte ou pou konfime tranzaksyon an."
+         data-fr="ALENOVA vérifiera votre demande et vous contactera pour confirmer la transaction."
+         data-en="ALENOVA will review your request and contact you to confirm the transaction."
+         data-es="ALENOVA revisará su solicitud y se pondrá en contacto para confirmar la transacción.">
+        ALENOVA ap verifye demann ou an epi kontakte ou pou konfime tranzaksyon an.
+      </p>
     </form>
   </div>
 </section>
 
 <section id="products">
-  <h2 class="section-title">Pwodwi nou yo</h2>
-  <p class="section-desc">Dekouvri pwodwi ALENOVA mete disponib pou ou.</p>
+  <h2 class="section-title" data-ht="Pwodwi nou yo" data-fr="Nos produits" data-en="Our Products" data-es="Nuestros productos">Pwodwi nou yo</h2>
+  <p class="section-desc" data-ht="Dekouvri pwodwi ALENOVA mete disponib pou ou."
+     data-fr="Découvrez les produits proposés par ALENOVA."
+     data-en="Discover the products available from ALENOVA."
+     data-es="Descubra los productos disponibles en ALENOVA.">
+    Dekouvri pwodwi ALENOVA mete disponib pou ou.
+  </p>
 
   <div id="product-list" class="product-grid">
     <p class="product-loading">Pwodwi yo ap chaje...</p>
   </div>
 
-  <p class="note" style="text-align:center;margin-top:18px">
+  <p class="note" style="text-align:center;margin-top:18px"
+     data-ht="Nou vann an gwo tou. Si ou bezwen plizyè inite, kontakte nou sou WhatsApp. Pri an gwo a ap negosye selon kantite ou vle a."
+     data-fr="Nous vendons aussi en gros. Contactez-nous pour négocier selon la quantité."
+     data-en="Wholesale is also available. Contact us to negotiate based on quantity."
+     data-es="También vendemos al por mayor. Contáctenos para negociar según la cantidad.">
     Nou vann an gwo tou. Si ou bezwen plizyè inite, kontakte nou sou WhatsApp. Pri an gwo a ap negosye selon kantite ou vle a.
   </p>
 </section>
 
 <section id="services" style="background:#fff">
-  <h2 class="section-title">Sèvis pwofesyonèl nou yo</h2>
-  <p class="section-desc">Nou mete konpetans nou nan sèvis ou.</p>
+  <h2 class="section-title" data-ht="Sèvis pwofesyonèl nou yo" data-fr="Nos services professionnels" data-en="Our Professional Services" data-es="Nuestros servicios profesionales">Sèvis pwofesyonèl nou yo</h2>
+  <p class="section-desc" data-ht="Nou mete konpetans nou nan sèvis ou."
+     data-fr="Nous mettons nos compétences à votre service."
+     data-en="We put our skills at your service."
+     data-es="Ponemos nuestras habilidades a su servicio.">
+    Nou mete konpetans nou nan sèvis ou.
+  </p>
 
   <div class="cards">
     <div class="card service">
-      <div class="emoji">🎨</div>
-      <h3>Grafik Design</h3>
-      <p>Flyer, kat maryaj, kat vizit, logo, branding ak lòt travay grafik. Resevwa travay ou an PDF ak lòt fòma.</p>
-    </div>
-    <div class="card service">
       <div class="emoji">📱</div>
-      <h3>Sèvis Rezo Sosyal</h3>
-      <p>Kreyasyon kont TikTok, chèn YouTube, paj Facebook ak asistans pou prezans dijital.</p>
+      <h3 data-ht="Sèvis Rezo Sosyal" data-fr="Services de réseaux sociaux" data-en="Social Media Services" data-es="Servicios de redes sociales">Sèvis Rezo Sosyal</h3>
+      <p data-ht="Kreyasyon kont TikTok, chèn YouTube, paj Facebook ak asistans pou prezans dijital."
+         data-fr="Création de comptes TikTok, chaînes YouTube, pages Facebook et assistance numérique."
+         data-en="Creation of TikTok accounts, YouTube channels, Facebook pages and digital assistance."
+         data-es="Creación de cuentas de TikTok, canales de YouTube, páginas de Facebook y asistencia digital.">
+        Kreyasyon kont TikTok, chèn YouTube, paj Facebook ak asistans pou prezans dijital.
+      </p>
     </div>
+
     <div class="card service">
       <div class="emoji">🛒</div>
-      <h3>Komès ak pwodwi</h3>
-      <p>Vant pwodwi fizik an detay ak an gwo. Kontakte nou pou diskite sou kantite ak pri.</p>
+      <h3 data-ht="Komès ak pwodwi" data-fr="Commerce et produits" data-en="Commerce and Products" data-es="Comercio y productos">Komès ak pwodwi</h3>
+      <p data-ht="Vant pwodwi fizik an detay ak an gwo. Kontakte nou pou diskite sou kantite ak pri."
+         data-fr="Vente de produits physiques au détail et en gros. Contactez-nous pour discuter des quantités et des prix."
+         data-en="Retail and wholesale sales of physical products. Contact us to discuss quantities and prices."
+         data-es="Venta minorista y mayorista de productos físicos. Contáctenos para hablar sobre cantidades y precios.">
+        Vant pwodwi fizik an detay ak an gwo. Kontakte nou pou diskite sou kantite ak pri.
+      </p>
     </div>
+
     <div class="card service">
       <div class="emoji">💡</div>
-      <h3>Lòt sèvis</h3>
-      <p>Nou kite espas pou ajoute lòt sèvis ALENOVA ap ofri pi devan.</p>
+      <h3 data-ht="Lòt sèvis" data-fr="Autres services" data-en="Other Services" data-es="Otros servicios">Lòt sèvis</h3>
+      <p data-ht="Nou kite espas pou ajoute lòt sèvis ALENOVA ap ofri pi devan."
+         data-fr="Nous gardons de la place pour les futurs services d'ALENOVA."
+         data-en="We leave room for other services ALENOVA may offer in the future."
+         data-es="Dejamos espacio para otros servicios que ALENOVA pueda ofrecer en el futuro.">
+        Nou kite espas pou ajoute lòt sèvis ALENOVA ap ofri pi devan.
+      </p>
     </div>
   </div>
 </section>
 
+<!-- STUDIO CREATIF -->
+<section id="studio" class="studio-section">
+  <h2 class="section-title">Studio Créatif</h2>
+  <p class="section-desc"
+     data-ht="Dekouvri sèvis konsepsyon ALENOVA yo. Chwazi sa ou bezwen epi voye demann ou."
+     data-fr="Découvrez les services de création d'ALENOVA. Choisissez ce dont vous avez besoin et envoyez votre demande."
+     data-en="Discover ALENOVA's creative services. Choose what you need and send your request."
+     data-es="Descubra los servicios creativos de ALENOVA. Elija lo que necesita y envíe su solicitud.">
+    Dekouvri sèvis konsepsyon ALENOVA yo. Chwazi sa ou bezwen epi voye demann ou.
+  </p>
+
+  <div class="studio-notice"
+       data-ht="Pri sèvis yo negosyab selon bezwen ou ak konpleksite pwojè ou. Kontakte nou pou diskite sou kòmand ou."
+       data-fr="Nos tarifs sont négociables selon vos besoins et la complexité de votre projet. Contactez-nous pour discuter de votre commande."
+       data-en="Our prices are negotiable based on your needs and project complexity. Contact us to discuss your order."
+       data-es="Nuestros precios son negociables según sus necesidades y la complejidad del proyecto. Contáctenos para hablar de su pedido.">
+    Pri sèvis yo negosyab selon bezwen ou ak konpleksite pwojè ou. Kontakte nou pou diskite sou kòmand ou.
+  </div>
+
+  <h2 class="section-title" data-ht="Nos Réalisations" data-fr="Nos Réalisations" data-en="Our Portfolio" data-es="Nuestros trabajos">Nos Réalisations</h2>
+  <p class="section-desc"
+     data-ht="Men kèk nan travay nou yo."
+     data-fr="Voici quelques-unes de nos réalisations."
+     data-en="Here are some of our projects."
+     data-es="Aquí tiene algunos de nuestros trabajos.">
+    Men kèk nan travay nou yo.
+  </p>
+
+  <div id="portfolio-list" class="studio-grid">
+    <p class="studio-message">Travay yo ap chaje...</p>
+  </div>
+
+  <h2 class="section-title" style="margin-top:65px"
+      data-ht="Découvrez Nos Packs" data-fr="Découvrez Nos Packs"
+      data-en="Discover Our Packages" data-es="Descubra Nuestros Paquetes">
+    Découvrez Nos Packs
+  </h2>
+  <p class="section-desc"
+     data-ht="Chwazi yon Pack ki koresponn ak bezwen pwojè ou."
+     data-fr="Choisissez un pack adapté aux besoins de votre projet."
+     data-en="Choose a package that fits your project needs."
+     data-es="Elija un paquete que se adapte a las necesidades de su proyecto.">
+    Chwazi yon Pack ki koresponn ak bezwen pwojè ou.
+  </p>
+
+  <div id="packs-list" class="studio-grid">
+    <p class="studio-message">Packs yo ap chaje...</p>
+  </div>
+
+  <h2 class="section-title" style="margin-top:65px"
+      data-ht="Passez Votre Commande" data-fr="Passez Votre Commande"
+      data-en="Place Your Order" data-es="Haga Su Pedido">
+    Passez Votre Commande
+  </h2>
+  <p class="section-desc"
+     data-ht="Ranpli fòmilè a pou voye demann konsepsyon ou."
+     data-fr="Remplissez le formulaire pour envoyer votre demande de création."
+     data-en="Fill out the form to send your design request."
+     data-es="Complete el formulario para enviar su solicitud de diseño.">
+    Ranpli fòmilè a pou voye demann konsepsyon ou.
+  </p>
+
+  <form class="studio-form" onsubmit="submitDesignOrder(event)">
+    <label for="designType" data-ht="Ki kalite konsepsyon ou bezwen?" data-fr="Quel type de création souhaitez-vous ?" data-en="What type of design do you need?" data-es="¿Qué tipo de diseño necesita?">Ki kalite konsepsyon ou bezwen?</label>
+    <select id="designType" required>
+      <option value="" data-ht="Chwazi yon kategori" data-fr="Choisir une catégorie" data-en="Choose a category" data-es="Elija una categoría">Chwazi yon kategori</option>
+      <option value="Design Graphique">Design Graphique</option>
+      <option value="Identité Visuelle & Branding">Identité Visuelle & Branding</option>
+      <option value="Badges & Cartes">Badges & Cartes</option>
+      <option value="Design pour Réseaux Sociaux">Design pour Réseaux Sociaux</option>
+      <option value="Design Événementiel">Design Événementiel</option>
+      <option value="Marketing & Publicité">Marketing & Publicité</option>
+      <option value="Création Numérique">Création Numérique</option>
+    </select>
+
+    <label for="designDetails" data-ht="Bay detay sou sa ou bezwen an" data-fr="Décrivez votre projet" data-en="Describe your project" data-es="Describa su proyecto">Bay detay sou sa ou bezwen an</label>
+    <textarea id="designDetails" required placeholder="Eksplike sa ou ta renmen nou kreye..."></textarea>
+
+    <label for="designName" data-ht="Non ou" data-fr="Votre nom" data-en="Your name" data-es="Su nombre">Non ou</label>
+    <input type="text" id="designName" required>
+
+    <label for="designPhone" data-ht="Nimewo WhatsApp ou" data-fr="Votre numéro WhatsApp" data-en="Your WhatsApp number" data-es="Su número de WhatsApp">Nimewo WhatsApp ou</label>
+    <input type="tel" id="designPhone" required placeholder="Egzanp: 3453-6541">
+
+    <button class="btn" type="submit"
+      data-ht="Voye kòmand mwen sou WhatsApp"
+      data-fr="Envoyer ma commande sur WhatsApp"
+      data-en="Send my order on WhatsApp"
+      data-es="Enviar mi pedido por WhatsApp">
+      Voye kòmand mwen sou WhatsApp
+    </button>
+  </form>
+</section>
+
 <section class="contact" id="contact">
-  <h2 class="section-title">Kontakte nou</h2>
-  <p>Nou disponib pou reponn kesyon ou yo ak resevwa kòmand ou yo.</p>
+  <h2 class="section-title" data-ht="Kontakte nou" data-fr="Contactez-nous" data-en="Contact Us" data-es="Contáctenos">Kontakte nou</h2>
+  <p data-ht="Nou disponib pou reponn kesyon ou yo ak resevwa kòmand ou yo."
+     data-fr="Nous sommes disponibles pour répondre à vos questions et recevoir vos commandes."
+     data-en="We are available to answer your questions and receive your orders."
+     data-es="Estamos disponibles para responder sus preguntas y recibir sus pedidos.">
+    Nou disponib pou reponn kesyon ou yo ak resevwa kòmand ou yo.
+  </p>
 
   <div class="contact-grid">
     <div class="contact-item">
       <h3>WhatsApp</h3>
-      <a href="https://wa.me/50934536541" target="_blank">3453-6541</a>
-    </div>
-    <div class="contact-item">
-      <h3>Apèl telefòn</h3>
-      <a href="tel:+50933233943">3323-3943</a><br>
-      <a href="tel:+50934536541">3453-6541</a>
-    </div>
-    <div class="contact-item">
-      <h3>Email</h3>
-      <a href="mailto:alerteangelo80@gmail.com">alerteangelo80@gmail.com</a>
-    </div>
-  </div>
-</section>
-</main>
-
-<footer>
-  © <span id="year"></span> ALENOVA. Tout dwa rezève.
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-const SUPABASE_URL = "https://xnzwfnbyasbkjrjspfgc.supabase.co";
-const SUPABASE_KEY = "sb_publishable_lqjWc7srUJbH3x7MQiHXHA_o3AwqrUa";
-
-const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
-
-const rates = {mn:1,nm:1};
-let currentLang = "ht";
-let productsData = [];
-
-const translations = {
-  ht:{
-    welcome:"Byenveni sou",
-    fee:"Frè sèvis",
-    invalid:"Tanpri antre yon montan ki omwen 50 goud.",
-    message:"Bonjou ALENOVA, mwen vle fè yon demann echanj.",
-    directions:["MonCash pou Natcash","Natcash pou MonCash"],
-    retail:"Pri inite",
-    order:"Kòmande sou WhatsApp",
-    wholesale:"Nou vann an gwo tou. Kontakte nou pou pri selon kantite.",
-    empty:"Pa gen pwodwi ki disponib.",
-    loading:"Pwodwi yo ap chaje...",
-    error:"Nou pa kapab chaje pwodwi yo kounye a."
-  },
-  fr:{
-    welcome:"Bienvenue chez",
-    fee:"Frais de service",
-    invalid:"Veuillez saisir un montant d'au moins 50 gourdes.",
-    message:"Bonjour ALENOVA, je souhaite faire une demande d'échange.",
-    directions:["MonCash vers Natcash","Natcash vers MonCash"],
-    retail:"Prix à l'unité",
-    order:"Commander sur WhatsApp",
-    wholesale:"Nous vendons aussi en gros. Contactez-nous pour négocier selon la quantité.",
-    empty:"Aucun produit disponible.",
-    loading:"Chargement des produits...",
-    error:"Impossible de charger les produits."
-  },
-  en:{
-    welcome:"Welcome to",
-    fee:"Service fee",
-    invalid:"Please enter at least 50 gourdes.",
-    message:"Hello ALENOVA, I would like to submit an exchange request.",
-    directions:["MonCash to Natcash","Natcash to MonCash"],
-    retail:"Unit price",
-    order:"Order on WhatsApp",
-    wholesale:"We also sell wholesale. Contact us to negotiate based on quantity.",
-    empty:"No products available.",
-    loading:"Loading products...",
-    error:"We cannot load products right now."
-  },
-  es:{
-    welcome:"Bienvenido a",
-    fee:"Comisión de servicio",
-    invalid:"Ingrese al menos 50 gourdes.",
-    message:"Hola ALENOVA, deseo solicitar un cambio.",
-    directions:["MonCash a Natcash","Natcash a MonCash"],
-    retail:"Precio por unidad",
-    order:"Pedir por WhatsApp",
-    wholesale:"También vendemos al por mayor. Contáctenos para negociar según la cantidad.",
-    empty:"No hay productos disponibles.",
-    loading:"Cargando productos...",
-    error:"No podemos cargar los productos ahora."
-  }
-};
-
-function formatPrice(value,currency) {
-  return Number(value).toLocaleString("fr-FR") + " " + currency;
-}
-
-function renderProducts() {
-  const container = document.getElementById("product-list");
-  const t = translations[currentLang];
-
-  if (!productsData.length) {
-    container.innerHTML = "";
-    const message = document.createElement("p");
-    message.className = "product-empty";
-    message.textContent = t.empty;
-    container.appendChild(message);
-    return;
-  }
-
-  container.innerHTML = "";
-
-  productsData.forEach(product => {
-    const card = document.createElement("article");
-    card.className = "product-card";
-
-    if (product.image_url) {
-      const img = document.createElement("img");
-      img.src = product.image_url;
-      img.alt = product.name || "ALENOVA product";
-      img.loading = "lazy";
-      card.appendChild(img);
-    }
-
-    const info = document.createElement("div");
-    info.className = "product-info";
-
-    const name = document.createElement("h3");
-    name.textContent = product.name || "";
-    info.appendChild(name);
-
-    if (product.description) {
-      const description = document.createElement("p");
-      description.textContent = product.description;
-      info.appendChild(description);
-    }
-
-    const price = document.createElement("p");
-    price.className = "product-price";
-    price.textContent = t.retail + ": " +
-      formatPrice(product.retail_price,product.currency || "HTG");
-    info.appendChild(price);
-
-    const wholesale = document.createElement("p");
-    wholesale.className = "product-wholesale";
-    wholesale.textContent = t.wholesale;
-    info.appendChild(wholesale);
-
-    const order = document.createElement("a");
-    order.className = "btn product-order";
-    order.href = "https://wa.me/50934536541?text=" +
-      encodeURIComponent("Bonjou ALENOVA, mwen enterese nan pwodwi sa a: " + product.name);
-    order.target = "_blank";
-    order.rel = "noopener";
-    order.textContent = t.order;
-    info.appendChild(order);
-
-    card.appendChild(info);
-    container.appendChild(card);
-  });
-}
-
-async function loadProducts() {
-  const container = document.getElementById("product-list");
-  container.textContent = translations[currentLang].loading;
-
-  const {data,error} = await supabaseClient
-    .from("products")
-    .select("*")
-    .eq("active",true)
-    .order("created_at",{ascending:false});
-
-  if (error) {
-    console.error("Supabase products error:",error);
-    container.textContent = translations[currentLang].error;
-    return;
-  }
-
-  productsData = data || [];
-  renderProducts();
-}
-
-function calculate() {
-  const amount = Number(document.getElementById("amount").value);
-  const direction = document.getElementById("direction").value;
-
-  const received = document.getElementById("received");
-  const feeText = document.getElementById("fee");
-
-  if (!amount || amount < 50) {
-    received.textContent = "0.00 G";
-    feeText.textContent = translations[currentLang].fee + ": 0.00 G";
-    return;
-  }
-
-  const fee = amount * 0.075;
-  const result = (amount - fee) * rates[direction];
-
-  received.textContent = result.toFixed(2) + " G";
-  feeText.textContent =
-    translations[currentLang].fee + ": " + fee.toFixed(2) + " G";
-}
-
-function submitExchange(event) {
-  event.preventDefault();
-
-  const amount = Number(document.getElementById("amount").value);
-  const direction = document.getElementById("direction").value;
-  const customerPhone = document.getElementById("customerPhone").value.trim();
-  const receiverPhone = document.getElementById("receiverPhone").value.trim();
-
-  if (!amount || amount < 50) {
-    alert(translations[currentLang].invalid);
-    return;
-  }
-
-  const fee = amount * 0.075;
-  const received = (amount - fee) * rates[direction];
-  const t = translations[currentLang];
-
-  const directionText = direction === "mn"
-    ? t.directions[0]
-    : t.directions[1];
-
-  const message =
-    t.message + "\n\n" +
-    directionText + "\n" +
-    "Montan: " + amount.toFixed(2) + " G\n" +
-    t.fee + ": " + fee.toFixed(2) + " G\n" +
-    "Montan pou resevwa: " + received.toFixed(2) + " G\n" +
-    "Nimewo kliyan: " + customerPhone + "\n" +
-    "Nimewo reseptè: " + receiverPhone;
-
-  window.open(
-    "https://wa.me/50934536541?text=" + encodeURIComponent(message),
-    "_blank"
-  );
-}
-
-function setLang(lang) {
-  currentLang = lang;
-  document.documentElement.lang = lang;
-
-  document.querySelectorAll("[data-" + lang + "]").forEach(element => {
-    element.textContent = element.getAttribute("data-" + lang);
-  });
-
-  document.getElementById("welcomeText").textContent =
-    translations[lang].welcome;
-
-  ["ht","fr","en","es"].forEach(code => {
-    document.getElementById(code + "Btn").classList.toggle(
-      "active",code === lang
-    );
-  });
-
-  calculate();
-  renderProducts();
-}
-
-document.getElementById("year").textContent = new Date().getFullYear();
-
-setLang("ht");
-loadProducts();
-</script>
-</body>
-    </html>
-      
+   
