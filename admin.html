@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ht">
 <head>
@@ -7,17 +8,17 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 body{font-family:Arial,sans-serif;background:#f3f5f8;margin:0;padding:18px;color:#172033}
-main{max-width:700px;margin:auto}
+main{max-width:760px;margin:auto}
 section{background:white;padding:20px;border-radius:12px;margin:15px 0}
 input,select,textarea,button{width:100%;padding:13px;margin:8px 0;box-sizing:border-box;border:1px solid #ccc;border-radius:7px;font-size:16px}
 textarea{min-height:85px;resize:vertical}
 button{background:#087b55;color:white;border:0;font-weight:bold;cursor:pointer}
 button.secondary{background:#3566a8}
 button.danger{background:#b83232}
-.product,.service{border:1px solid #ddd;padding:12px;margin:12px 0;border-radius:8px}
-.product img{width:100%;max-height:220px;object-fit:contain}
+.item{border:1px solid #ddd;padding:12px;margin:12px 0;border-radius:8px}
+.item img{width:100%;max-height:230px;object-fit:contain}
 .hidden{display:none}
-.status{font-weight:bold}
+hr{margin:28px 0;border:0;border-top:1px solid #ddd}
 </style>
 </head>
 <body>
@@ -34,76 +35,98 @@ button.danger{background:#b83232}
 
 <section id="dashboard" class="hidden">
 
-<h2>Ajoute yon pwodwi</h2>
-
+<h2>Jesyon pwodwi</h2>
 <label>Non pwodwi a</label>
-<input id="name" placeholder="Ekri non pwodwi a">
+<input id="name" placeholder="Non pwodwi a">
 
 <label>Pri an detay</label>
-<input id="retail" type="number" min="0" step="0.01" placeholder="Pri an detay">
+<input id="retail" type="number" min="0" step="0.01">
 
-<label>Chwazi lajan an</label>
+<label>Lajan</label>
 <select id="currency">
-<option value="HTG">Goud ayisyen (HTG)</option>
-<option value="USD">Dola ameriken (USD)</option>
+<option value="HTG">HTG</option>
+<option value="USD">USD</option>
 </select>
 
 <label>Foto pwodwi a</label>
 <input id="photo" type="file" accept="image/*">
-
 <button onclick="addProduct()">Ajoute pwodwi</button>
 <p id="message"></p>
 
-<h2>Pwodwi yo</h2>
+<h3>Pwodwi yo</h3>
 <div id="products"></div>
 
 <hr>
 
-<h2>Ajoute yon sèvis</h2>
+<h2>Studio Créatif</h2>
+<p>Jere travay ou yo ak pakè sèvis ou yo.</p>
 
-<label>Non sèvis la</label>
-<input id="serviceName" placeholder="Egzanp: Konsepsyon logo">
+<h3>Ajoute yon reyalizasyon</h3>
+<label>Tit travay la</label>
+<input id="workTitle" placeholder="Egzanp: Logo ALENOVA">
 
-<label>Deskripsyon sèvis la</label>
-<textarea id="serviceDescription" placeholder="Dekri sèvis la..."></textarea>
-
-<label>Pri sèvis la (si genyen)</label>
-<input id="servicePrice" type="number" min="0" step="0.01" placeholder="Kite vid si pri a pa fiks">
-
-<label>Lajan</label>
-<select id="serviceCurrency">
-<option value="HTG">Goud ayisyen (HTG)</option>
-<option value="USD">Dola ameriken (USD)</option>
+<label>Kategori</label>
+<select id="workCategory">
+<option>Design Graphique</option>
+<option>Identité Visuelle & Branding</option>
+<option>Badges & Cartes</option>
+<option>Design pour Réseaux Sociaux</option>
+<option>Design Événementiel</option>
+<option>Marketing & Publicité</option>
+<option>Création Numérique</option>
 </select>
 
-<button onclick="addService()">Ajoute sèvis</button>
-<p id="serviceMessage"></p>
+<label>Deskripsyon</label>
+<textarea id="workDescription" placeholder="Dekri travay sa a..."></textarea>
 
-<h2>Sèvis yo</h2>
-<div id="services"></div>
+<label>Foto travay la</label>
+<input id="workPhoto" type="file" accept="image/*">
 
-<button onclick="logout()">Dekonekte</button>
+<button onclick="addWork()">Ajoute nan Nos Réalisations</button>
+<p id="workMessage"></p>
+
+<h3>Nos Réalisations</h3>
+<div id="portfolio"></div>
+
+<hr>
+
+<h3>Ajoute yon Pack</h3>
+<label>Non Pack la</label>
+<input id="packName" placeholder="Egzanp: Pack Identité Visuelle">
+
+<label>Deskripsyon Pack la</label>
+<textarea id="packDescription" placeholder="Dekri pakè a..."></textarea>
+
+<label>Sèvis ki ladan l</label>
+<textarea id="packServices" placeholder="Ekri chak sèvis sou yon liy apa"></textarea>
+
+<label>Foto Pack la (opsyonèl)</label>
+<input id="packPhoto" type="file" accept="image/*">
+
+<button onclick="addPack()">Ajoute Pack</button>
+<p id="packMessage"></p>
+
+<h3>Nos Packs</h3>
+<div id="packs"></div>
+
+<hr>
+<button class="danger" onclick="logout()">Dekonekte</button>
 </section>
 </main>
 
 <script>
-const SUPABASE_URL = "https://xnzwfnbyasbkjrjspfgc.supabase.co";
-const SUPABASE_KEY = "sb_publishable_lqjWc7srUJbH3x7MQiHXHA_o3AwqrUa";
+const SUPABASE_URL="https://xnzwfnbyasbkjrjspfgc.supabase.co";
+const SUPABASE_KEY="sb_publishable_lqjWc7srUJbH3x7MQiHXHA_o3AwqrUa";
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-const db = window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const BUCKET="product-images";
 
 async function login(){
  const email=document.getElementById("email").value.trim();
  const password=document.getElementById("password").value;
  const msg=document.getElementById("loginMsg");
-
  const {error}=await db.auth.signInWithPassword({email,password});
-
- if(error){
-  msg.textContent="Erè koneksyon: "+error.message;
-  return;
- }
-
+ if(error){msg.textContent="Erè koneksyon: "+error.message;return;}
  await checkAdmin();
 }
 
@@ -112,11 +135,9 @@ async function checkAdmin(){
  if(!user)return;
 
  const {data,error}=await db.from("admin_users")
- .select("user_id")
- .eq("user_id",user.id)
- .maybeSingle();
+ .select("user_id").eq("user_id",user.id).maybeSingle();
 
- if(error || !data){
+ if(error||!data){
   document.getElementById("loginMsg").textContent="Kont sa a pa gen dwa administratè.";
   await db.auth.signOut();
   return;
@@ -126,7 +147,17 @@ async function checkAdmin(){
  document.getElementById("dashboard").classList.remove("hidden");
 
  await loadProducts();
- await loadServices();
+ await loadPortfolio();
+ await loadPacks();
+}
+
+async function uploadImage(file){
+ const ext=file.name.split(".").pop().toLowerCase();
+ const path="studio-"+crypto.randomUUID()+"."+ext;
+ const {error}=await db.storage.from(BUCKET).upload(path,file);
+ if(error)throw error;
+ const {data}=db.storage.from(BUCKET).getPublicUrl(path);
+ return data.publicUrl;
 }
 
 /* PWODWI */
@@ -139,311 +170,270 @@ async function addProduct(){
  const file=document.getElementById("photo").files[0];
  const msg=document.getElementById("message");
 
- if(!name || retailInput==="" || !file){
-  msg.textContent="Tanpri ranpli tout chan yo epi chwazi yon foto.";
+ if(!name||retailInput===""||!file){
+  msg.textContent="Ranpli chan yo epi chwazi yon foto.";
   return;
  }
-
- if(retail<0){
-  msg.textContent="Pri a pa ka negatif.";
+ if(!Number.isFinite(retail)||retail<0){
+  msg.textContent="Pri a pa valab.";
   return;
  }
 
  msg.textContent="Ap ajoute pwodwi a...";
+ try{
+  const image_url=await uploadImage(file);
+  const {error}=await db.from("products").insert({
+   name,retail_price:retail,currency,image_url
+  });
+  if(error)throw error;
 
- const ext=file.name.split(".").pop().toLowerCase();
- const path=crypto.randomUUID()+"."+ext;
-
- const {error:uploadError}=await db.storage
- .from("product-images")
- .upload(path,file);
-
- if(uploadError){
-  msg.textContent="Pwoblèm ak foto a: "+uploadError.message;
-  return;
- }
-
- const {data:urlData}=db.storage
- .from("product-images")
- .getPublicUrl(path);
-
- const {error}=await db.from("products").insert({
-  name:name,
-  retail_price:retail,
-  currency:currency,
-  image_url:urlData.publicUrl
- });
-
- if(error){
-  msg.textContent="Pwoblèm pandan anrejistreman: "+error.message;
-  return;
- }
-
- msg.textContent="Pwodwi a ajoute avèk siksè!";
-
- document.getElementById("name").value="";
- document.getElementById("retail").value="";
- document.getElementById("photo").value="";
- document.getElementById("currency").value="HTG";
-
- await loadProducts();
+  msg.textContent="Pwodwi a ajoute avèk siksè!";
+  document.getElementById("name").value="";
+  document.getElementById("retail").value="";
+  document.getElementById("photo").value="";
+  document.getElementById("currency").value="HTG";
+  await loadProducts();
+ }catch(error){msg.textContent="Erè: "+error.message;}
 }
 
 async function loadProducts(){
  const area=document.getElementById("products");
- area.textContent="Ap chaje pwodwi yo...";
-
- const {data,error}=await db.from("products")
- .select("*")
- .order("id",{ascending:false});
-
- if(error){
-  area.textContent="Erè: "+error.message;
-  return;
- }
-
+ area.textContent="Ap chaje...";
+ const {data,error}=await db.from("products").select("*").order("id",{ascending:false});
+ if(error){area.textContent="Erè: "+error.message;return;}
  area.innerHTML="";
-
- if(!data || data.length===0){
-  area.textContent="Pa gen pwodwi pou kounye a.";
-  return;
- }
+ if(!data||!data.length){area.textContent="Pa gen pwodwi.";return;}
 
  data.forEach(p=>{
   const div=document.createElement("div");
-  div.className="product";
-
+  div.className="item";
   if(p.image_url){
    const img=document.createElement("img");
-   img.src=p.image_url;
-   img.alt=p.name;
-   div.appendChild(img);
+   img.src=p.image_url;img.alt=p.name;div.appendChild(img);
   }
-
   const title=document.createElement("h3");
   title.textContent=p.name;
-
   const price=document.createElement("p");
-  const symbol=p.currency==="USD"?"USD":"HTG";
-  price.textContent="Pri an detay: "+p.retail_price+" "+symbol;
-
+  price.textContent="Pri an detay: "+p.retail_price+" "+(p.currency||"HTG");
   const del=document.createElement("button");
-  del.className="danger";
-  del.textContent="Efase pwodwi";
+  del.className="danger";del.textContent="Efase pwodwi";
   del.onclick=()=>deleteProduct(p.id);
-
-  div.append(title,price,del);
-  area.appendChild(div);
+  div.append(title,price,del);area.appendChild(div);
  });
 }
 
 async function deleteProduct(id){
- if(!confirm("Èske ou vle efase pwodwi sa a?"))return;
-
- const {error}=await db.from("products")
- .delete()
- .eq("id",id);
-
- if(error){
-  alert("Erè: "+error.message);
-  return;
- }
-
+ if(!confirm("Efase pwodwi sa a?"))return;
+ const {error}=await db.from("products").delete().eq("id",id);
+ if(error){alert(error.message);return;}
  await loadProducts();
 }
 
-/* SEVIS */
+/* NOS REALISATIONS */
 
-async function addService(){
- const name=document.getElementById("serviceName").value.trim();
- const description=document.getElementById("serviceDescription").value.trim();
- const priceInput=document.getElementById("servicePrice").value;
- const currency=document.getElementById("serviceCurrency").value;
- const msg=document.getElementById("serviceMessage");
+async function addWork(){
+ const title=document.getElementById("workTitle").value.trim();
+ const category=document.getElementById("workCategory").value;
+ const description=document.getElementById("workDescription").value.trim();
+ const file=document.getElementById("workPhoto").files[0];
+ const msg=document.getElementById("workMessage");
 
- if(!name){
-  msg.textContent="Tanpri antre non sèvis la.";
+ if(!title||!file){
+  msg.textContent="Antre tit travay la epi chwazi yon foto.";
   return;
  }
 
- if(priceInput!=="" && Number(priceInput)<0){
-  msg.textContent="Pri a pa ka negatif.";
-  return;
- }
+ msg.textContent="Ap ajoute travay la...";
+ try{
+  const image_url=await uploadImage(file);
+  const {error}=await db.from("design_portfolio").insert({
+   title,category,description:description||null,image_url,active:true
+  });
+  if(error)throw error;
 
- const price=priceInput===""?null:Number(priceInput);
-
- msg.textContent="Ap anrejistre sèvis la...";
-
- const {error}=await db.from("services").insert({
-  name:name,
-  description:description || null,
-  price:price,
-  currency:currency,
-  active:true
- });
-
- if(error){
-  msg.textContent="Erè: "+error.message;
-  return;
- }
-
- msg.textContent="Sèvis la ajoute avèk siksè!";
-
- document.getElementById("serviceName").value="";
- document.getElementById("serviceDescription").value="";
- document.getElementById("servicePrice").value="";
- document.getElementById("serviceCurrency").value="HTG";
-
- await loadServices();
+  msg.textContent="Travay la ajoute avèk siksè!";
+  document.getElementById("workTitle").value="";
+  document.getElementById("workDescription").value="";
+  document.getElementById("workPhoto").value="";
+  await loadPortfolio();
+ }catch(error){msg.textContent="Erè: "+error.message;}
 }
 
-async function loadServices(){
- const area=document.getElementById("services");
- area.textContent="Ap chaje sèvis yo...";
-
- const {data,error}=await db.from("services")
- .select("*")
- .order("id",{ascending:false});
-
- if(error){
-  area.textContent="Erè: "+error.message;
-  return;
- }
-
+async function loadPortfolio(){
+ const area=document.getElementById("portfolio");
+ area.textContent="Ap chaje...";
+ const {data,error}=await db.from("design_portfolio").select("*").order("id",{ascending:false});
+ if(error){area.textContent="Erè: "+error.message;return;}
  area.innerHTML="";
+ if(!data||!data.length){area.textContent="Pa gen reyalizasyon pou kounye a.";return;}
 
- if(!data || data.length===0){
-  area.textContent="Pa gen sèvis pou kounye a.";
-  return;
- }
-
- data.forEach(s=>{
-  const div=document.createElement("div");
-  div.className="service";
-
-  const title=document.createElement("h3");
-  title.textContent=s.name;
-
-  const description=document.createElement("p");
-  description.textContent=s.description || "Pa gen deskripsyon.";
-
-  const price=document.createElement("p");
-  if(s.price===null){
-   price.textContent="Pri: Kontakte nou";
-  }else{
-   price.textContent="Pri: "+s.price+" "+(s.currency || "HTG");
-  }
-
-  const status=document.createElement("p");
-  status.className="status";
-  status.textContent=s.active?"Estati: Aktif":"Estati: Dezaktive";
+ data.forEach(w=>{
+  const div=document.createElement("div");div.className="item";
+  const img=document.createElement("img");img.src=w.image_url;img.alt=w.title;
+  const title=document.createElement("h3");title.textContent=w.title;
+  const cat=document.createElement("p");cat.textContent="Kategori: "+w.category;
+  const desc=document.createElement("p");desc.textContent=w.description||"";
+  const status=document.createElement("p");status.textContent=w.active?"Estati: Aktif":"Estati: Dezaktive";
 
   const edit=document.createElement("button");
-  edit.className="secondary";
-  edit.textContent="Modifye";
-  edit.onclick=()=>editService(s);
+  edit.className="secondary";edit.textContent="Modifye";
+  edit.onclick=()=>editWork(w);
 
   const toggle=document.createElement("button");
-  toggle.textContent=s.active?"Dezaktive":"Aktive";
-  toggle.className="secondary";
-  toggle.onclick=()=>toggleService(s);
+  toggle.className="secondary";toggle.textContent=w.active?"Dezaktive":"Aktive";
+  toggle.onclick=()=>toggleItem("design_portfolio",w.id,w.active,loadPortfolio);
 
   const del=document.createElement("button");
-  del.className="danger";
-  del.textContent="Efase sèvis";
-  del.onclick=()=>deleteService(s.id);
+  del.className="danger";del.textContent="Efase";
+  del.onclick=()=>deleteItem("design_portfolio",w.id,loadPortfolio);
 
-  div.append(title,description,price,status,edit,toggle,del);
+  div.append(img,title,cat,desc,status,edit,toggle,del);
   area.appendChild(div);
  });
 }
 
-async function editService(service){
- const name=prompt("Nouvo non sèvis la:",service.name);
- if(name===null)return;
+async function editWork(w){
+ const title=prompt("Tit travay la:",w.title);
+ if(title===null)return;
+ if(!title.trim()){alert("Tit la obligatwa.");return;}
 
- if(!name.trim()){
-  alert("Non sèvis la obligatwa.");
-  return;
- }
-
- const description=prompt(
-  "Nouvo deskripsyon sèvis la:",
-  service.description || ""
- );
+ const description=prompt("Deskripsyon:",w.description||"");
  if(description===null)return;
 
- const oldPrice=service.price===null?"":String(service.price);
- const priceInput=prompt(
-  "Nouvo pri a. Kite vid si pa gen pri fiks:",
-  oldPrice
- );
- if(priceInput===null)return;
-
- if(priceInput.trim()!=="" && 
-   (!Number.isFinite(Number(priceInput)) || Number(priceInput)<0)){
-  alert("Pri a pa valab.");
-  return;
+ const categories=[
+ "Design Graphique",
+ "Identité Visuelle & Branding",
+ "Badges & Cartes",
+ "Design pour Réseaux Sociaux",
+ "Design Événementiel",
+ "Marketing & Publicité",
+ "Création Numérique"
+ ];
+ const category=prompt("Kategori egzak:\n"+categories.join("\n"),w.category);
+ if(category===null)return;
+ if(!categories.includes(category.trim())){
+  alert("Kategori sa a pa nan lis la.");return;
  }
 
- const currency=prompt(
-  "Ekri HTG oswa USD:",
-  service.currency || "HTG"
- );
- if(currency===null)return;
+ const {error}=await db.from("design_portfolio").update({
+  title:title.trim(),description:description.trim()||null,category:category.trim()
+ }).eq("id",w.id);
 
- const cleanCurrency=currency.trim().toUpperCase();
-
- if(cleanCurrency!=="HTG" && cleanCurrency!=="USD"){
-  alert("Ou dwe antre HTG oswa USD.");
-  return;
- }
-
- const {error}=await db.from("services")
- .update({
-  name:name.trim(),
-  description:description.trim() || null,
-  price:priceInput.trim()===""?null:Number(priceInput),
-  currency:cleanCurrency
- })
- .eq("id",service.id);
-
- if(error){
-  alert("Erè pandan modifikasyon: "+error.message);
-  return;
- }
-
- alert("Sèvis la modifye avèk siksè!");
- await loadServices();
+ if(error){alert("Erè: "+error.message);return;}
+ await loadPortfolio();
 }
 
-async function toggleService(service){
- const {error}=await db.from("services")
- .update({active:!service.active})
- .eq("id",service.id);
+/* NOS PACKS */
 
- if(error){
-  alert("Erè: "+error.message);
+async function addPack(){
+ const name=document.getElementById("packName").value.trim();
+ const description=document.getElementById("packDescription").value.trim();
+ const servicesText=document.getElementById("packServices").value;
+ const file=document.getElementById("packPhoto").files[0];
+ const msg=document.getElementById("packMessage");
+
+ if(!name){
+  msg.textContent="Antre non Pack la.";
   return;
  }
 
- await loadServices();
+ msg.textContent="Ap ajoute Pack la...";
+ try{
+  let image_url=null;
+  if(file)image_url=await uploadImage(file);
+
+  const included_services=servicesText.split("\n")
+   .map(s=>s.trim()).filter(Boolean);
+
+  const {error}=await db.from("design_packs").insert({
+   name,description:description||null,included_services,image_url,active:true
+  });
+  if(error)throw error;
+
+  msg.textContent="Pack la ajoute avèk siksè!";
+  document.getElementById("packName").value="";
+  document.getElementById("packDescription").value="";
+  document.getElementById("packServices").value="";
+  document.getElementById("packPhoto").value="";
+  await loadPacks();
+ }catch(error){msg.textContent="Erè: "+error.message;}
 }
 
-async function deleteService(id){
- if(!confirm("Èske ou vle efase sèvis sa a definitivman?"))return;
+async function loadPacks(){
+ const area=document.getElementById("packs");
+ area.textContent="Ap chaje...";
+ const {data,error}=await db.from("design_packs").select("*").order("id",{ascending:false});
+ if(error){area.textContent="Erè: "+error.message;return;}
+ area.innerHTML="";
+ if(!data||!data.length){area.textContent="Pa gen Pack pou kounye a.";return;}
 
- const {error}=await db.from("services")
- .delete()
- .eq("id",id);
+ data.forEach(p=>{
+  const div=document.createElement("div");div.className="item";
+  if(p.image_url){
+   const img=document.createElement("img");img.src=p.image_url;img.alt=p.name;div.appendChild(img);
+  }
+  const title=document.createElement("h3");title.textContent=p.name;
+  const desc=document.createElement("p");desc.textContent=p.description||"";
+  const list=document.createElement("ul");
+  (p.included_services||[]).forEach(s=>{
+   const li=document.createElement("li");li.textContent=s;list.appendChild(li);
+  });
+  const status=document.createElement("p");status.textContent=p.active?"Estati: Aktif":"Estati: Dezaktive";
 
- if(error){
-  alert("Erè: "+error.message);
-  return;
- }
+  const edit=document.createElement("button");
+  edit.className="secondary";edit.textContent="Modifye";
+  edit.onclick=()=>editPack(p);
 
- await loadServices();
+  const toggle=document.createElement("button");
+  toggle.className="secondary";toggle.textContent=p.active?"Dezaktive":"Aktive";
+  toggle.onclick=()=>toggleItem("design_packs",p.id,p.active,loadPacks);
+
+  const del=document.createElement("button");
+  del.className="danger";del.textContent="Efase";
+  del.onclick=()=>deleteItem("design_packs",p.id,loadPacks);
+
+  div.append(title,desc,list,status,edit,toggle,del);
+  area.appendChild(div);
+ });
+}
+
+async function editPack(p){
+ const name=prompt("Non Pack la:",p.name);
+ if(name===null)return;
+ if(!name.trim()){alert("Non Pack la obligatwa.");return;}
+
+ const description=prompt("Deskripsyon:",p.description||"");
+ if(description===null)return;
+
+ const services=prompt(
+  "Sèvis ki ladan l, separe yo ak vigil:",
+  (p.included_services||[]).join(", ")
+ );
+ if(services===null)return;
+
+ const included_services=services.split(",").map(s=>s.trim()).filter(Boolean);
+
+ const {error}=await db.from("design_packs").update({
+  name:name.trim(),description:description.trim()||null,included_services
+ }).eq("id",p.id);
+
+ if(error){alert("Erè: "+error.message);return;}
+ await loadPacks();
+}
+
+/* AKTIVE, DEZAKTIVE, EFASE */
+
+async function toggleItem(table,id,current,refresh){
+ const {error}=await db.from(table).update({active:!current}).eq("id",id);
+ if(error){alert("Erè: "+error.message);return;}
+ await refresh();
+}
+
+async function deleteItem(table,id,refresh){
+ if(!confirm("Èske ou vle efase eleman sa a definitivman?"))return;
+ const {error}=await db.from(table).delete().eq("id",id);
+ if(error){alert("Erè: "+error.message);return;}
+ await refresh();
 }
 
 async function logout(){
@@ -457,4 +447,3 @@ db.auth.getSession().then(({data})=>{
 </script>
 </body>
 </html>
-
