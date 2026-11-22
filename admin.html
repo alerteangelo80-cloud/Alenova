@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ht">
 <head>
@@ -6,9 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ALENOVA Admin</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 body{font-family:Arial,sans-serif;background:#f3f5f8;margin:0;padding:18px;color:#172033}
-main{max-width:760px;margin:auto}
+main{max-width:850px;margin:auto}
 section{background:white;padding:20px;border-radius:12px;margin:15px 0}
 input,select,textarea,button{width:100%;padding:13px;margin:8px 0;box-sizing:border-box;border:1px solid #ccc;border-radius:7px;font-size:16px}
 textarea{min-height:85px;resize:vertical}
@@ -16,11 +16,23 @@ button{background:#087b55;color:white;border:0;font-weight:bold;cursor:pointer}
 button.secondary{background:#3566a8}
 button.danger{background:#b83232}
 .item{border:1px solid #ddd;padding:12px;margin:12px 0;border-radius:8px}
-.item img{width:100%;max-height:230px;object-fit:contain}
+.item img{width:100%;max-height:260px;object-fit:contain;background:#f5f5f5}
 .hidden{display:none}
 hr{margin:28px 0;border:0;border-top:1px solid #ddd}
+.flyer-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.flyer-item{border:1px solid #ddd;border-radius:8px;padding:8px;min-width:0}
+.flyer-item img{width:100%;height:180px;object-fit:contain;background:#f5f5f5}
+.flyer-item button{padding:10px;font-size:14px}
+.message{font-size:14px;line-height:1.5}
+@media(max-width:600px){
+ body{padding:10px}
+ section{padding:14px}
+ .flyer-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .flyer-item img{height:145px}
+}
 </style>
 </head>
+
 <body>
 <main>
 <h1>ALENOVA | Administrasyon</h1>
@@ -30,31 +42,22 @@ hr{margin:28px 0;border:0;border-top:1px solid #ddd}
 <input id="email" type="email" placeholder="Imèl administratè">
 <input id="password" type="password" placeholder="Modpas">
 <button onclick="login()">Konekte</button>
-<p id="loginMsg"></p>
+<p id="loginMsg" class="message"></p>
 </section>
 
 <section id="dashboard" class="hidden">
 
-<h2>Jesyon pwodwi</h2>
-<label>Non pwodwi a</label>
-<input id="name" placeholder="Non pwodwi a">
+<h2>Jesyon flyer pwodwi fizik</h2>
+<p>Ajoute flyer pwodwi ou yo. Ou ka ajoute anpil flyer epi efase chak flyer apa.</p>
 
-<label>Pri an detay</label>
-<input id="retail" type="number" min="0" step="0.01">
+<label>Chwazi flyer la</label>
+<input id="flyerPhoto" type="file" accept="image/*">
 
-<label>Lajan</label>
-<select id="currency">
-<option value="HTG">HTG</option>
-<option value="USD">USD</option>
-</select>
+<button onclick="addFlyer()">Ajoute flyer</button>
+<p id="flyerMessage" class="message"></p>
 
-<label>Foto pwodwi a</label>
-<input id="photo" type="file" accept="image/*">
-<button onclick="addProduct()">Ajoute pwodwi</button>
-<p id="message"></p>
-
-<h3>Pwodwi yo</h3>
-<div id="products"></div>
+<h3>Flyer ki deja ajoute yo</h3>
+<div id="flyers" class="flyer-grid"></div>
 
 <hr>
 
@@ -62,6 +65,7 @@ hr{margin:28px 0;border:0;border-top:1px solid #ddd}
 <p>Jere travay ou yo ak pakè sèvis ou yo.</p>
 
 <h3>Ajoute yon reyalizasyon</h3>
+
 <label>Tit travay la</label>
 <input id="workTitle" placeholder="Egzanp: Logo ALENOVA">
 
@@ -83,7 +87,7 @@ hr{margin:28px 0;border:0;border-top:1px solid #ddd}
 <input id="workPhoto" type="file" accept="image/*">
 
 <button onclick="addWork()">Ajoute nan Nos Réalisations</button>
-<p id="workMessage"></p>
+<p id="workMessage" class="message"></p>
 
 <h3>Nos Réalisations</h3>
 <div id="portfolio"></div>
@@ -91,6 +95,7 @@ hr{margin:28px 0;border:0;border-top:1px solid #ddd}
 <hr>
 
 <h3>Ajoute yon Pack</h3>
+
 <label>Non Pack la</label>
 <input id="packName" placeholder="Egzanp: Pack Identité Visuelle">
 
@@ -104,7 +109,7 @@ hr{margin:28px 0;border:0;border-top:1px solid #ddd}
 <input id="packPhoto" type="file" accept="image/*">
 
 <button onclick="addPack()">Ajoute Pack</button>
-<p id="packMessage"></p>
+<p id="packMessage" class="message"></p>
 
 <h3>Nos Packs</h3>
 <div id="packs"></div>
@@ -118,15 +123,24 @@ hr{margin:28px 0;border:0;border-top:1px solid #ddd}
 const SUPABASE_URL="https://xnzwfnbyasbkjrjspfgc.supabase.co";
 const SUPABASE_KEY="sb_publishable_lqjWc7srUJbH3x7MQiHXHA_o3AwqrUa";
 const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-
 const BUCKET="product-images";
+
+/* KONEKSYON ADMIN */
 
 async function login(){
  const email=document.getElementById("email").value.trim();
  const password=document.getElementById("password").value;
  const msg=document.getElementById("loginMsg");
+
+ msg.textContent="Ap konekte...";
+
  const {error}=await db.auth.signInWithPassword({email,password});
- if(error){msg.textContent="Erè koneksyon: "+error.message;return;}
+
+ if(error){
+  msg.textContent="Erè koneksyon: "+error.message;
+  return;
+ }
+
  await checkAdmin();
 }
 
@@ -135,7 +149,9 @@ async function checkAdmin(){
  if(!user)return;
 
  const {data,error}=await db.from("admin_users")
- .select("user_id").eq("user_id",user.id).maybeSingle();
+ .select("user_id")
+ .eq("user_id",user.id)
+ .maybeSingle();
 
  if(error||!data){
   document.getElementById("loginMsg").textContent="Kont sa a pa gen dwa administratè.";
@@ -146,87 +162,128 @@ async function checkAdmin(){
  document.getElementById("login").classList.add("hidden");
  document.getElementById("dashboard").classList.remove("hidden");
 
- await loadProducts();
+ await loadFlyers();
  await loadPortfolio();
  await loadPacks();
 }
 
+/* TELECHAJE FOTO */
+
 async function uploadImage(file){
  const ext=file.name.split(".").pop().toLowerCase();
- const path="studio-"+crypto.randomUUID()+"."+ext;
+ const path="alenova-"+crypto.randomUUID()+"."+ext;
+
  const {error}=await db.storage.from(BUCKET).upload(path,file);
+
  if(error)throw error;
+
  const {data}=db.storage.from(BUCKET).getPublicUrl(path);
- return data.publicUrl;
+ return {url:data.publicUrl,path};
 }
 
-/* PWODWI */
+/* FLYER PWODWI FIZIK */
 
-async function addProduct(){
- const name=document.getElementById("name").value.trim();
- const retailInput=document.getElementById("retail").value;
- const retail=Number(retailInput);
- const currency=document.getElementById("currency").value;
- const file=document.getElementById("photo").files[0];
- const msg=document.getElementById("message");
+async function addFlyer(){
+ const file=document.getElementById("flyerPhoto").files[0];
+ const msg=document.getElementById("flyerMessage");
 
- if(!name||retailInput===""||!file){
-  msg.textContent="Ranpli chan yo epi chwazi yon foto.";
-  return;
- }
- if(!Number.isFinite(retail)||retail<0){
-  msg.textContent="Pri a pa valab.";
+ if(!file){
+  msg.textContent="Tanpri chwazi yon flyer.";
   return;
  }
 
- msg.textContent="Ap ajoute pwodwi a...";
+ if(!file.type.startsWith("image/")){
+  msg.textContent="Fichye a dwe yon imaj.";
+  return;
+ }
+
+ msg.textContent="Ap ajoute flyer la...";
+
  try{
-  const image_url=await uploadImage(file);
-  const {error}=await db.from("products").insert({
-   name,retail_price:retail,currency,image_url
-  });
-  if(error)throw error;
+  const uploaded=await uploadImage(file);
 
-  msg.textContent="Pwodwi a ajoute avèk siksè!";
-  document.getElementById("name").value="";
-  document.getElementById("retail").value="";
-  document.getElementById("photo").value="";
-  document.getElementById("currency").value="HTG";
-  await loadProducts();
- }catch(error){msg.textContent="Erè: "+error.message;}
+  const {error}=await db.from("product_flyers").insert({
+   image_url:uploaded.url,
+   storage_path:uploaded.path,
+   active:true
+  });
+
+  if(error){
+   await db.storage.from(BUCKET).remove([uploaded.path]);
+   throw error;
+  }
+
+  msg.textContent="Flyer la ajoute avèk siksè!";
+  document.getElementById("flyerPhoto").value="";
+
+  await loadFlyers();
+
+ }catch(error){
+  msg.textContent="Erè: "+error.message;
+ }
 }
 
-async function loadProducts(){
- const area=document.getElementById("products");
- area.textContent="Ap chaje...";
- const {data,error}=await db.from("products").select("*").order("id",{ascending:false});
- if(error){area.textContent="Erè: "+error.message;return;}
- area.innerHTML="";
- if(!data||!data.length){area.textContent="Pa gen pwodwi.";return;}
+async function loadFlyers(){
+ const area=document.getElementById("flyers");
+ area.textContent="Ap chaje flyer yo...";
 
- data.forEach(p=>{
+ const {data,error}=await db.from("product_flyers")
+ .select("*")
+ .order("id",{ascending:true});
+
+ if(error){
+  area.textContent="Erè: "+error.message;
+  return;
+ }
+
+ area.innerHTML="";
+
+ if(!data||!data.length){
+  area.textContent="Pa gen flyer pou kounye a.";
+  return;
+ }
+
+ data.forEach(f=>{
   const div=document.createElement("div");
-  div.className="item";
-  if(p.image_url){
-   const img=document.createElement("img");
-   img.src=p.image_url;img.alt=p.name;div.appendChild(img);
-  }
-  const title=document.createElement("h3");
-  title.textContent=p.name;
-  const price=document.createElement("p");
-  price.textContent="Pri an detay: "+p.retail_price+" "+(p.currency||"HTG");
+  div.className="flyer-item";
+
+  const img=document.createElement("img");
+  img.src=f.image_url;
+  img.alt="Flyer pwodwi ALENOVA";
+
   const del=document.createElement("button");
-  del.className="danger";del.textContent="Efase pwodwi";
-  del.onclick=()=>deleteProduct(p.id);
-  div.append(title,price,del);area.appendChild(div);
+  del.className="danger";
+  del.textContent="Efase flyer";
+  del.onclick=()=>deleteFlyer(f);
+
+  div.append(img,del);
+  area.appendChild(div);
  });
 }
 
-async function deleteProduct(id){
- if(!confirm("Efase pwodwi sa a?"))return;
- const {error}=await db.from("products").delete().eq("id",id);
- if(error){alert(error.message);return;}
- await loadProducts();
+async function deleteFlyer(f){
+ if(!confirm("Èske ou sèten ou vle efase flyer sa a?"))return;
+
+ const {error}=await db.from("product_flyers")
+ .delete()
+ .eq("id",f.id);
+
+ if(error){
+  alert("Erè pandan efasman: "+error.message);
+  return;
+ }
+
+ if(f.storage_path){
+  const {error:storageError}=await db.storage
+  .from(BUCKET)
+  .remove([f.storage_path]);
+
+  if(storageError){
+   alert("Flyer la retire nan lis la, men foto a rete nan Storage.");
+  }
+ }
+
+ await loadFlyers();
 }
 
 /* NOS REALISATIONS */
@@ -244,47 +301,85 @@ async function addWork(){
  }
 
  msg.textContent="Ap ajoute travay la...";
+
  try{
-  const image_url=await uploadImage(file);
+  const uploaded=await uploadImage(file);
+
   const {error}=await db.from("design_portfolio").insert({
-   title,category,description:description||null,image_url,active:true
+   title,
+   category,
+   description:description||null,
+   image_url:uploaded.url,
+   active:true
   });
+
   if(error)throw error;
 
   msg.textContent="Travay la ajoute avèk siksè!";
   document.getElementById("workTitle").value="";
   document.getElementById("workDescription").value="";
   document.getElementById("workPhoto").value="";
+
   await loadPortfolio();
- }catch(error){msg.textContent="Erè: "+error.message;}
+
+ }catch(error){
+  msg.textContent="Erè: "+error.message;
+ }
 }
 
 async function loadPortfolio(){
  const area=document.getElementById("portfolio");
  area.textContent="Ap chaje...";
- const {data,error}=await db.from("design_portfolio").select("*").order("id",{ascending:false});
- if(error){area.textContent="Erè: "+error.message;return;}
+
+ const {data,error}=await db.from("design_portfolio")
+ .select("*")
+ .order("id",{ascending:false});
+
+ if(error){
+  area.textContent="Erè: "+error.message;
+  return;
+ }
+
  area.innerHTML="";
- if(!data||!data.length){area.textContent="Pa gen reyalizasyon pou kounye a.";return;}
+
+ if(!data||!data.length){
+  area.textContent="Pa gen reyalizasyon pou kounye a.";
+  return;
+ }
 
  data.forEach(w=>{
-  const div=document.createElement("div");div.className="item";
-  const img=document.createElement("img");img.src=w.image_url;img.alt=w.title;
-  const title=document.createElement("h3");title.textContent=w.title;
-  const cat=document.createElement("p");cat.textContent="Kategori: "+w.category;
-  const desc=document.createElement("p");desc.textContent=w.description||"";
-  const status=document.createElement("p");status.textContent=w.active?"Estati: Aktif":"Estati: Dezaktive";
+  const div=document.createElement("div");
+  div.className="item";
+
+  const img=document.createElement("img");
+  img.src=w.image_url;
+  img.alt=w.title;
+
+  const title=document.createElement("h3");
+  title.textContent=w.title;
+
+  const cat=document.createElement("p");
+  cat.textContent="Kategori: "+w.category;
+
+  const desc=document.createElement("p");
+  desc.textContent=w.description||"";
+
+  const status=document.createElement("p");
+  status.textContent=w.active?"Estati: Aktif":"Estati: Dezaktive";
 
   const edit=document.createElement("button");
-  edit.className="secondary";edit.textContent="Modifye";
+  edit.className="secondary";
+  edit.textContent="Modifye";
   edit.onclick=()=>editWork(w);
 
   const toggle=document.createElement("button");
-  toggle.className="secondary";toggle.textContent=w.active?"Dezaktive":"Aktive";
+  toggle.className="secondary";
+  toggle.textContent=w.active?"Dezaktive":"Aktive";
   toggle.onclick=()=>toggleItem("design_portfolio",w.id,w.active,loadPortfolio);
 
   const del=document.createElement("button");
-  del.className="danger";del.textContent="Efase";
+  del.className="danger";
+  del.textContent="Efase";
   del.onclick=()=>deleteItem("design_portfolio",w.id,loadPortfolio);
 
   div.append(img,title,cat,desc,status,edit,toggle,del);
@@ -295,31 +390,43 @@ async function loadPortfolio(){
 async function editWork(w){
  const title=prompt("Tit travay la:",w.title);
  if(title===null)return;
- if(!title.trim()){alert("Tit la obligatwa.");return;}
+ if(!title.trim()){
+  alert("Tit la obligatwa.");
+  return;
+ }
 
  const description=prompt("Deskripsyon:",w.description||"");
  if(description===null)return;
 
  const categories=[
- "Design Graphique",
- "Identité Visuelle & Branding",
- "Badges & Cartes",
- "Design pour Réseaux Sociaux",
- "Design Événementiel",
- "Marketing & Publicité",
- "Création Numérique"
+  "Design Graphique",
+  "Identité Visuelle & Branding",
+  "Badges & Cartes",
+  "Design pour Réseaux Sociaux",
+  "Design Événementiel",
+  "Marketing & Publicité",
+  "Création Numérique"
  ];
+
  const category=prompt("Kategori egzak:\n"+categories.join("\n"),w.category);
  if(category===null)return;
+
  if(!categories.includes(category.trim())){
-  alert("Kategori sa a pa nan lis la.");return;
+  alert("Kategori sa a pa nan lis la.");
+  return;
  }
 
  const {error}=await db.from("design_portfolio").update({
-  title:title.trim(),description:description.trim()||null,category:category.trim()
+  title:title.trim(),
+  description:description.trim()||null,
+  category:category.trim()
  }).eq("id",w.id);
 
- if(error){alert("Erè: "+error.message);return;}
+ if(error){
+  alert("Erè: "+error.message);
+  return;
+ }
+
  await loadPortfolio();
 }
 
@@ -338,16 +445,27 @@ async function addPack(){
  }
 
  msg.textContent="Ap ajoute Pack la...";
+
  try{
   let image_url=null;
-  if(file)image_url=await uploadImage(file);
+
+  if(file){
+   const uploaded=await uploadImage(file);
+   image_url=uploaded.url;
+  }
 
   const included_services=servicesText.split("\n")
-   .map(s=>s.trim()).filter(Boolean);
+  .map(s=>s.trim())
+  .filter(Boolean);
 
   const {error}=await db.from("design_packs").insert({
-   name,description:description||null,included_services,image_url,active:true
+   name,
+   description:description||null,
+   included_services,
+   image_url,
+   active:true
   });
+
   if(error)throw error;
 
   msg.textContent="Pack la ajoute avèk siksè!";
@@ -355,41 +473,75 @@ async function addPack(){
   document.getElementById("packDescription").value="";
   document.getElementById("packServices").value="";
   document.getElementById("packPhoto").value="";
+
   await loadPacks();
- }catch(error){msg.textContent="Erè: "+error.message;}
+
+ }catch(error){
+  msg.textContent="Erè: "+error.message;
+ }
 }
 
 async function loadPacks(){
  const area=document.getElementById("packs");
  area.textContent="Ap chaje...";
- const {data,error}=await db.from("design_packs").select("*").order("id",{ascending:false});
- if(error){area.textContent="Erè: "+error.message;return;}
+
+ const {data,error}=await db.from("design_packs")
+ .select("*")
+ .order("id",{ascending:false});
+
+ if(error){
+  area.textContent="Erè: "+error.message;
+  return;
+ }
+
  area.innerHTML="";
- if(!data||!data.length){area.textContent="Pa gen Pack pou kounye a.";return;}
+
+ if(!data||!data.length){
+  area.textContent="Pa gen Pack pou kounye a.";
+  return;
+ }
 
  data.forEach(p=>{
-  const div=document.createElement("div");div.className="item";
+  const div=document.createElement("div");
+  div.className="item";
+
   if(p.image_url){
-   const img=document.createElement("img");img.src=p.image_url;img.alt=p.name;div.appendChild(img);
+   const img=document.createElement("img");
+   img.src=p.image_url;
+   img.alt=p.name;
+   div.appendChild(img);
   }
-  const title=document.createElement("h3");title.textContent=p.name;
-  const desc=document.createElement("p");desc.textContent=p.description||"";
+
+  const title=document.createElement("h3");
+  title.textContent=p.name;
+
+  const desc=document.createElement("p");
+  desc.textContent=p.description||"";
+
   const list=document.createElement("ul");
+
   (p.included_services||[]).forEach(s=>{
-   const li=document.createElement("li");li.textContent=s;list.appendChild(li);
+   const li=document.createElement("li");
+   li.textContent=s;
+   list.appendChild(li);
   });
-  const status=document.createElement("p");status.textContent=p.active?"Estati: Aktif":"Estati: Dezaktive";
+
+  const status=document.createElement("p");
+  status.textContent=p.active?"Estati: Aktif":"Estati: Dezaktive";
 
   const edit=document.createElement("button");
-  edit.className="secondary";edit.textContent="Modifye";
+  edit.className="secondary";
+  edit.textContent="Modifye";
   edit.onclick=()=>editPack(p);
 
   const toggle=document.createElement("button");
-  toggle.className="secondary";toggle.textContent=p.active?"Dezaktive":"Aktive";
+  toggle.className="secondary";
+  toggle.textContent=p.active?"Dezaktive":"Aktive";
   toggle.onclick=()=>toggleItem("design_packs",p.id,p.active,loadPacks);
 
   const del=document.createElement("button");
-  del.className="danger";del.textContent="Efase";
+  del.className="danger";
+  del.textContent="Efase";
   del.onclick=()=>deleteItem("design_packs",p.id,loadPacks);
 
   div.append(title,desc,list,status,edit,toggle,del);
@@ -400,7 +552,11 @@ async function loadPacks(){
 async function editPack(p){
  const name=prompt("Non Pack la:",p.name);
  if(name===null)return;
- if(!name.trim()){alert("Non Pack la obligatwa.");return;}
+
+ if(!name.trim()){
+  alert("Non Pack la obligatwa.");
+  return;
+ }
 
  const description=prompt("Deskripsyon:",p.description||"");
  if(description===null)return;
@@ -409,32 +565,58 @@ async function editPack(p){
   "Sèvis ki ladan l, separe yo ak vigil:",
   (p.included_services||[]).join(", ")
  );
+
  if(services===null)return;
 
- const included_services=services.split(",").map(s=>s.trim()).filter(Boolean);
+ const included_services=services.split(",")
+ .map(s=>s.trim())
+ .filter(Boolean);
 
  const {error}=await db.from("design_packs").update({
-  name:name.trim(),description:description.trim()||null,included_services
+  name:name.trim(),
+  description:description.trim()||null,
+  included_services
  }).eq("id",p.id);
 
- if(error){alert("Erè: "+error.message);return;}
+ if(error){
+  alert("Erè: "+error.message);
+  return;
+ }
+
  await loadPacks();
 }
 
 /* AKTIVE, DEZAKTIVE, EFASE */
 
 async function toggleItem(table,id,current,refresh){
- const {error}=await db.from(table).update({active:!current}).eq("id",id);
- if(error){alert("Erè: "+error.message);return;}
+ const {error}=await db.from(table)
+ .update({active:!current})
+ .eq("id",id);
+
+ if(error){
+  alert("Erè: "+error.message);
+  return;
+ }
+
  await refresh();
 }
 
 async function deleteItem(table,id,refresh){
  if(!confirm("Èske ou vle efase eleman sa a definitivman?"))return;
- const {error}=await db.from(table).delete().eq("id",id);
- if(error){alert("Erè: "+error.message);return;}
+
+ const {error}=await db.from(table)
+ .delete()
+ .eq("id",id);
+
+ if(error){
+  alert("Erè: "+error.message);
+  return;
+ }
+
  await refresh();
 }
+
+/* DEKONEKTE */
 
 async function logout(){
  await db.auth.signOut();
