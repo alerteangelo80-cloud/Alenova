@@ -1,361 +1,466 @@
-<!DOCTYPE html>
-<html lang="ht">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ALENOVA | Services et Produits</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+      <p>ALENOVA</p>
+      <a href="https://wa.me/50934536541" target="_blank">+509 3453-6541</a>
+    </div>
 
-<style>
-:root{
- --navy:#101d35;
- --blue:#193b68;
- --gold:#e6b84c;
- --light:#f3f6fb;
- --text:#26354b;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;font-family:Arial,sans-serif;color:var(--text);background:white}
-header{
- position:sticky;top:0;z-index:20;background:var(--navy);
- padding:13px 5%;display:flex;justify-content:space-between;
- align-items:center;flex-wrap:wrap;gap:12px
-}
-.logo{font-size:25px;font-weight:bold;color:var(--gold);letter-spacing:2px}
-nav{display:flex;gap:15px;flex-wrap:wrap}
-nav a{color:white;text-decoration:none;font-size:14px}
-.languages{display:flex;gap:5px}
-.languages button{border:1px solid var(--gold);background:transparent;color:white;padding:7px 9px;border-radius:5px;cursor:pointer}
-.languages button.active{background:var(--gold);color:var(--navy)}
-.hero{
- background:linear-gradient(120deg,var(--navy),var(--blue));
- color:white;text-align:center;padding:90px 20px
-}
-.hero h1{font-size:42px;margin:0 0 15px}
-.hero p{font-size:18px;line-height:1.6;max-width:700px;margin:0 auto 25px}
-.btn{
- display:inline-block;background:var(--gold);color:var(--navy);
- padding:13px 22px;border-radius:6px;text-decoration:none;font-weight:bold;border:0;cursor:pointer
-}
-section{padding:65px 6%;scroll-margin-top:75px}
-.section-title{text-align:center;color:var(--navy);font-size:30px;margin:0 0 12px}
-.section-subtitle{text-align:center;max-width:700px;margin:0 auto 30px;line-height:1.6}
-.light-section{background:var(--light)}
-.exchange-box{
- max-width:650px;margin:25px auto;background:white;padding:25px;
- border-radius:12px;box-shadow:0 5px 22px #00000010
-}
-input,select,textarea{
- width:100%;padding:13px;margin:7px 0 15px;border:1px solid #ccd3dd;
- border-radius:6px;font-size:16px
-}
-label{font-weight:bold}
-.result{background:var(--light);padding:15px;border-radius:7px;line-height:1.8;margin:10px 0}
-.flyer-grid,.portfolio-grid,.packs-grid{
- display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;
- max-width:1200px;margin:30px auto
-}
-.flyer-card,.portfolio-card,.pack-card{
- background:white;border-radius:9px;overflow:hidden;
- box-shadow:0 3px 15px #00000012
-}
-.flyer-card{cursor:pointer;padding:7px}
-.flyer-card img{width:100%;height:300px;object-fit:contain;display:block;background:#f4f4f4}
-.portfolio-card img,.pack-card img{width:100%;height:220px;object-fit:cover}
-.portfolio-card .info,.pack-card .info{padding:15px}
-.portfolio-card h3,.pack-card h3{color:var(--navy);margin:5px 0}
-.loading{text-align:center;padding:25px;grid-column:1/-1}
-.note{text-align:center;margin:20px auto;line-height:1.6}
-.services-grid,.contact-grid{
- display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;
- max-width:1100px;margin:30px auto
-}
-.service-card,.contact-item{
- background:white;padding:22px;border-radius:9px;
- box-shadow:0 3px 15px #00000010;text-align:center
-}
-.service-card h3,.contact-item h3{color:var(--blue)}
-.contact-item a{color:var(--blue);overflow-wrap:anywhere}
-footer{background:var(--navy);color:white;text-align:center;padding:25px}
-footer strong{color:var(--gold)}
-.modal{
- display:none;position:fixed;inset:0;background:#000e;z-index:100;
- align-items:center;justify-content:center;padding:20px
-}
-.modal.show{display:flex}
-.modal img{max-width:95%;max-height:88vh;object-fit:contain}
-.modal-close{
- position:absolute;right:20px;top:15px;color:white;background:#333;
- border:0;border-radius:50%;width:42px;height:42px;font-size:25px;cursor:pointer
-}
-@media(max-width:750px){
- header{justify-content:center}
- nav{justify-content:center}
- .hero{padding:65px 18px}
- .hero h1{font-size:32px}
- .flyer-grid,.portfolio-grid,.packs-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
- .flyer-card img{height:220px}
- .services-grid,.contact-grid{grid-template-columns:1fr 1fr}
- section{padding:48px 4%}
-}
-@media(max-width:430px){
- .flyer-grid,.portfolio-grid,.packs-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
- .flyer-card img{height:170px}
- .services-grid,.contact-grid{grid-template-columns:1fr}
- nav{gap:9px}
- nav a{font-size:12px}
-}
-</style>
-</head>
+    <div class="contact-item">
+      <h3 data-ht="Telefòn" data-fr="Téléphone" data-en="Phone" data-es="Teléfono">Telefòn</h3>
+      <a href="tel:+50933233943">+509 3323-3943</a>
+    </div>
 
-<body>
-
-<header>
- <div class="logo">ALENOVA.</div>
- <nav>
-  <a href="#home" data-i18n="navHome">Akèy</a>
-  <a href="#services" data-i18n="navServices">Sèvis</a>
-  <a href="#products" data-i18n="navProducts">Pwodwi</a>
-  <a href="#exchange" data-i18n="navExchange">Echanj</a>
-  <a href="#studio" data-i18n="navStudio">Studio Créatif</a>
-  <a href="#contact" data-i18n="navContact">Kontak</a>
- </nav>
- <div class="languages">
-  <button id="htBtn" class="active" onclick="setLanguage('ht')">HT</button>
-  <button id="frBtn" onclick="setLanguage('fr')">FR</button>
-  <button id="enBtn" onclick="setLanguage('en')">EN</button>
-  <button id="esBtn" onclick="setLanguage('es')">ES</button>
- </div>
-</header>
-
-<div class="hero" id="home">
- <h1 data-i18n="welcome">Byenveni sou ALENOVA</h1>
- <p data-i18n="heroText">Platfòm sèvis, pwodwi fizik, sèvis dijital ak solisyon kreyatif ou ka fè konfyans.</p>
- <a href="#services" class="btn" data-i18n="discover">Dekouvri sèvis nou yo</a>
-</div>
-
-<section id="services" class="light-section">
- <h2 class="section-title" data-i18n="servicesTitle">Sèvis nou yo</h2>
- <p class="section-subtitle" data-i18n="servicesIntro">Dekouvri diferan sèvis ALENOVA mete disponib pou ou.</p>
- <div class="services-grid">
-  <div class="service-card">
-   <h3 data-i18n="serviceExchange">Echanj MonCash / NatCash</h3>
-   <p data-i18n="serviceExchangeText">Sèvis echanj lajan ant MonCash ak NatCash.</p>
+    <div class="contact-item">
+      <h3>Email</h3>
+      <a href="mailto:alerteangelo80@gmail.com">alerteangelo80@gmail.com</a>
+    </div>
   </div>
-  <div class="service-card">
-   <h3 data-i18n="serviceDigital">Sèvis dijital</h3>
-   <p data-i18n="serviceDigitalText">Solisyon dijital pou bezwen ou yo.</p>
-  </div>
-  <div class="service-card">
-   <h3 data-i18n="serviceDesign">Design grafik</h3>
-   <p data-i18n="serviceDesignText">Kreyasyon vizyèl ak materyèl kominikasyon.</p>
-  </div>
-  <div class="service-card">
-   <h3 data-i18n="serviceSocial">Sèvis pou rezo sosyal</h3>
-   <p data-i18n="serviceSocialText">Sèvis ak sipò pou prezans ou sou rezo sosyal.</p>
-  </div>
-  <div class="service-card">
-   <h3 data-i18n="servicePhysical">Pwodwi fizik</h3>
-   <p data-i18n="servicePhysicalText">Dekouvri pwodwi fizik nou prezante yo.</p>
-  </div>
-  <div class="service-card">
-   <h3 data-i18n="serviceOther">Lòt sèvis</h3>
-   <p data-i18n="serviceOtherText">Kontakte nou pou plis enfòmasyon sou sèvis nou yo.</p>
-  </div>
- </div>
 </section>
 
-<section id="products">
- <h2 class="section-title" data-i18n="productsTitle">Pwodwi Fizik</h2>
- <p class="section-subtitle" data-i18n="productsIntro">Gade flyer pwodwi nou yo. Klike sou yon flyer pou agrandi li.</p>
- <div id="flyerGallery" class="flyer-grid">
-  <p class="loading" data-i18n="loading">Ap chaje...</p>
- </div>
- <p id="flyerError" class="note"></p>
-</section>
-
-<section id="exchange" class="light-section">
- <h2 class="section-title" data-i18n="exchangeTitle">Echanj MonCash ak NatCash</h2>
- <p class="section-subtitle" data-i18n="exchangeIntro">Kalkile frè sèvis la anvan ou voye demann echanj ou.</p>
-
- <div class="exchange-box">
-  <label data-i18n="amountLabel">Montan ou vle chanje a (G)</label>
-  <input type="number" id="exchangeAmount" min="0" placeholder="Egzanp: 500">
-
-  <div class="result">
-   <div><span data-i18n="feeLabel">Frè sèvis 7.5%</span>: <strong id="feeResult">0 G</strong></div>
-   <div><span data-i18n="totalLabel">Total ak frè</span>: <strong id="totalResult">0 G</strong></div>
-  </div>
-
-  <p data-i18n="exchangeMinimum">Montan minimòm pou echanj: 50 G. Pousantaj konvèsyon an konfime lè ou kontakte nou.</p>
-
-  <label data-i18n="directionLabel">Kalite echanj</label>
-  <select id="exchangeDirection">
-   <option value="MonCash vers NatCash">MonCash vers NatCash</option>
-   <option value="NatCash vers MonCash">NatCash vers MonCash</option>
-  </select>
-
-  <label data-i18n="senderLabel">Nimewo k ap voye lajan an</label>
-  <input id="senderNumber" type="tel">
-
-  <label data-i18n="receiverLabel">Nimewo k ap resevwa lajan an</label>
-  <input id="receiverNumber" type="tel">
-
-  <label data-i18n="customerLabel">Non kliyan an</label>
-  <input id="customerName" type="text">
-
-  <button class="btn" style="width:100%" onclick="sendExchange()" data-i18n="sendRequest">Voye demann sou WhatsApp</button>
-  <p id="exchangeMessage" class="note"></p>
- </div>
-</section>
-
-<section id="studio" class="light-section">
- <h2 class="section-title">Studio Créatif</h2>
- <p class="section-subtitle" data-i18n="studioIntro">Dekouvri travay grafik nou yo ak pakè sèvis nou yo.</p>
-
- <h2 class="section-title" data-i18n="portfolioTitle">Nos Réalisations</h2>
- <div id="portfolioGallery" class="portfolio-grid">
-  <p class="loading" data-i18n="loading">Ap chaje...</p>
- </div>
-
- <h2 class="section-title" data-i18n="packsTitle">Découvrez Nos Packs</h2>
- <div id="packsGallery" class="packs-grid">
-  <p class="loading" data-i18n="loading">Ap chaje...</p>
- </div>
-
- <p class="note" data-i18n="negotiable">Pri sèvis yo negosyab. Kontakte nou pou jwenn plis detay.</p>
-
- <div class="exchange-box">
-  <h2 class="section-title" data-i18n="designOrderTitle">Mande yon sèvis design</h2>
-
-  <label data-i18n="designName">Non ou</label>
-  <input id="designName" type="text">
-
-  <label data-i18n="designService">Sèvis ou bezwen an</label>
-  <select id="designService">
-   <option>Design Graphique</option>
-   <option>Identité Visuelle & Branding</option>
-   <option>Badges & Cartes</option>
-   <option>Design pour Réseaux Sociaux</option>
-   <option>Design Événementiel</option>
-   <option>Marketing & Publicité</option>
-   <option>Création Numérique</option>
-  </select>
-
-  <label data-i18n="designDetails">Bay kèk detay sou demann ou an</label>
-  <textarea id="designDetails" rows="4"></textarea>
-
-  <button class="btn" style="width:100%" onclick="sendDesignOrder()" data-i18n="designSend">Voye demann lan</button>
- </div>
-</section>
-
-<section id="contact">
- <h2 class="section-title" data-i18n="contactTitle">Kontakte nou</h2>
- <p class="section-subtitle" data-i18n="contactIntro">Nou disponib pou reponn kesyon ou yo.</p>
-
- <div class="contact-grid">
-  <div class="contact-item">
-   <h3>WhatsApp</h3>
-   <p><a href="https://wa.me/50934536541">3453-6541</a></p>
-  </div>
-  <div class="contact-item">
-   <h3 data-i18n="phoneTitle">Telefòn</h3>
-   <p><a href="tel:+50933233943">3323-3943</a></p>
-   <p><a href="tel:+50934536541">3453-6541</a></p>
-  </div>
-  <div class="contact-item">
-   <h3>Email</h3>
-   <p><a href="mailto:alerteangelo80@gmail.com">alerteangelo80@gmail.com</a></p>
-  </div>
- </div>
-</section>
+</main>
 
 <footer>
- <strong>ALENOVA.</strong>
- <p data-i18n="footerText">Tout dwa rezève. Mèsi paske ou fè ALENOVA konfyans.</p>
+  © <span id="year"></span> ALENOVA. Tous droits réservés.
 </footer>
 
-<div class="modal" id="imageModal" onclick="closeImage(event)">
- <button class="modal-close" onclick="closeImage()">×</button>
- <img id="modalImage" src="" alt="Flyer pwodwi">
-</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-const SUPABASE_URL="https://xnzwfnbyasbkjrjspfgc.supabase.co";
-const SUPABASE_KEY="sb_publishable_lqjWc7srUJbH3x7MQiHXHA_o3AwqrUa";
-const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+/* KONFIGIRASYON SUPABASE */
+const SUPABASE_URL = "https://xnzwfnbyasbkjrjspfgc.supabase.co";
+const SUPABASE_KEY = "sb_publishable_lqjWc7srUJbH3x7MQiHXHA_o3AwqrUa";
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const WHATSAPP = "50934536541";
 
-const translations={
-ht:{
-navHome:"Akèy",navServices:"Sèvis",navProducts:"Pwodwi",navExchange:"Echanj",navStudio:"Studio Créatif",navContact:"Kontak",
-welcome:"Byenveni sou ALENOVA",heroText:"Platfòm sèvis, pwodwi fizik, sèvis dijital ak solisyon kreyatif ou ka fè konfyans.",discover:"Dekouvri sèvis nou yo",
-servicesTitle:"Sèvis nou yo",servicesIntro:"Dekouvri diferan sèvis ALENOVA mete disponib pou ou.",
-serviceExchange:"Echanj MonCash / NatCash",serviceExchangeText:"Sèvis echanj lajan ant MonCash ak NatCash.",
-serviceDigital:"Sèvis dijital",serviceDigitalText:"Solisyon dijital pou bezwen ou yo.",
-serviceDesign:"Design grafik",serviceDesignText:"Kreyasyon vizyèl ak materyèl kominikasyon.",
-serviceSocial:"Sèvis pou rezo sosyal",serviceSocialText:"Sèvis ak sipò pou prezans ou sou rezo sosyal.",
-servicePhysical:"Pwodwi fizik",servicePhysicalText:"Dekouvri pwodwi fizik nou prezante yo.",
-serviceOther:"Lòt sèvis",serviceOtherText:"Kontakte nou pou plis enfòmasyon sou sèvis nou yo.",
-productsTitle:"Pwodwi Fizik",productsIntro:"Gade flyer pwodwi nou yo. Klike sou yon flyer pou agrandi li.",
-loading:"Ap chaje...",noFlyers:"Pa gen flyer pou kounye a.",loadError:"Nou pa rive chaje flyer yo. Tanpri eseye ankò pita.",
-exchangeTitle:"Echanj MonCash ak NatCash",exchangeIntro:"Kalkile frè sèvis la anvan ou voye demann echanj ou.",
-amountLabel:"Montan ou vle chanje a (G)",feeLabel:"Frè sèvis 7.5%",totalLabel:"Total ak frè",exchangeMinimum:"Montan minimòm pou echanj: 50 G. Pousantaj konvèsyon an konfime lè ou kontakte nou.",
-directionLabel:"Kalite echanj",senderLabel:"Nimewo k ap voye lajan an",receiverLabel:"Nimewo k ap resevwa lajan an",customerLabel:"Non kliyan an",sendRequest:"Voye demann sou WhatsApp",
-studioIntro:"Dekouvri travay grafik nou yo ak pakè sèvis nou yo.",portfolioTitle:"Nos Réalisations",packsTitle:"Découvrez Nos Packs",noPortfolio:"Pa gen reyalizasyon pou kounye a.",noPacks:"Pa gen Pack pou kounye a.",negotiable:"Pri sèvis yo negosyab. Kontakte nou pou jwenn plis detay.",
-designOrderTitle:"Mande yon sèvis design",designName:"Non ou",designService:"Sèvis ou bezwen an",designDetails:"Bay kèk detay sou demann ou an",designSend:"Voye demann lan",
-contactTitle:"Kontakte nou",contactIntro:"Nou disponib pou reponn kesyon ou yo.",phoneTitle:"Telefòn",footerText:"Tout dwa rezève. Mèsi paske ou fè ALENOVA konfyans.",
-required:"Tanpri ranpli tout chan obligatwa yo.",minimum:"Montan minimòm lan se 50 G."
-},
-fr:{
-navHome:"Accueil",navServices:"Services",navProducts:"Produits",navExchange:"Échange",navStudio:"Studio Créatif",navContact:"Contact",
-welcome:"Bienvenue chez ALENOVA",heroText:"Une plateforme de services, de produits physiques, de services numériques et de solutions créatives.",discover:"Découvrir nos services",
-servicesTitle:"Nos services",servicesIntro:"Découvrez les différents services proposés par ALENOVA.",
-serviceExchange:"Échange MonCash / NatCash",serviceExchangeText:"Service d'échange entre MonCash et NatCash.",
-serviceDigital:"Services numériques",serviceDigitalText:"Des solutions numériques adaptées à vos besoins.",
-serviceDesign:"Design graphique",serviceDesignText:"Création visuelle et supports de communication.",
-serviceSocial:"Services pour réseaux sociaux",serviceSocialText:"Services et assistance pour votre présence sur les réseaux sociaux.",
-servicePhysical:"Produits physiques",servicePhysicalText:"Découvrez les produits physiques présentés.",
-serviceOther:"Autres services",serviceOtherText:"Contactez-nous pour plus d'informations.",
-productsTitle:"Produits Physiques",productsIntro:"Consultez nos flyers. Cliquez sur un flyer pour l'agrandir.",
-loading:"Chargement...",noFlyers:"Aucun flyer pour le moment.",loadError:"Impossible de charger les flyers. Veuillez réessayer plus tard.",
-exchangeTitle:"Échange MonCash et NatCash",exchangeIntro:"Calculez les frais avant d'envoyer votre demande.",
-amountLabel:"Montant à échanger (G)",feeLabel:"Frais de service 7,5%",totalLabel:"Total avec frais",exchangeMinimum:"Montant minimum : 50 G. Le taux de conversion sera confirmé lors de votre contact.",
-directionLabel:"Type d'échange",senderLabel:"Numéro qui envoie l'argent",receiverLabel:"Numéro qui reçoit l'argent",customerLabel:"Nom du client",sendRequest:"Envoyer la demande sur WhatsApp",
-studioIntro:"Découvrez nos créations graphiques et nos packs de services.",portfolioTitle:"Nos Réalisations",packsTitle:"Découvrez Nos Packs",noPortfolio:"Aucune réalisation pour le moment.",noPacks:"Aucun pack pour le moment.",negotiable:"Les tarifs sont négociables. Contactez-nous pour plus de détails.",
-designOrderTitle:"Demander un service de design",designName:"Votre nom",designService:"Service souhaité",designDetails:"Détails de votre demande",designSend:"Envoyer la demande",
-contactTitle:"Contactez-nous",contactIntro:"Nous sommes disponibles pour répondre à vos questions.",phoneTitle:"Téléphone",footerText:"Tous droits réservés. Merci de faire confiance à ALENOVA.",
-required:"Veuillez remplir tous les champs obligatoires.",minimum:"Le montant minimum est de 50 G."
-},
-en:{
-navHome:"Home",navServices:"Services",navProducts:"Products",navExchange:"Exchange",navStudio:"Creative Studio",navContact:"Contact",
-welcome:"Welcome to ALENOVA",heroText:"A platform for services, physical products, digital services and creative solutions.",discover:"Discover our services",
-servicesTitle:"Our Services",servicesIntro:"Discover the different services offered by ALENOVA.",
-serviceExchange:"MonCash / NatCash Exchange",serviceExchangeText:"Money exchange service between MonCash and NatCash.",
-serviceDigital:"Digital Services",serviceDigitalText:"Digital solutions for your needs.",
-serviceDesign:"Graphic Design",serviceDesignText:"Visual creation and communication materials.",
-serviceSocial:"Social Media Services",serviceSocialText:"Services and support for your social media presence.",
-servicePhysical:"Physical Products",servicePhysicalText:"Discover our featured physical products.",
-serviceOther:"Other Services",serviceOtherText:"Contact us for more information.",
-productsTitle:"Physical Products",productsIntro:"Browse our product flyers. Click a flyer to enlarge it.",
-loading:"Loading...",noFlyers:"No flyers available yet.",loadError:"We could not load the flyers. Please try again later.",
-exchangeTitle:"MonCash and NatCash Exchange",exchangeIntro:"Calculate the service fee before sending your exchange request.",
-amountLabel:"Amount to exchange (G)",feeLabel:"7.5% service fee",totalLabel:"Total including fee",exchangeMinimum:"Minimum exchange amount: 50 G. The conversion rate will be confirmed when you contact us.",
-directionLabel:"Exchange type",senderLabel:"Sending phone number",receiverLabel:"Receiving phone number",customerLabel:"Customer name",sendRequest:"Send request on WhatsApp",
-studioIntro:"Discover our graphic work and service packages.",portfolioTitle:"Our Work",packsTitle:"Discover Our Packages",noPortfolio:"No work available yet.",noPacks:"No packages available yet.",negotiable:"Prices are negotiable. Contact us for more details.",
-designOrderTitle:"Request a design service",designName:"Your name",designService:"Service you need",designDetails:"Tell us about your request",designSend:"Send request",
-contactTitle:"Contact Us",contactIntro:"We are available to answer your questions.",phoneTitle:"Phone",footerText:"All rights reserved. Thank you for trusting ALENOVA.",
-required:"Please fill in all required fields.",minimum:"The minimum amount is 50 G."
-},
-es:{
-navHome:"Inicio",navServices:"Servicios",navProducts:"Productos",navExchange:"Cambio",navStudio:"Estudio Creativo",navContact:"Contacto",
-welcome:"Bienvenido a ALENOVA",heroText:"Una plataforma de servicios, productos físicos, servicios digitales y soluciones creativas.",discover:"Descubre nuestros servicios",
-servicesTitle:"Nuestros servicios",servicesIntro:"Descubre los diferentes servicios que ofrece ALENOVA.",
-serviceExchange:"Cambio MonCash / NatCash",serviceExchangeText:"Servicio de cambio entre MonCash y NatCash.",
-serviceDigital:"Servicios digitales",serviceDigitalText:"Soluciones digitales para tus necesidades.",
-serviceDesign:"Diseño gráfico",serviceDesignText:"Creación visual y materiales de comunicación.",
-serviceSocial:"Servicios para redes sociales",serviceSocialText:"Servicios y apoyo para tu presencia en redes sociales.",
-servicePhysical:"Productos físicos",servicePhysicalText:"Descubre nuestros productos físicos.",
-serviceOther:"Otros servicios",serviceOtherText:"Contáctanos para más información.",
-productsTitle:"Productos Físicos",productsIntro:"Mira nuestros flyers. Haz clic en uno para ampliarlo.",
-loading:"Cargando...",noFlyers:"Todavía no hay flyers.",loadError:"No pudimos cargar los f
+let currentLang = "ht";
+
+/* TRADIKSYON */
+const translations = {
+  ht: {
+    welcome: "Byenveni sou",
+    loading: "Ap chaje...",
+    loadError: "Nou pa kapab chaje enfòmasyon yo kounye a.",
+    noFlyers: "Pa gen flyer disponib pou kounye a.",
+    noWorks: "Pa gen reyalizasyon disponib pou kounye a.",
+    noPacks: "Pa gen Pack disponib pou kounye a.",
+    order: "Kòmande sou WhatsApp",
+    view: "Gade imaj la",
+    fee: "Frè sèvis",
+    minimum: "Montan minimòm lan se 50 G.",
+    enterAmount: "Tanpri antre yon montan ki egal oswa pi gran pase 50 G.",
+    invalidAmount: "Tanpri antre yon montan ki valab.",
+    exchangeTitle: "Demann echanj ALENOVA",
+    direction: "Kalite echanj",
+    amount: "Montan voye",
+    serviceFee: "Frè sèvis 7.5%",
+    estimated: "Montan apre frè",
+    customer: "Nimewo kliyan",
+    receiver: "Nimewo k ap resevwa lajan an",
+    exchangeNote: "Montan final la ap konfime pa ALENOVA.",
+    designTitle: "Demann konsepsyon ALENOVA",
+    designType: "Kalite konsepsyon",
+    details: "Detay pwojè a",
+    name: "Non",
+    phone: "Nimewo WhatsApp",
+    missing: "Tanpri ranpli tout chan yo.",
+    imageAlt: "Imaj ALENOVA",
+    packageServices: "Sèvis ki ladan l"
+  },
+  fr: {
+    welcome: "Bienvenue chez",
+    loading: "Chargement...",
+    loadError: "Impossible de charger les informations pour le moment.",
+    noFlyers: "Aucun flyer disponible pour le moment.",
+    noWorks: "Aucune réalisation disponible pour le moment.",
+    noPacks: "Aucun pack disponible pour le moment.",
+    order: "Commander sur WhatsApp",
+    view: "Voir l'image",
+    fee: "Frais de service",
+    minimum: "Le montant minimum est de 50 G.",
+    enterAmount: "Veuillez saisir un montant égal ou supérieur à 50 G.",
+    invalidAmount: "Veuillez saisir un montant valide.",
+    exchangeTitle: "Demande d'échange ALENOVA",
+    direction: "Type d'échange",
+    amount: "Montant envoyé",
+    serviceFee: "Frais de service 7,5 %",
+    estimated: "Montant après frais",
+    customer: "Numéro du client",
+    receiver: "Numéro de réception",
+    exchangeNote: "Le montant final sera confirmé par ALENOVA.",
+    designTitle: "Demande de création ALENOVA",
+    designType: "Type de création",
+    details: "Détails du projet",
+    name: "Nom",
+    phone: "Numéro WhatsApp",
+    missing: "Veuillez remplir tous les champs.",
+    imageAlt: "Image ALENOVA",
+    packageServices: "Services inclus"
+  },
+  en: {
+    welcome: "Welcome to",
+    loading: "Loading...",
+    loadError: "We cannot load the information right now.",
+    noFlyers: "No flyers are available yet.",
+    noWorks: "No portfolio items are available yet.",
+    noPacks: "No packages are available yet.",
+    order: "Order on WhatsApp",
+    view: "View image",
+    fee: "Service fee",
+    minimum: "The minimum amount is 50 G.",
+    enterAmount: "Please enter an amount of at least 50 G.",
+    invalidAmount: "Please enter a valid amount.",
+    exchangeTitle: "ALENOVA Exchange Request",
+    direction: "Exchange type",
+    amount: "Amount sent",
+    serviceFee: "7.5% service fee",
+    estimated: "Amount after fee",
+    customer: "Customer phone number",
+    receiver: "Receiving phone number",
+    exchangeNote: "The final amount will be confirmed by ALENOVA.",
+    designTitle: "ALENOVA Design Request",
+    designType: "Design type",
+    details: "Project details",
+    name: "Name",
+    phone: "WhatsApp number",
+    missing: "Please complete all fields.",
+    imageAlt: "ALENOVA image",
+    packageServices: "Included services"
+  },
+  es: {
+    welcome: "Bienvenido a",
+    loading: "Cargando...",
+    loadError: "No podemos cargar la información en este momento.",
+    noFlyers: "Todavía no hay flyers disponibles.",
+    noWorks: "Todavía no hay trabajos disponibles.",
+    noPacks: "Todavía no hay paquetes disponibles.",
+    order: "Pedir por WhatsApp",
+    view: "Ver imagen",
+    fee: "Comisión de servicio",
+    minimum: "El monto mínimo es de 50 G.",
+    enterAmount: "Ingrese un monto igual o superior a 50 G.",
+    invalidAmount: "Ingrese un monto válido.",
+    exchangeTitle: "Solicitud de cambio ALENOVA",
+    direction: "Tipo de cambio",
+    amount: "Cantidad enviada",
+    serviceFee: "Comisión del 7,5 %",
+    estimated: "Cantidad después de la comisión",
+    customer: "Teléfono del cliente",
+    receiver: "Número de recepción",
+    exchangeNote: "ALENOVA confirmará el monto final.",
+    designTitle: "Solicitud de diseño ALENOVA",
+    designType: "Tipo de diseño",
+    details: "Detalles del proyecto",
+    name: "Nombre",
+    phone: "Número de WhatsApp",
+    missing: "Complete todos los campos.",
+    imageAlt: "Imagen ALENOVA",
+    packageServices: "Servicios incluidos"
+  }
+};
+
+function tr(key) {
+  return translations[currentLang][key] || translations.ht[key] || key;
+}
+
+/* CHANJE LANG */
+function setLang(lang) {
+  if (!translations[lang]) return;
+
+  currentLang = lang;
+  document.documentElement.lang = lang;
+
+  document.querySelectorAll("[data-" + lang + "]").forEach(el => {
+    const value = el.getAttribute("data-" + lang);
+    if (value !== null) el.textContent = value;
+  });
+
+  document.querySelectorAll(".lang button").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  const activeButton = document.getElementById(lang + "Btn");
+  if (activeButton) activeButton.classList.add("active");
+
+  document.getElementById("welcomeText").textContent = tr("welcome");
+
+  calculate();
+  loadFlyers();
+  loadPortfolio();
+  loadPacks();
+}
+
+/* FONKSYON WHATSAPP */
+function openWhatsApp(message) {
+  const url = "https://wa.me/" + WHATSAPP + "?text=" +
+    encodeURIComponent(message);
+
+  window.open(url, "_blank");
+}
+
+/* KALKIL ECHANJ */
+function calculate() {
+  const amountInput = document.getElementById("amount");
+  const received = document.getElementById("received");
+  const feeText = document.getElementById("fee");
+
+  const amount = Number(amountInput.value);
+
+  if (!amount || amount < 0) {
+    received.textContent = "0.00 G";
+    feeText.textContent = tr("fee") + ": 0.00 G";
+    return;
+  }
+
+  const fee = amount * 0.075;
+  const result = amount - fee;
+
+  received.textContent = result.toFixed(2) + " G";
+  feeText.textContent = tr("fee") + ": " + fee.toFixed(2) + " G";
+}
+
+/* VOYE DEMANN ECHANJ */
+function submitExchange(event) {
+  event.preventDefault();
+
+  const amount = Number(document.getElementById("amount").value);
+  const direction = document.getElementById("direction").value;
+  const customer = document.getElementById("customerPhone").value.trim();
+  const receiver = document.getElementById("receiverPhone").value.trim();
+
+  if (!Number.isFinite(amount) || amount < 50) {
+    alert(tr("enterAmount"));
+    return;
+  }
+
+  if (!customer || !receiver) {
+    alert(tr("missing"));
+    return;
+  }
+
+  const fee = amount * 0.075;
+  const result = amount - fee;
+
+  const directionText = direction === "mn"
+    ? "MonCash vers Natcash"
+    : "Natcash vers MonCash";
+
+  const message =
+    tr("exchangeTitle") + "\n\n" +
+    tr("direction") + ": " + directionText + "\n" +
+    tr("amount") + ": " + amount.toFixed(2) + " G\n" +
+    tr("serviceFee") + ": " + fee.toFixed(2) + " G\n" +
+    tr("estimated") + ": " + result.toFixed(2) + " G\n" +
+    tr("customer") + ": " + customer + "\n" +
+    tr("receiver") + ": " + receiver + "\n\n" +
+    tr("exchangeNote");
+
+  openWhatsApp(message);
+}
+
+/* VOYE KÒMAND STUDIO */
+function submitDesignOrder(event) {
+  event.preventDefault();
+
+  const type = document.getElementById("designType").value;
+  const details = document.getElementById("designDetails").value.trim();
+  const name = document.getElementById("designName").value.trim();
+  const phone = document.getElementById("designPhone").value.trim();
+
+  if (!type || !details || !name || !phone) {
+    alert(tr("missing"));
+    return;
+  }
+
+  const message =
+    tr("designTitle") + "\n\n" +
+    tr("designType") + ": " + type + "\n" +
+    tr("details") + ": " + details + "\n" +
+    tr("name") + ": " + name + "\n" +
+    tr("phone") + ": " + phone;
+
+  openWhatsApp(message);
+}
+
+/* KREYE KAT PWODWI */
+async function loadFlyers() {
+  const area = document.getElementById("product-list");
+  area.innerHTML = '<p class="product-loading">' + tr("loading") + '</p>';
+
+  const { data, error } = await db
+    .from("product_flyers")
+    .select("id,image_url,active")
+    .eq("active", true)
+    .order("id", { ascending: true });
+
+  if (error) {
+    area.innerHTML = '<p class="product-empty">' + tr("loadError") + '</p>';
+    console.error("Flyers:", error.message);
+    return;
+  }
+
+  area.innerHTML = "";
+
+  if (!data || data.length === 0) {
+    area.innerHTML = '<p class="product-empty">' + tr("noFlyers") + '</p>';
+    return;
+  }
+
+  data.forEach(item => {
+    const card = document.createElement("div");
+    card.className = "product-card";
+
+    const img = document.createElement("img");
+    img.src = item.image_url;
+    img.alt = tr("imageAlt");
+    img.loading = "lazy";
+
+    const info = document.createElement("div");
+    info.className = "product-info";
+
+    const title = document.createElement("h3");
+    title.textContent = "ALENOVA";
+
+    const button = document.createElement("a");
+    button.className = "btn product-order";
+    button.href = "https://wa.me/" + WHATSAPP + "?text=" +
+      encodeURIComponent(tr("order") + " ALENOVA");
+    button.target = "_blank";
+    button.rel = "noopener";
+    button.textContent = tr("order");
+
+    info.append(title, button);
+    card.append(img, info);
+    area.appendChild(card);
+  });
+}
+
+/* KREYE KAT REYALIZASYON */
+async function loadPortfolio() {
+  const area = document.getElementById("portfolio-list");
+  area.innerHTML = '<p class="studio-message">' + tr("loading") + '</p>';
+
+  const { data, error } = await db
+    .from("design_portfolio")
+    .select("id,title,category,description,image_url,active")
+    .eq("active", true)
+    .order("id", { ascending: false });
+
+  if (error) {
+    area.innerHTML = '<p class="studio-message">' + tr("loadError") + '</p>';
+    console.error("Portfolio:", error.message);
+    return;
+  }
+
+  area.innerHTML = "";
+
+  if (!data || data.length === 0) {
+    area.innerHTML = '<p class="studio-message">' + tr("noWorks") + '</p>';
+    return;
+  }
+
+  data.forEach(work => {
+    const card = document.createElement("article");
+    card.className = "studio-card";
+
+    const img = document.createElement("img");
+    img.src = work.image_url;
+    img.alt = work.title || tr("imageAlt");
+    img.loading = "lazy";
+
+    const info = document.createElement("div");
+    info.className = "studio-info";
+
+    const category = document.createElement("span");
+    category.className = "studio-category";
+    category.textContent = work.category || "";
+
+    const title = document.createElement("h3");
+    title.textContent = work.title || "";
+
+    const description = document.createElement("p");
+    description.textContent = work.description || "";
+
+    info.append(category, title, description);
+    card.append(img, info);
+    area.appendChild(card);
+  });
+}
+
+/* KREYE KAT PACK */
+async function loadPacks() {
+  const area = document.getElementById("packs-list");
+  area.innerHTML = '<p class="studio-message">' + tr("loading") + '</p>';
+
+  const { data, error } = await db
+    .from("design_packs")
+    .select("id,name,description,included_services,image_url,active")
+    .eq("active", true)
+    .order("id", { ascending: false });
+
+  if (error) {
+    area.innerHTML = '<p class="studio-message">' + tr("loadError") + '</p>';
+    console.error("Packs:", error.message);
+    return;
+  }
+
+  area.innerHTML = "";
+
+  if (!data || data.length === 0) {
+    area.innerHTML = '<p class="studio-message">' + tr("noPacks") + '</p>';
+    return;
+  }
+
+  data.forEach(pack => {
+    const card = document.createElement("article");
+    card.className = "studio-card";
+
+    if (pack.image_url) {
+      const img = document.createElement("img");
+      img.src = pack.image_url;
+      img.alt = pack.name || tr("imageAlt");
+      img.loading = "lazy";
+      card.appendChild(img);
+    }
+
+    const info = document.createElement("div");
+    info.className = "studio-info";
+
+    const title = document.createElement("h3");
+    title.textContent = pack.name || "";
+
+    const description = document.createElement("p");
+    description.textContent = pack.description || "";
+
+    const servicesTitle = document.createElement("strong");
+    servicesTitle.textContent = tr("packageServices");
+
+    const list = document.createElement("ul");
+
+    (pack.included_services || []).forEach(service => {
+      const li = document.createElement("li");
+      li.textContent = service;
+      list.appendChild(li);
+    });
+
+    const button = document.createElement("a");
+    button.className = "btn product-order";
+    button.href = "https://wa.me/" + WHATSAPP + "?text=" +
+      encodeURIComponent(tr("order") + ": " + pack.name);
+    button.target = "_blank";
+    button.rel = "noopener";
+    button.textContent = tr("order");
+
+    info.append(title, description, servicesTitle, list, button);
+    card.appendChild(info);
+    area.appendChild(card);
+  });
+}
+
+/* ANE AKTYÈL */
+document.getElementById("year").textContent = new Date().getFullYear();
+
+/* LANSE CHAJMAN DONE YO */
+document.addEventListener("DOMContentLoaded", () => {
+  setLang("ht");
+});
+</script>
+
+</body>
+</html>
